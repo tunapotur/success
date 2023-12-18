@@ -11,6 +11,20 @@
 }
 
 /* 
+https://www.youtube.com/watch?v=optD7ns4ISQ
+https://github.com/tumetus/next-js-theme-changer-example
+https://github.com/tumetus/next-js-theme-changer-tailwind-example
+https://github.com/pacocoursey/next-themes
+https://nextui.org/docs/customization/dark-mode
+ */
+
+/* 
+You’re doing dark mode wrong!
+Do you like typing dark: every time you write any color in tailwind? I don’t! And even if you like that, how would you add a third or fourth theme? Did you know you can use CSS Variables to theme in Tailwind CSS?
+ */
+/* https://www.youtube.com/watch?v=WTchW0LdWL0 */
+
+/* 
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
