@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply flex justify-center;
+    @apply flex flex-col items-center min-h-screen;
   }
 }
 @layer components {

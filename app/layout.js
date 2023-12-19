@@ -13,21 +13,19 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <DarkLightThemeProvider>
           {/* Header */}
-          <header className="py-6">
-            <nav className="container flex items-center justify-between">
-              <DarkLightThemeButton />
-            </nav>
-          </header>
+          <header>Header</header>
 
           {/* Page */}
-          <main>{children}</main>
+          <main className="border-red-500 border w-screen sm:w-[40rem] grow">
+            {children}
+          </main>
 
           {/* Footer */}
-          <footer></footer>
+          <footer>Footer</footer>
         </DarkLightThemeProvider>
       </body>
     </html>
