@@ -3,6 +3,7 @@ import "./globals.css";
 
 import DarkLightThemeProvider from "@/providers/DarkLightThemeProvider";
 import DarkLightThemeButton from "@/components/DarkLightThemeButton";
+import Navbar from "@/components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,16 +17,13 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <DarkLightThemeProvider>
-          {/* Header */}
-          <header>Header</header>
-
           {/* Page */}
           <main className="border-red-500 border w-screen sm:w-[40rem] grow">
             {children}
           </main>
 
-          {/* Footer */}
-          <footer>Footer</footer>
+          {/* Navbar */}
+          <Navbar />
         </DarkLightThemeProvider>
       </body>
     </html>
