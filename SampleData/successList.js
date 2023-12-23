@@ -7,7 +7,7 @@ export const successList = [
     headlinePhoto: "/photos/photo01.jpg",
     content:
       "Yıllardır hayalini kurduğum ve uğruna çabaladığım Oxford Üniversitesine kabul aldım. Çok mutluyum.",
-    date: "12/20/2023, 5:05:47 PM",
+    date: "20.12.2023 19:18:25",
   },
   {
     id: 2,
@@ -17,6 +17,6 @@ export const successList = [
     headlinePhoto: "/photos/photo02.jpg",
     content:
       "Yurtdışı eğitim serüvenimi benim için kolaylaştıran ve bana her daim destek olan TEV'e teşekkür ederim.",
-    date: "12/21/2023, 8:56:47 PM",
+    date: "23.12.2023 13:25:51",
   },
 ];
