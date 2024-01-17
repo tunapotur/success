@@ -1,6 +1,4 @@
-import Image from "next/image";
-
-import { successList } from "@/sampleData/successList";
+import { successList } from "/SampleData/successList";
 
 export default function Home() {
   return (
@@ -19,7 +17,6 @@ function SuccessCart({ success }) {
     <div className="border border-yellow-300 m-[1rem]">
       <h1>{success.header}</h1>
       <p>{success.userName}</p>
-      {/* <Image src={success.userPhoto} alt="User" width={500} height={500} /> */}
     </div>
   );
 }
