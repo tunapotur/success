@@ -4,9 +4,10 @@
 
 @layer base {
   body {
-    @apply flex flex-col items-center h-screen;
+    @apply flex h-screen flex-col items-center;
   }
 }
+
 @layer components {
 }
 
