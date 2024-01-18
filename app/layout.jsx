@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <DarkLightThemeProvider>
           {/* Page */}
-          <main className="border-red-500 border w-screen sm:w-[40rem] grow">
+          <main className="w-screen grow border border-red-500 sm:w-[40rem]">
             {children}
           </main>
 
