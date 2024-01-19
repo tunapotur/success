@@ -5,3 +5,5 @@ Kullanıcı seçiminin **_"Local Storage"_** yazılması performans açısından
 - ya tam siyah,
 - ya tam beyaz,
 - ya da sistem'e göre
+
+TODO Mongoose Unique Validator kullanılmıyor buna dikkat et.
