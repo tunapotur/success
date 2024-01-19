@@ -7,3 +7,17 @@ Kullanıcı seçiminin **_"Local Storage"_** yazılması performans açısından
 - ya da sistem'e göre
 
 TODO Mongoose Unique Validator kullanılmıyor buna dikkat et.
+
+{
+"name":"tunapotur",
+"email":"tunapotur@yahoo.com",
+"password":"tunapotur41"
+"role":"admin"
+}
+
+{
+"name":"useraccount",
+"email":"useraccount@mail.com",
+"password":"userpass",
+"role":"user"
+}
