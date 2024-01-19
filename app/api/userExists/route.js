@@ -11,6 +11,11 @@ export async function POST(req) {
 
     return NextResponse.json({ user });
   } catch (error) {
-    console.log(error);
+    return NextResponse.json(
+      {
+        message: `An error occurred while finding the user. ${error.message}`,
+      },
+      { status: 500 },
+    );
   }
 }
