@@ -14,9 +14,10 @@ export default function Home() {
 
 function SuccessCart({ success }) {
   return (
-    <div className="border border-yellow-300 m-[1rem]">
+    <div className="mt-[2rem] border border-yellow-300">
       <h1>{success.header}</h1>
       <p>{success.userName}</p>
+      <p>{success.content}</p>
     </div>
   );
 }

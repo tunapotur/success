@@ -2,12 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  body {
-    @apply flex h-screen flex-col items-center;
-  }
-}
-
 @layer components {
 }
 

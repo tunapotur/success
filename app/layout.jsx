@@ -16,13 +16,17 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <DarkLightThemeProvider>
-          {/* Page */}
-          <main className="w-screen grow border border-red-500 sm:w-[40rem]">
-            {children}
-          </main>
+          <div className="flex flex-col items-center">
+            <div className="h-screen w-full sm:w-[40rem]">
+              <main className="h-[calc(100%-theme(space.16))] overflow-y-auto border border-red-500 p-[1rem]">
+                {children}
+              </main>
 
-          {/* Navbar */}
-          <Navbar />
+              <nav className="h-16 w-full border border-green-400">
+                <Navbar />
+              </nav>
+            </div>
+          </div>
         </DarkLightThemeProvider>
       </body>
     </html>
