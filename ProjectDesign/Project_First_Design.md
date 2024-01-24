@@ -3,6 +3,20 @@
 ## Home
 - Every user can see all shared success
 - All success sorted by date.
+# Sayfa Tasarımları
+## User Not Logged In
+### Home (root)
+### Login (/logon)
+### Register (/register)
+# User Logged In
+### Home (root)
+# Component Tasarımları
+## Navbar
+### User Not Logged In
+- [ ] Home => 
+- [ ] Login =>
+- [ ] Register =>
+### 
 
 
 - [ ] TODO Dark Light tema seçimini veri tabanına yükle.
