@@ -5,14 +5,22 @@
 - All success sorted by date.
 
 
-TODO Dark Light tema seçimini veri tabanına yükle.
-
+- [ ] TODO Dark Light tema seçimini veri tabanına yükle.
 Kullanıcı seçiminin **_"Local Storage"_** yazılması performans açısından iyi olacaktır.
 
-- ya tam siyah,
-- ya tam beyaz,
-- ya da sistem'e göre
-TODO Mongoose Unique Validator kullanılmıyor buna dikkat et.
+ya tam siyah,
+
+ya tam beyaz,
+
+ya da sistem'e göre
+
+
+_**Mongoose Unique Validator kullanılmıyor buna dikkat et.**_
+
+
+
+**Örnek Kullanıcı Bilgileri**
+
 ```
 {
   "name":"tunapotur",
@@ -28,7 +36,7 @@ TODO Mongoose Unique Validator kullanılmıyor buna dikkat et.
   "role":"user"
 }
 ```
-TODO Navbar component
+
 
 
 <!--- Eraser file: https://app.eraser.io/workspace/lMRCxUklhIqILSmD8Ijy --->
