@@ -6,7 +6,7 @@
 # Sayfa Tasarımları
 ## User Not Logged In
 ### Home (root)
-### Login (/logon)
+### Login (/login)
 ### Register (/register)
 # User Logged In
 ### Home (root)
