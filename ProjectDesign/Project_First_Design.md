@@ -17,21 +17,15 @@
 - [ ] Login =>
 - [ ] Register =>
 ### 
-
-
 - [ ] TODO Dark Light tema seçimini veri tabanına yükle.
-Kullanıcı seçiminin **_"Local Storage"_** yazılması performans açısından iyi olacaktır.
-
+Kullanıcı seçiminin _**"Local Storage"**_ yazılması performans açısından iyi olacaktır.
 ya tam siyah,
 
 ya tam beyaz,
 
 ya da sistem'e göre
 
-
-_**Mongoose Unique Validator kullanılmıyor buna dikkat et.**_
-
-
+**_Mongoose Unique Validator kullanılmıyor buna dikkat et._**
 
 **Örnek Kullanıcı Bilgileri**
 
