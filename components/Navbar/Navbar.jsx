@@ -18,40 +18,38 @@ const iconSize = "h-[2.5rem] w-[2.5rem]";
  */
 
 function Navbar() {
-  const { data, status } = useSession();
+  const { status } = useSession();
   const pathname = usePathname();
 
   return (
     <nav className="flex h-full flex-row items-center justify-around">
-      {status === "loading" && (
-        <>
-          <span>loading...</span>
-          <span>loading...</span>
-          <span>loading...</span>
-        </>
-      )}
+      {status === "loading" && <span>loading...</span>}
 
       {status === "unauthenticated" && (
         <>
-          {(pathname === "/" || pathname === "/successdetail") && (
+          {pathname === "/" || pathname === "/successdetail" ? (
             <>
               <Login />
               <SuccessLogo />
               <AddSuccess />
             </>
-          )}
-
-          {(pathname === "/login" || pathname === "/register") && (
-            <>
-              <SuccessLogo />
-            </>
+          ) : (
+            <SuccessLogo />
           )}
         </>
       )}
 
       {status === "authenticated" && (
         <>
-          <SuccessLogo />
+          {pathname === "/" || pathname === "/successdetail" ? (
+            <>
+              <UserProfile />
+              <SuccessLogo />
+              <AddSuccess />
+            </>
+          ) : (
+            <SuccessLogo />
+          )}
         </>
       )}
     </nav>
@@ -87,7 +85,7 @@ function UserProfile() {
 
   if (status === "authenticated")
     return (
-      <Link href={"/userprofile"}>
+      <Link href={"/userprofile/1"}>
         <FaUser className={`${iconSize}`} />
       </Link>
     );

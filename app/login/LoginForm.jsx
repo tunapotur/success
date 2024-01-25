@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { signIn, signOut } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 function LoginForm() {
@@ -42,8 +42,6 @@ function LoginForm() {
 
   return (
     <main className="main">
-      <button onClick={() => signOut({ callbackUrl: "/" })}>Logout</button>
-
       <div className="form-container">
         <h2 className="form-header">Login</h2>
         <form className="form" onSubmit={handleSubmit}>
