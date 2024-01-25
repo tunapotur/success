@@ -11,52 +11,32 @@ import GoalSkelaton from "../GoalSkelatonSvg";
 
 const iconSize = "h-[2.5rem] w-[2.5rem]";
 
-/**
- * loading
- * unauthenticated
- * authenticated
- */
-
 function Navbar() {
   const { status } = useSession();
   const pathname = usePathname();
 
   return (
     <nav className="flex h-full flex-row items-center justify-around">
-      {status === "loading" && <span>loading...</span>}
-
-      {status === "unauthenticated" && (
+      {pathname === "/" || pathname === "/successdetail" ? (
         <>
-          {pathname === "/" || pathname === "/successdetail" ? (
-            <>
-              <Login />
-              <SuccessLogo />
-              <AddSuccess />
-            </>
-          ) : (
-            <SuccessLogo />
-          )}
+          {status === "unauthenticated" ? <Login /> : <UserProfile />}
+          <SuccessLogo />
+          <AddSuccess />
         </>
-      )}
-
-      {status === "authenticated" && (
-        <>
-          {pathname === "/" || pathname === "/successdetail" ? (
-            <>
-              <UserProfile />
-              <SuccessLogo />
-              <AddSuccess />
-            </>
-          ) : (
-            <SuccessLogo />
-          )}
-        </>
+      ) : (
+        <SuccessLogo />
       )}
     </nav>
   );
 }
 
+// TODO: Logo fonksiyonları için fonksiyon döndüren bir pattern vardı onunla kod tekrarını düzelt
+
 function SuccessLogo() {
+  const { status } = useSession();
+
+  if (status === "loading") return <div>loading...</div>;
+
   return (
     <Link className="flex flex-col items-center justify-center" href={"/"}>
       <GoalSkelaton className={`${iconSize} fill-black dark:fill-white`} />
@@ -68,31 +48,31 @@ function SuccessLogo() {
 function Login() {
   const { status } = useSession();
 
-  if (status === "unauthenticated")
-    return (
-      <Link href={"/login"}>
-        <SlLogin className={`${iconSize}`} />
-      </Link>
-    );
+  if (status === "loading") return <div>loading...</div>;
 
-  if (status === "authenticated") return null;
+  return (
+    <Link href={"/login"}>
+      <SlLogin className={`${iconSize}`} />
+    </Link>
+  );
 }
 
 function UserProfile() {
   const { status } = useSession();
 
-  if (status === "unauthenticated") return null;
+  if (status === "loading") return <div>loading...</div>;
 
-  if (status === "authenticated")
-    return (
-      <Link href={"/userprofile/1"}>
-        <FaUser className={`${iconSize}`} />
-      </Link>
-    );
+  return (
+    <Link href={"/userprofile/1"}>
+      <FaUser className={`${iconSize}`} />
+    </Link>
+  );
 }
 
 function AddSuccess({ linkUrl }) {
   const { status } = useSession();
+
+  if (status === "loading") return <>loading...</>;
 
   return (
     <Link href={status === "unauthenticated" ? "login" : "addsuccess"}>
@@ -102,44 +82,3 @@ function AddSuccess({ linkUrl }) {
 }
 
 export default Navbar;
-
-/*
-
-
-
-function TopNav() {
-  const { data, status } = useSession();
-
-  return (
-    <nav className="flex h-[3.5rem] flex-row items-center font-semibold shadow-lg">
-      <Link href="/" className="pl-4 text-[1.2rem]">
-        🗝️ Next Auth
-      </Link>
-
-      <div className="ml-auto space-x-4 pr-5">
-        {status === "authenticated" ? (
-          <div className="flex flex-row items-center space-x-6">
-            <p className="text-sm font-normal">
-              {data?.user?.name} ({data?.user?.role})
-            </p>
-            <button onClick={() => signOut({ callbackUrl: "/" })}>
-              Logout
-            </button>
-          </div>
-        ) : status === "loading" ? (
-          "Loading..."
-        ) : (
-          <>
-            <Link href="/login">Login</Link>
-            <Link href="/register">Register</Link>
-          </>
-        )}
-      </div>
-    </nav>
-  );
-}
-
-export default TopNav;
-
-
-*/
