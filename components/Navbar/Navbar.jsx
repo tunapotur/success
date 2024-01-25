@@ -19,7 +19,7 @@ const iconSize = "h-[2.5rem] w-[2.5rem]";
 
 function Navbar() {
   const { data, status } = useSession();
-  const pathname = usePathname().substring(1);
+  const pathname = usePathname();
 
   return (
     <nav className="flex h-full flex-row items-center justify-around">
@@ -33,9 +33,19 @@ function Navbar() {
 
       {status === "unauthenticated" && (
         <>
-          <Login />
-          <SuccessLogo />
-          <AddSuccess />
+          {(pathname === "/" || pathname === "/successdetail") && (
+            <>
+              <Login />
+              <SuccessLogo />
+              <AddSuccess />
+            </>
+          )}
+
+          {(pathname === "/login" || pathname === "/register") && (
+            <>
+              <SuccessLogo />
+            </>
+          )}
         </>
       )}
 
