@@ -24,6 +24,10 @@ ya tam beyaz,
 
 ya da sistem'e göre
 
+- [ ] TODO [﻿react-hook-form.com/](https://react-hook-form.com/)  form validation için **react-hook-form** kullanılacak.
+- [ ] TODO **react-error-boundary** ya da Next için bir benzeri çözüm kullanılacak.
+- [ ] TODO **react-hot-toast** kullanılacak
+- [ ] TODO [﻿date-fns.org/ ](https://date-fns.org/) tarih işlemleri için **date-fns** kullanılacak
 _**Mongoose Unique Validator kullanılmıyor buna dikkat et.**_
 
 **Örnek Kullanıcı Bilgileri**
