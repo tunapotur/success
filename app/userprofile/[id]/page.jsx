@@ -1,5 +1,6 @@
 "use client";
 
+import DarkLightThemeButton from "@/components/DarkLightThemeButton";
 import { signOut } from "next-auth/react";
 
 function UserProfile() {
@@ -7,6 +8,7 @@ function UserProfile() {
     <div>
       <button onClick={() => signOut({ callbackUrl: "/" })}>Logout</button>
       <div>User Profile</div>
+      <DarkLightThemeButton />
     </div>
   );
 }
