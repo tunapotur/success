@@ -7,7 +7,7 @@ Kullanıcı seçiminin _**"Local Storage"**_ yazılması performans açısından
 - ya tam siyah,
 - ya tam beyaz,
 - ya da sistem'e göre
-TODO Mongoose Unique Validator kullanılmıyor buna dikkat et.
+  TODO Mongoose Unique Validator kullanılmıyor buna dikkat et.
 
 ```
 {
@@ -24,7 +24,5 @@ TODO Mongoose Unique Validator kullanılmıyor buna dikkat et.
   "role":"user"
 }
 ```
-TODO Navbar component
-
 
 <!--- Eraser file: https://app.eraser.io/workspace/Ao19lK9en8jaM2tMOUvT --->
