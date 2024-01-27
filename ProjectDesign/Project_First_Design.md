@@ -3,28 +3,27 @@
 ## Home
 - Every user can see all shared success
 - All success sorted by date.
-# Sayfa Tasarımları
-## User Not Logged In
-### Home (root)
-### Login (/login)
-### Register (/register)
-# User Logged In
-### Home (root)
-# Component Tasarımları
-## Navbar
-### User Not Logged In
-- [ ] Home => 
-- [ ] Login =>
-- [ ] Register =>
-### 
+### TODO's
 - [ ] TODO Dark Light tema seçimini veri tabanına yükle.
 Kullanıcı seçiminin **_"Local Storage"_** yazılması performans açısından iyi olacaktır.
 ya tam siyah,
+
 ya tam beyaz,
 
 ya da sistem'e göre
 
+- [ ] Kullanılacak muhtemel kütüphaneler
+- [﻿react-hook-form.com/](https://react-hook-form.com/) 
+- [﻿react-hot-toast.com/](https://react-hot-toast.com/) 
+- [﻿date-fns.org/](https://date-fns.org/) 
+- [﻿github.com/bvaughn/react-error-boundary](https://github.com/bvaughn/react-error-boundary) 
+- [﻿preline.co/index.html](https://preline.co/index.html) 
+- [﻿headlessui.com/react/listbox](https://headlessui.com/react/listbox) 
+- [﻿ui.shadcn.com/](https://ui.shadcn.com/) 
+- [﻿nextui.org/](https://nextui.org/) 
 _**Mongoose Unique Validator kullanılmıyor buna dikkat et.**_
+
+
 
 **Örnek Kullanıcı Bilgileri**
 
