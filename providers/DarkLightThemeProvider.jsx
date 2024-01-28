@@ -2,6 +2,6 @@
 
 import { ThemeProvider } from "next-themes";
 
-export default function DarkLightThemeProvider({ children }) {
+export default function NextThemeProvider({ children }) {
   return <ThemeProvider attribute="class">{children}</ThemeProvider>;
 }
