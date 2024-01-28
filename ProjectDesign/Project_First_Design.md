@@ -6,21 +6,31 @@
 ### TODO's
 - [ ] TODO Dark Light tema seçimini veri tabanına yükle.
 Kullanıcı seçiminin **_"Local Storage"_** yazılması performans açısından iyi olacaktır.
+Bunu next-themes halledebilir.
 ya tam siyah,
 
 ya tam beyaz,
 
 ya da sistem'e göre
 
-- [ ] Kullanılacak muhtemel kütüphaneler
-- [﻿react-hook-form.com/](https://react-hook-form.com/) 
-- [﻿react-hot-toast.com/](https://react-hot-toast.com/) 
-- [﻿date-fns.org/](https://date-fns.org/) 
-- [﻿github.com/bvaughn/react-error-boundary](https://github.com/bvaughn/react-error-boundary) 
-- [﻿preline.co/index.html](https://preline.co/index.html) 
-- [﻿headlessui.com/react/listbox](https://headlessui.com/react/listbox) 
-- [﻿ui.shadcn.com/](https://ui.shadcn.com/) 
-- [﻿nextui.org/](https://nextui.org/) 
+
+
+### Kullanılacak muhtemel kütüphaneler
+- [ ] [﻿react-hook-form.com/](https://react-hook-form.com/) 
+- [x] [﻿react-hot-toast.com/](https://react-hot-toast.com/) 
+- [x] [﻿date-fns.org/](https://date-fns.org/) 
+- [ ] [﻿github.com/bvaughn/react-error-boundary](https://github.com/bvaughn/react-error-boundary) 
+- [ ] [﻿headlessui.com/react/listbox](https://headlessui.com/react/listbox) 
+- [ ] [﻿ui.shadcn.com/](https://ui.shadcn.com/) 
+- [ ] [﻿nextui.org/](https://nextui.org/) 
+- [x] [﻿github.com/simov/slugify](https://github.com/simov/slugify) 
+
+
+### Not:
+- [﻿www.i18next.com/](https://www.i18next.com/) 
+- [﻿nextjs.org/docs/pages/building-your-application/routing/internationalization](https://nextjs.org/docs/pages/building-your-application/routing/internationalization) 
+
+
 _**Mongoose Unique Validator kullanılmıyor buna dikkat et.**_
 
 
