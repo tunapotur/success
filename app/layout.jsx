@@ -1,5 +1,7 @@
 import "@/styles/globals.css";
-import { Inter } from "next/font/google";
+import { Inter as FontSans } from "next/font/google";
+
+import { cn } from "@/lib/utils";
 
 //Providers
 import { AuthProvider } from "@/providers/AuthProviders";
@@ -8,7 +10,10 @@ import { NextUIProvider } from "@/providers/NextUIProvider";
 
 import Navbar from "@/components/Navbar/Navbar";
 
-const inter = Inter({ subsets: ["latin"] });
+export const fontSans = FontSans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
 
 export const metadata = {
   title: "Success",
@@ -18,7 +23,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <head />
+      <body
+        className={cn(
+          "bg-background min-h-screen font-sans antialiased",
+          fontSans.variable,
+        )}
+      >
         <AuthProvider>
           <NextUIProvider>
             <NextThemeProvider>

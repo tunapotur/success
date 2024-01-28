@@ -10,9 +10,13 @@ function LoginForm() {
   const [email, setEmail] = useState("tunapotur@yahoo.com");
   const [password, setPassword] = useState("tunapotur41");
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("Hata için deneme metni giriyorum.");
+  const [error, setError] = useState("");
 
   const router = useRouter();
+
+  // TODO: tüm kullandığım ikonları lucide ikon setine geçir react icons'u kullanma
+  // TODO: bu form'da hatalı kullanıcı girişi yapınca hata veriyor bunu düzelt.
+  // TODO: Api'den gelen hataları alacak bir yol bul
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,13 +49,12 @@ function LoginForm() {
   return (
     <div className="">
       <h1 className="">Login</h1>
-      <form
-        className="flex w-full flex-wrap gap-4 md:flex-nowrap"
-        onSubmit={handleSubmit}
-      >
+      <form className="flex w-full flex-col gap-4" onSubmit={handleSubmit}>
         <Input
           label="e-mail"
           type="email"
+          size="lg"
+          radius="sm"
           onChange={(e) => setEmail(e.target.value)}
           value={email}
         />
@@ -59,20 +62,24 @@ function LoginForm() {
         <Input
           label="password"
           type="password"
+          size="lg"
+          radius="sm"
           onChange={(e) => setPassword(e.target.value)}
           value={password}
         />
 
         <Button
           isLoading={isLoading}
-          color="primary"
+          // color="primary"
           type="submit"
+          size="lg"
+          radius="sm"
           isDisabled={!email || !password}
         >
-          {isLoading ? "" : "Sign In"}
+          {isLoading ? "Please Wait" : "Sign In"}
         </Button>
 
-        {error && <div className="">{error}</div>}
+        {error && <div className="text-danger-500 text-xl">{error}</div>}
       </form>
     </div>
   );
