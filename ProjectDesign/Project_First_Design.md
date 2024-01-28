@@ -22,7 +22,8 @@ ya da sistem'e göre
 - [ ] [﻿github.com/bvaughn/react-error-boundary](https://github.com/bvaughn/react-error-boundary) 
 - [ ] [﻿headlessui.com/react/listbox](https://headlessui.com/react/listbox) 
 - [ ] [﻿ui.shadcn.com/](https://ui.shadcn.com/) 
-- [ ] [﻿nextui.org/](https://nextui.org/) 
+- [x] [﻿nextui.org/](https://nextui.org/) 
+- [ ] [﻿www.radix-ui.com/](https://www.radix-ui.com/) 
 - [x] [﻿github.com/simov/slugify](https://github.com/simov/slugify) 
 
 
