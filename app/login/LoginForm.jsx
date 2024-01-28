@@ -4,11 +4,13 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
+import { Input, Button } from "@nextui-org/react";
+
 function LoginForm() {
   const [email, setEmail] = useState("tunapotur@yahoo.com");
   const [password, setPassword] = useState("tunapotur41");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("Hata için deneme metni giriyorum.");
 
   const router = useRouter();
 
@@ -21,7 +23,7 @@ function LoginForm() {
     }
 
     try {
-      setLoading(true);
+      setIsLoading(true);
       const res = await signIn("credentials", {
         email,
         password,
@@ -30,7 +32,7 @@ function LoginForm() {
 
       if (res.error) {
         setError("Invalid Credentials");
-        setLoading(false);
+        setIsLoading(false);
         return;
       }
 
@@ -41,36 +43,38 @@ function LoginForm() {
   };
 
   return (
-    <>
-      <div className="">
-        <h2 className="">Login</h2>
-        <form className="" onSubmit={handleSubmit}>
-          <input
-            className=""
-            type="email"
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
-            placeholder="Enter your e-mail"
-          />
+    <div className="">
+      <h1 className="">Login</h1>
+      <form
+        className="flex w-full flex-wrap gap-4 md:flex-nowrap"
+        onSubmit={handleSubmit}
+      >
+        <Input
+          label="e-mail"
+          type="email"
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
+        />
 
-          <input
-            className=""
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
-            placeholder="Enter your password"
-          />
+        <Input
+          label="password"
+          type="password"
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
+        />
 
-          <div className="">
-            <button className="" disabled={loading || !email || !password}>
-              {loading ? "Please wait..." : "Sign In"}
-            </button>
+        <Button
+          isLoading={isLoading}
+          color="primary"
+          type="submit"
+          isDisabled={!email || !password}
+        >
+          {isLoading ? "" : "Sign In"}
+        </Button>
 
-            {error && <div className="">{error}</div>}
-          </div>
-        </form>
-      </div>
-    </>
+        {error && <div className="">{error}</div>}
+      </form>
+    </div>
   );
 }
 

@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
             <NextThemeProvider>
               <div className="flex flex-col items-center">
                 <div className="h-screen w-full sm:w-[40rem]">
-                  <main className="h-[calc(100%-theme(space.20))] overflow-y-auto border border-red-500 p-[1rem]">
+                  <main className="h-[calc(100%-theme(space.20))] overflow-y-auto p-[1rem]">
                     {children}
                   </main>
 
