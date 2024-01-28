@@ -3,7 +3,7 @@ import "./globals.css";
 
 //Providers
 import { AuthProvider } from "@/providers/AuthProviders";
-import NextThemeProvider from "@/providers/DarkLightThemeProvider";
+import NextThemeProvider from "@/providers/ThemeProvider";
 import { NextUIProvider } from "@/providers/NextUIProvider";
 
 import Navbar from "@/components/Navbar/Navbar";

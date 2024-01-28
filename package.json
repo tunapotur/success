@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@heroicons/react": "^2.1.1",
     "@nextui-org/react": "^2.2.9",
     "bcryptjs": "^2.4.3",
     "date-fns": "^3.3.1",
