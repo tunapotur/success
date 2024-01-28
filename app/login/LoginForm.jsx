@@ -41,12 +41,12 @@ function LoginForm() {
   };
 
   return (
-    <main className="main">
-      <div className="form-container">
-        <h2 className="form-header">Login</h2>
-        <form className="form" onSubmit={handleSubmit}>
+    <>
+      <div className="">
+        <h2 className="">Login</h2>
+        <form className="" onSubmit={handleSubmit}>
           <input
-            className="form-input"
+            className=""
             type="email"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
@@ -54,26 +54,23 @@ function LoginForm() {
           />
 
           <input
-            className="form-input"
+            className=""
             type="password"
             onChange={(e) => setPassword(e.target.value)}
             value={password}
             placeholder="Enter your password"
           />
 
-          <div className="flex flex-row justify-between">
-            <button
-              className="form-button"
-              disabled={loading || !email || !password}
-            >
+          <div className="">
+            <button className="" disabled={loading || !email || !password}>
               {loading ? "Please wait..." : "Sign In"}
             </button>
 
-            {error && <div className="form-error">{error}</div>}
+            {error && <div className="">{error}</div>}
           </div>
         </form>
       </div>
-    </main>
+    </>
   );
 }
 
