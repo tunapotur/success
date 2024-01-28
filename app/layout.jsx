@@ -1,5 +1,5 @@
+import "@/styles/globals.css";
 import { Inter } from "next/font/google";
-import "./globals.css";
 
 //Providers
 import { AuthProvider } from "@/providers/AuthProviders";
