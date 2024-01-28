@@ -17,6 +17,7 @@ function LoginForm() {
   // TODO: tüm kullandığım ikonları lucide ikon setine geçir react icons'u kullanma
   // TODO: bu form'da hatalı kullanıcı girişi yapınca hata veriyor bunu düzelt.
   // TODO: Api'den gelen hataları alacak bir yol bul
+  // TODO: Fav icon gitti düzelt.
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -79,7 +80,7 @@ function LoginForm() {
           {isLoading ? "Please Wait" : "Sign In"}
         </Button>
 
-        {error && <div className="text-danger-500 text-xl">{error}</div>}
+        {error && <div className="text-xl text-danger-500">{error}</div>}
       </form>
     </div>
   );
