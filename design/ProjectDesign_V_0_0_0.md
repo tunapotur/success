@@ -17,10 +17,8 @@ ya da sistem'e göre
 - [x] [﻿react-hot-toast.com/](https://react-hot-toast.com/)  
 - [x] [﻿date-fns.org/](https://date-fns.org/)  
 - [ ] [﻿github.com/bvaughn/react-error-boundary](https://github.com/bvaughn/react-error-boundary)  
-- [ ] [﻿headlessui.com/react/listbox](https://headlessui.com/react/listbox)  
-- [ ] [﻿ui.shadcn.com/](https://ui.shadcn.com/)  
+- [x] [﻿ui.shadcn.com/](https://ui.shadcn.com/)  
 - [x] [﻿nextui.org/](https://nextui.org/)  
-- [ ] [﻿www.radix-ui.com/](https://www.radix-ui.com/)  
 - [x] [﻿github.com/simov/slugify](https://github.com/simov/slugify) 
 ### Not:
 - [﻿www.i18next.com/](https://www.i18next.com/)  
