@@ -6,11 +6,13 @@ import { useRouter } from "next/navigation";
 
 import { Input, Button } from "@nextui-org/react";
 
+import { UserRoundPlus, MoveLeft } from "lucide-react";
+
 function LoginForm() {
   const [email, setEmail] = useState("tunapotur@yahoo.com");
   const [password, setPassword] = useState("tunapotur41");
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("Deneme için girilen bir metin bu.");
+  const [error, setError] = useState("");
 
   const router = useRouter();
 
@@ -53,7 +55,7 @@ function LoginForm() {
         Login
       </h1>
 
-      <div className="flex flex-col gap-y-6 rounded-lg border p-4">
+      <div className="flex flex-col rounded-lg border p-4">
         <form className="flex flex-col gap-y-6" onSubmit={handleSubmit}>
           <Input
             label="e-mail"
@@ -75,26 +77,47 @@ function LoginForm() {
 
           <Button
             isLoading={isLoading}
-            // color="primary"
             type="submit"
             size="lg"
             radius="sm"
             isDisabled={!email || !password}
+            variant="shadow"
+            className="bg-primary text-primary-foreground"
           >
             {isLoading ? "Please Wait" : "Sign In"}
           </Button>
-
-          {/* TODO: Burası hata metni için sabit bir genişlik olarak kalacak. Hata yokken boş hata varken metin olacak. */}
-          {error && <div className="text-xl text-danger-500">{error}</div>}
         </form>
 
-        <Button size="lg" radius="sm">
-          Register
-        </Button>
+        {/* Error message */}
+        <div className="mt-2 flex h-10 flex-col justify-center pl-1 text-lg text-destructive">
+          {error && <>{error}</>}
+        </div>
 
-        <Button size="lg" radius="sm">
-          Back
-        </Button>
+        <div className="mt-16 flex flex-col gap-y-6">
+          <div className="flex flex-col">
+            <div className="mb-2 pl-1 pr-12 italic">
+              <p>If you don&apos;t have an account</p>
+              <p>please register</p>
+            </div>
+            <Button
+              size="lg"
+              radius="sm"
+              startContent={<UserRoundPlus />}
+              className="bg-success-600 text-primary-foreground dark:bg-success-400"
+            >
+              Register
+            </Button>
+          </div>
+
+          <Button
+            size="lg"
+            radius="sm"
+            variant="bordered"
+            startContent={<MoveLeft />}
+          >
+            Back
+          </Button>
+        </div>
       </div>
     </>
   );
