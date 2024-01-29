@@ -10,7 +10,7 @@ function LoginForm() {
   const [email, setEmail] = useState("tunapotur@yahoo.com");
   const [password, setPassword] = useState("tunapotur41");
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState("Deneme için girilen bir metin bu.");
 
   const router = useRouter();
 
@@ -48,41 +48,55 @@ function LoginForm() {
   };
 
   return (
-    <div className="">
-      <h1 className="">Login</h1>
-      <form className="flex w-full flex-col gap-4" onSubmit={handleSubmit}>
-        <Input
-          label="e-mail"
-          type="email"
-          size="lg"
-          radius="sm"
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
-        />
+    <>
+      <h1 className="mb-[2rem] text-4xl font-bold capitalize tracking-wider text-primary drop-shadow-sm">
+        Login
+      </h1>
 
-        <Input
-          label="password"
-          type="password"
-          size="lg"
-          radius="sm"
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
-        />
+      <div className="flex flex-col gap-y-6 rounded-lg border p-4">
+        <form className="flex flex-col gap-y-6" onSubmit={handleSubmit}>
+          <Input
+            label="e-mail"
+            type="email"
+            size="lg"
+            radius="sm"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+          />
 
-        <Button
-          isLoading={isLoading}
-          // color="primary"
-          type="submit"
-          size="lg"
-          radius="sm"
-          isDisabled={!email || !password}
-        >
-          {isLoading ? "Please Wait" : "Sign In"}
+          <Input
+            label="password"
+            type="password"
+            size="lg"
+            radius="sm"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+          />
+
+          <Button
+            isLoading={isLoading}
+            // color="primary"
+            type="submit"
+            size="lg"
+            radius="sm"
+            isDisabled={!email || !password}
+          >
+            {isLoading ? "Please Wait" : "Sign In"}
+          </Button>
+
+          {/* TODO: Burası hata metni için sabit bir genişlik olarak kalacak. Hata yokken boş hata varken metin olacak. */}
+          {error && <div className="text-xl text-danger-500">{error}</div>}
+        </form>
+
+        <Button size="lg" radius="sm">
+          Register
         </Button>
 
-        {error && <div className="text-xl text-danger-500">{error}</div>}
-      </form>
-    </div>
+        <Button size="lg" radius="sm">
+          Back
+        </Button>
+      </div>
+    </>
   );
 }
 

@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
       <head />
       <body
         className={cn(
-          "bg-background min-h-screen font-sans antialiased",
+          "min-h-screen bg-background font-sans antialiased",
           fontSans.variable,
         )}
       >
@@ -35,7 +35,7 @@ export default function RootLayout({ children }) {
             <NextThemeProvider>
               <div className="flex flex-col items-center">
                 <div className="h-screen w-full sm:w-[40rem]">
-                  <main className="h-[calc(100%-theme(space.20))] overflow-y-auto p-[1rem]">
+                  <main className="h-[calc(100%-theme(space.20))] overflow-y-auto p-4">
                     {children}
                   </main>
 
