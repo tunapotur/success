@@ -16,13 +16,12 @@ function LoginForm() {
 
   const router = useRouter();
 
-  // TODO: tüm kullandığım ikonları lucide ikon setine geçir react icons'u kullanma
   // TODO: bu form'da hatalı kullanıcı girişi yapınca hata veriyor bunu düzelt.
   // TODO: Api'den gelen hataları alacak bir yol bul
-  // TODO: Fav icon gitti düzelt.
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
 
     if (!email || !password) {
       setError("All fields are necessary.");
@@ -43,9 +42,13 @@ function LoginForm() {
         return;
       }
 
-      router.replace("/");
-    } catch (error) {
-      console.log(error);
+      if (!res.error) {
+        router.refresh();
+        router.push("/");
+      }
+    } catch (err) {
+      console.log(err);
+      setIsLoading(false);
     }
   };
 
@@ -56,6 +59,7 @@ function LoginForm() {
       </h1>
 
       <div className="flex flex-col rounded-lg border p-4">
+        {/* Form */}
         <form className="flex flex-col gap-y-6" onSubmit={handleSubmit}>
           <Input
             label="e-mail"
@@ -93,6 +97,7 @@ function LoginForm() {
           {error && <>{error}</>}
         </div>
 
+        {/* Register and Back buttons */}
         <div className="mt-16 flex flex-col gap-y-6">
           <div className="flex flex-col">
             <div className="mb-2 pl-1 pr-12 italic">

@@ -4,9 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 
-import { SlLogin } from "react-icons/sl";
-import { FaRegSquarePlus } from "react-icons/fa6";
-import { FaUser } from "react-icons/fa";
+import { LogIn, User, PlusSquare } from "lucide-react";
 import GoalSkelaton from "../GoalSkelatonSvg";
 
 function Navbar() {
@@ -14,15 +12,15 @@ function Navbar() {
   const pathname = usePathname();
 
   //Navbar Icons
-  const Login = <NavbarIcon link={"login"} Icon={SlLogin} />;
-  const UserProfile = <NavbarIcon link={"userprofile/1"} Icon={FaUser} />;
+  const Login = <NavbarIcon link={"login"} Icon={LogIn} />;
+  const UserProfile = <NavbarIcon link={"userprofile/1"} Icon={User} />;
   const SuccessLogo = (
     <NavbarIcon link={"/"} Icon={GoalSkelaton} label={"Success"} />
   );
   const AddSuccess = (
     <NavbarIcon
       link={status === "unauthenticated" ? "login" : "addsuccess"}
-      Icon={FaRegSquarePlus}
+      Icon={PlusSquare}
     />
   );
 
