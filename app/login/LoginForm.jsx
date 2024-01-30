@@ -5,49 +5,52 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 import { Input, Button } from "@nextui-org/react";
-
 import { UserRoundPlus, MoveLeft } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 
 function LoginForm() {
   const [email, setEmail] = useState("tunapotur@yahoo.com");
   const [password, setPassword] = useState("tunapotur41");
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+  const { toast } = useToast();
 
   const router = useRouter();
 
-  // TODO: bu form'da hatalı kullanıcı girişi yapınca hata veriyor bunu düzelt.
-  // TODO: Api'den gelen hataları alacak bir yol bul
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
 
-    if (!email || !password) {
-      setError("All fields are necessary.");
-      return;
-    }
+    if (!email || !password) return;
 
     try {
       setIsLoading(true);
-      const res = await signIn("credentials", {
+      const result = await signIn("credentials", {
         email,
         password,
         redirect: false,
       });
 
-      if (res.error) {
-        setError("Invalid Credentials");
+      if (result?.error) {
+        toast({
+          variant: "destructive",
+          title: "Login Error",
+          description: result?.error,
+          action: <ToastAction altText="Try again">Try again</ToastAction>,
+        });
         setIsLoading(false);
         return;
       }
 
-      if (!res.error) {
-        router.refresh();
-        router.push("/");
-      }
+      toast({
+        variant: "destructive",
+        className:
+          "bg-success-600 text-primary-foreground dark:bg-success-400 border-0",
+        description: "Logged in successfully 👍",
+        duration: 1000,
+      });
+      router.refresh();
+      router.push("/");
     } catch (err) {
-      console.log(err);
       setIsLoading(false);
     }
   };
@@ -92,11 +95,6 @@ function LoginForm() {
           </Button>
         </form>
 
-        {/* Error message */}
-        <div className="mt-2 flex h-10 flex-col justify-center pl-1 text-lg text-destructive">
-          {error && <>{error}</>}
-        </div>
-
         {/* Register and Back buttons */}
         <div className="mt-16 flex flex-col gap-y-6">
           <div className="flex flex-col">
@@ -109,6 +107,7 @@ function LoginForm() {
               radius="sm"
               startContent={<UserRoundPlus />}
               className="bg-success-600 text-primary-foreground dark:bg-success-400"
+              onClick={() => router.push("/register")}
             >
               Register
             </Button>
@@ -119,6 +118,7 @@ function LoginForm() {
             radius="sm"
             variant="bordered"
             startContent={<MoveLeft />}
+            onClick={() => router.back()}
           >
             Back
           </Button>

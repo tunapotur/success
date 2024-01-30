@@ -3,12 +3,16 @@ import { Inter as FontSans } from "next/font/google";
 
 import { cn } from "@/lib/utils";
 
-//Providers
-import { AuthProvider } from "@/providers/AuthProviders";
+// Providers
+import { AuthProvider } from "@/providers/AuthProvider";
 import NextThemeProvider from "@/providers/ThemeProvider";
 import { NextUIProvider } from "@/providers/NextUIProvider";
 
+// Components
 import Navbar from "@/components/Navbar/Navbar";
+import { Toaster } from "@/components/ui/toaster";
+
+// TODO: kaldırılacak
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 
 export const fontSans = FontSans({
@@ -51,6 +55,7 @@ export default function RootLayout({ children }) {
             </NextThemeProvider>
           </NextUIProvider>
         </AuthProvider>
+        <Toaster />
       </body>
     </html>
   );

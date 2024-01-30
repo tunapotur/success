@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 
-import { LogIn, User, PlusSquare } from "lucide-react";
+import { LogIn, SquareUserRound, PlusSquare } from "lucide-react";
 import GoalSkelaton from "../GoalSkelatonSvg";
 
 function Navbar() {
@@ -13,7 +13,9 @@ function Navbar() {
 
   //Navbar Icons
   const Login = <NavbarIcon link={"login"} Icon={LogIn} />;
-  const UserProfile = <NavbarIcon link={"userprofile/1"} Icon={User} />;
+  const UserProfile = (
+    <NavbarIcon link={"userprofile/1"} Icon={SquareUserRound} />
+  );
   const SuccessLogo = (
     <NavbarIcon link={"/"} Icon={GoalSkelaton} label={"Success"} />
   );
@@ -46,7 +48,8 @@ function NavbarIcon({ link, Icon, label }) {
 
   return (
     <Link className="flex flex-col items-center justify-center" href={link}>
-      <Icon className={"h-[2.5rem] w-[2.5rem]"} />
+      {!label && <Icon className={"h-[3rem] w-[3rem]"} />}
+      {label && <Icon className={"h-[2.5rem] w-[2.5rem]"} />}
       {label && <div className="text-[0.75rem] leading-none">{label}</div>}
     </Link>
   );
