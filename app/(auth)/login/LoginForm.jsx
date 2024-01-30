@@ -4,10 +4,14 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-import { Input, Button } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import { UserRoundPlus, MoveLeft } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
+import FormHeader from "../components/FormHeader";
+import FormWrapper from "../components/FormWrapper";
+import Form from "../components/Form";
+import FormInput from "../components/FormInput";
 
 function LoginForm() {
   const [email, setEmail] = useState("tunapotur@yahoo.com");
@@ -57,73 +61,71 @@ function LoginForm() {
 
   return (
     <>
-      <h1 className="mb-[2rem] text-4xl font-bold capitalize tracking-wider text-primary drop-shadow-sm">
-        Login
-      </h1>
+      <FormHeader header={"Login"} />
 
-      <div className="flex flex-col rounded-lg border p-4">
-        {/* Form */}
-        <form className="flex flex-col gap-y-6" onSubmit={handleSubmit}>
-          <Input
-            label="e-mail"
-            type="email"
-            size="lg"
-            radius="sm"
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
-          />
+      <FormWrapper>
+        <>
+          {/* Form */}
+          <Form handler={handleSubmit}>
+            <>
+              <FormInput
+                label={"e-mail"}
+                type={"email"}
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+              />
 
-          <Input
-            label="password"
-            type="password"
-            size="lg"
-            radius="sm"
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
-          />
+              <FormInput
+                label={"password"}
+                type={"password"}
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+              />
 
-          <Button
-            isLoading={isLoading}
-            type="submit"
-            size="lg"
-            radius="sm"
-            isDisabled={!email || !password}
-            variant="shadow"
-            className="bg-primary text-primary-foreground"
-          >
-            {isLoading ? "Please Wait" : "Sign In"}
-          </Button>
-        </form>
+              <Button
+                isLoading={isLoading}
+                type="submit"
+                size="lg"
+                radius="sm"
+                isDisabled={!email || !password}
+                variant="shadow"
+                className="bg-primary text-primary-foreground"
+              >
+                {isLoading ? "Please Wait" : "Sign In"}
+              </Button>
+            </>
+          </Form>
 
-        {/* Register and Back buttons */}
-        <div className="mt-16 flex flex-col gap-y-6">
-          <div className="flex flex-col">
-            <div className="mb-2 pl-1 pr-12 italic">
-              <p>If you don&apos;t have an account</p>
-              <p>please register</p>
+          {/* Register and Back buttons */}
+          <div className="mt-16 flex flex-col gap-y-6">
+            <div className="flex flex-col">
+              <div className="mb-2 pl-1 pr-12 italic">
+                <p>If you don&apos;t have an account</p>
+                <p>please register</p>
+              </div>
+              <Button
+                size="lg"
+                radius="sm"
+                startContent={<UserRoundPlus />}
+                className="bg-success-600 text-primary-foreground dark:bg-success-400"
+                onClick={() => router.push("/register")}
+              >
+                Register
+              </Button>
             </div>
+
             <Button
               size="lg"
               radius="sm"
-              startContent={<UserRoundPlus />}
-              className="bg-success-600 text-primary-foreground dark:bg-success-400"
-              onClick={() => router.push("/register")}
+              variant="bordered"
+              startContent={<MoveLeft />}
+              onClick={() => router.back()}
             >
-              Register
+              Back
             </Button>
           </div>
-
-          <Button
-            size="lg"
-            radius="sm"
-            variant="bordered"
-            startContent={<MoveLeft />}
-            onClick={() => router.back()}
-          >
-            Back
-          </Button>
-        </div>
-      </div>
+        </>
+      </FormWrapper>
     </>
   );
 }
