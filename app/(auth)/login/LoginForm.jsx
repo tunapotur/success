@@ -5,6 +5,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 import { Button } from "@nextui-org/react";
+import { Input } from "@nextui-org/react";
 import { UserRoundPlus } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
@@ -13,16 +14,20 @@ import { ToastAction } from "@/components/ui/toast";
 import FormHeader from "../components/FormHeader";
 import FormWrapper from "../components/FormWrapper";
 import Form from "../components/Form";
-import FormInput from "../components/FormInput";
 import ButtonBack from "../components/ButtonBack";
+import { EyeFilledIcon } from "../components/EyeFilledIcon";
+import { EyeSlashFilledIcon } from "../components/EyeSlashFilledIcon";
 
 function LoginForm() {
   const [email, setEmail] = useState("tunapotur@yahoo.com");
   const [password, setPassword] = useState("tunapotur41");
   const [isLoading, setIsLoading] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const { toast } = useToast();
 
   const router = useRouter();
+
+  const toggleVisibility = () => setIsVisible(!isVisible);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -68,16 +73,33 @@ function LoginForm() {
       <FormWrapper>
         {/* Form */}
         <Form handler={handleSubmit}>
-          <FormInput
+          <Input
             label={"e-mail"}
-            type={"email"}
+            type={"e-mail"}
+            size="lg"
+            radius="sm"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
           />
 
-          <FormInput
+          <Input
             label={"password"}
-            type={"password"}
+            size="lg"
+            radius="sm"
+            endContent={
+              <button
+                className="focus:outline-none"
+                type="button"
+                onClick={toggleVisibility}
+              >
+                {isVisible ? (
+                  <EyeSlashFilledIcon className="pointer-events-none text-2xl text-default-400" />
+                ) : (
+                  <EyeFilledIcon className="pointer-events-none text-2xl text-default-400" />
+                )}
+              </button>
+            }
+            type={isVisible ? "text" : "password"}
             onChange={(e) => setPassword(e.target.value)}
             value={password}
           />
