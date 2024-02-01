@@ -7,6 +7,9 @@ import { useSession } from "next-auth/react";
 import { LogIn, SquareUserRound, PlusSquare } from "lucide-react";
 import GoalSkelaton from "../GoalSkelatonSvg";
 
+// TODO: kaldırılacak
+import ThemeSwitcher from "@/components/ThemeSwitcher";
+
 function Navbar() {
   const { status } = useSession();
   const pathname = usePathname();
@@ -37,6 +40,7 @@ function Navbar() {
       ) : (
         <>{SuccessLogo}</>
       )}
+      <ThemeSwitcher />
     </nav>
   );
 }

@@ -3,11 +3,8 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-
 import { Button } from "@nextui-org/react";
 import { Input } from "@nextui-org/react";
-import { UserRoundPlus } from "lucide-react";
-import { AtSign } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import { useForm } from "react-hook-form";
@@ -16,63 +13,47 @@ import * as z from "zod";
 
 //Form Components
 import FormHeader from "../components/FormHeader";
+import { UserRoundPlus } from "lucide-react";
 import FormWrapper from "../components/FormWrapper";
 import Form from "../components/Form";
 import ButtonBack from "../components/ButtonBack";
 import { EyeFilledIcon } from "../components/EyeFilledIcon";
 import { EyeSlashFilledIcon } from "../components/EyeSlashFilledIcon";
-
-// *Regex Test
-// https://rubular.com/r/9TIe3qiNoujkxN
-// https://uibakery.io/regex-library/password
-/*
-* Strong password regex
-Has minimum 8 characters in length. Adjust it by modifying {8,}
-At least one uppercase English letter. You can remove this condition by removing (?=.*?[A-Z])
-At least one lowercase English letter.  You can remove this condition by removing (?=.*?[a-z])
-At least one digit. You can remove this condition by removing (?=.*?[0-9])
-At least one special character,  You can remove this condition by removing (?=.*?[#?!@$%^&*_-])
-*/
+import { AtSign } from "lucide-react";
 
 const FormDataSchema = z.object({
   email: z
     .string()
-    .email("hatalı bir mail tipi bu ya")
-    .min(6, { message: "en az 30 karakterli bir mail olmalı" }),
+    .email(
+      "The e-mail address is incorrect. Please correct your e-mail address and enter it again.",
+    ),
   password: z
     .string()
     .regex(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*_-]).{8,}$/, {
-      message: "Regex Uyumlu Degil!",
+      message:
+        "This password doesn't follow the rules. Please correct your password and enter it again.",
     }),
-  // .min(6, { message: "en az 6 karakterli bir password olacak" }),
 });
 
 function LoginForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
+  // TODO setValue silinecek
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm({
+    defaultValues: { email: "", password: "" },
     resolver: zodResolver(FormDataSchema),
   });
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
-  function onSubmit(data) {
-    console.log(data);
-  }
-
-  const handleSubmit_eskicalisan = async (e) => {
-    e.preventDefault();
-
-    if (!email || !password) return;
-
+  const onSubmit = async ({ email, password }) => {
     try {
       setIsLoading(true);
       const result = await signIn("credentials", {
@@ -113,32 +94,32 @@ function LoginForm() {
         {/* Form */}
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Input
-            {...register("email", { required: true })}
+            {...register("email")}
+            isRequired
             label={"E-Mail"}
             placeholder="Enter your e-mail"
             type={"e-mail"}
             size="lg"
             radius="sm"
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
-            variant="faded"
+            variant="bordered"
             labelPlacement="outside"
             endContent={
               <AtSign className="pointer-events-none flex-shrink-0 text-2xl text-default-400" />
             }
-            // isInvalid={true}
-            // errorMessage="Please enter a valid email"
+            isInvalid={errors.email?.message ? true : false}
+            errorMessage={errors.email?.message}
           />
-          {errors.email?.message && <span>{errors.email?.message}</span>}
 
           <Input
             {...register("password", { required: true })}
+            isRequired
             label={"Password"}
             placeholder="Enter your password"
+            type={isVisible ? "text" : "password"}
             size="lg"
             radius="sm"
+            variant="bordered"
             labelPlacement="outside"
-            variant="faded"
             endContent={
               <button
                 className="focus:outline-none"
@@ -152,11 +133,9 @@ function LoginForm() {
                 )}
               </button>
             }
-            type={isVisible ? "text" : "password"}
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
+            isInvalid={errors.password?.message ? true : false}
+            errorMessage={errors.password?.message}
           />
-          {errors.password?.message && <span>{errors.password?.message}</span>}
 
           <Button
             isLoading={isLoading}
@@ -188,8 +167,24 @@ function LoginForm() {
               Register
             </Button>
           </div>
-
           <ButtonBack />
+          {/* TODO bu 2 button silinecek */}
+          <Button
+            onClick={() => {
+              setValue("email", "tunapotur@yahoo.com");
+              setValue("password", "Tunapotur41_");
+            }}
+          >
+            Set Admin Values
+          </Button>
+          <Button
+            onClick={() => {
+              setValue("email", "useraccount@mail.com");
+              setValue("password", "Userpass@39");
+            }}
+          >
+            Set User Values
+          </Button>
         </div>
       </FormWrapper>
     </>

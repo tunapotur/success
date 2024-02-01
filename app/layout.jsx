@@ -12,9 +12,6 @@ import { NextUIProvider } from "@/providers/NextUIProvider";
 import Navbar from "@/components/Navbar/Navbar";
 import { Toaster } from "@/components/ui/toaster";
 
-// TODO: kaldırılacak
-import ThemeSwitcher from "@/components/ThemeSwitcher";
-
 export const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -42,9 +39,7 @@ export default function RootLayout({ children }) {
                 <div className="h-screen w-full sm:w-[40rem]">
                   <main className="h-[calc(100%-theme(space.20))] overflow-y-auto p-4">
                     {children}
-                    <div className="mt-8">
-                      <ThemeSwitcher />
-                    </div>
+                    <div className="mt-8"></div>
                   </main>
 
                   <div className="h-20 w-full">

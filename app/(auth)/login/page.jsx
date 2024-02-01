@@ -10,9 +10,9 @@ async function Login() {
   if (session) redirect("/");
 
   return (
-    <main>
+    <>
       <LoginForm />
-    </main>
+    </>
   );
 }
 
