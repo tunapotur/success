@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@nextui-org/react";
 import { Input } from "@nextui-org/react";
 import { UserRoundPlus } from "lucide-react";
+import { AtSign } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import { useForm } from "react-hook-form";
@@ -113,12 +114,18 @@ function LoginForm() {
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Input
             {...register("email", { required: true })}
-            label={"e-mail"}
+            label={"E-Mail"}
+            placeholder="Enter your e-mail"
             type={"e-mail"}
             size="lg"
             radius="sm"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
+            variant="faded"
+            labelPlacement="outside"
+            endContent={
+              <AtSign className="pointer-events-none flex-shrink-0 text-2xl text-default-400" />
+            }
             // isInvalid={true}
             // errorMessage="Please enter a valid email"
           />
@@ -126,9 +133,12 @@ function LoginForm() {
 
           <Input
             {...register("password", { required: true })}
-            label={"password"}
+            label={"Password"}
+            placeholder="Enter your password"
             size="lg"
             radius="sm"
+            labelPlacement="outside"
+            variant="faded"
             endContent={
               <button
                 className="focus:outline-none"
@@ -136,9 +146,9 @@ function LoginForm() {
                 onClick={toggleVisibility}
               >
                 {isVisible ? (
-                  <EyeSlashFilledIcon className="pointer-events-none text-2xl text-default-400" />
+                  <EyeSlashFilledIcon className="pointer-events-none h-7 w-7 flex-shrink-0 text-2xl text-default-400" />
                 ) : (
-                  <EyeFilledIcon className="pointer-events-none text-2xl text-default-400" />
+                  <EyeFilledIcon className="pointer-events-none h-7 w-7 flex-shrink-0 text-2xl text-default-400" />
                 )}
               </button>
             }
