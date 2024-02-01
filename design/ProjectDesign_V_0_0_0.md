@@ -39,14 +39,14 @@ _**Mongoose Unique Validator kullanılmıyor buna dikkat et.**_
 {
   "name":"tunapotur",
   "email":"tunapotur@yahoo.com",
-  "password":"tunapotur41"
+  "password":"Tunapotur41_",
   "role":"admin"
 }
 
 {
   "name":"useraccount",
   "email":"useraccount@mail.com",
-  "password":"userpass",
+  "password":"Userpass@39",
   "role":"user"
 }
 ```
