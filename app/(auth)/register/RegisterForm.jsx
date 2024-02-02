@@ -11,7 +11,11 @@ At least one special character,  You can remove this condition by removing (?=.*
 */
 
 function RegisterForm() {
-  return <div></div>;
+  return (
+    <>
+      <p>Register Form</p>
+    </>
+  );
 }
 
 export default RegisterForm;
