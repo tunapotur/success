@@ -21,7 +21,7 @@ import { EyeFilledIcon } from "../components/EyeFilledIcon";
 import { EyeSlashFilledIcon } from "../components/EyeSlashFilledIcon";
 import { AtSign } from "lucide-react";
 import { InputGeneralConfig } from "../components/InputGeneralConfig";
-import ButtonButtonsWrapper from "../components/ButtomButtonsWrapper";
+import ButtonOutsideWrapper from "../components/ButtonOutsideWrapper";
 import { PasswordRegex } from "../components/PasswordRegex";
 
 const LoginFormDataSchema = z.object({
@@ -104,6 +104,7 @@ function LoginForm() {
             }
             isInvalid={errors.email?.message ? true : false}
             errorMessage={errors.email?.message}
+            placeholder="Please enter your e-mail"
           />
 
           <Input
@@ -126,6 +127,7 @@ function LoginForm() {
             }
             isInvalid={errors.password?.message ? true : false}
             errorMessage={errors.password?.message}
+            placeholder="Please enter your password"
           />
 
           {/* SignIn Button */}
@@ -142,7 +144,7 @@ function LoginForm() {
         </Form>
 
         {/* Register and Back buttons */}
-        <ButtonButtonsWrapper>
+        <ButtonOutsideWrapper>
           <div className="flex flex-col">
             <div className="mb-2 pl-1 pr-12 italic">
               <p>If you don&apos;t have an account</p>
@@ -176,7 +178,7 @@ function LoginForm() {
           >
             Set User Values
           </Button>
-        </ButtonButtonsWrapper>
+        </ButtonOutsideWrapper>
       </FormWrapper>
     </>
   );

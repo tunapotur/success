@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Button } from "@nextui-org/react";
 import { Input } from "@nextui-org/react";
@@ -13,7 +12,6 @@ import * as z from "zod";
 
 //Form Components
 import FormHeader from "../components/FormHeader";
-import { UserRoundPlus } from "lucide-react";
 import FormWrapper from "../components/FormWrapper";
 import Form from "../components/Form";
 import ButtonBack from "../components/ButtonBack";
@@ -23,8 +21,13 @@ import { AtSign } from "lucide-react";
 import { User } from "lucide-react";
 
 import { InputGeneralConfig } from "../components/InputGeneralConfig";
-import ButtonButtonsWrapper from "../components/ButtomButtonsWrapper";
-import { PasswordRegex } from "../components/PasswordRegex";
+import ButtonOutsideWrapper from "../components/ButtonOutsideWrapper";
+
+import { RegexValidationList } from "../components/PasswordRegex";
+import PasswordRoulesChecker from "../components/PasswordRoulesChecker";
+
+const { minLength, maxLength, digit, lowercase, uppercase, special } =
+  RegexValidationList;
 
 const RegisterFormDataSchema = z.object({
   name: z.string().min(6, { message: "The name must be at least 8 character" }),
@@ -35,43 +38,28 @@ const RegisterFormDataSchema = z.object({
     ),
   password: z
     .string()
-    .regex(/^.{8,}$/, {
+    .regex(minLength, {
       message: "Password must have at least a minimum 8 characters in length",
     })
-    .regex(/^.{0,16}$/, {
+    .regex(maxLength, {
       message: "Password must have at least a maximum 16 characters in length",
     })
-    .regex(/([a-z])/, {
+    .regex(digit, {
+      message: "Password must have at least one digit. [0-9]",
+    })
+    .regex(lowercase, {
       message:
         "Password must have at least one uppercase English letter. [a-z]",
     })
-    .regex(/([A-Z])/, {
+    .regex(uppercase, {
       message:
         "Password must have at least one lowercase English letter. [A-Z]",
     })
-    .regex(/([0-9])/, {
-      message: "Password must have at least one digit. [0-9]",
-    })
-    .regex(/([#?!@$%^&*_-])/, {
+    .regex(special, {
       message:
         "Password must have at least one special character. [#?!@$%^&*_-]",
     }),
 });
-
-// *Regex Test
-// https://rubular.com/r/9TIe3qiNoujkxN
-// https://uibakery.io/regex-library/password
-/*
-* Strong password regex rules
-* 
-Password must have at least
-a minimum 8 characters in length
-a maximum 16 characters in length
-one uppercase English letter. [A-Z]
-one lowercase English letter. [a-z]
-one digit. [0-9]
-one special character. [#?!@$%^&*_-]
-*/
 
 function RegisterForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -81,6 +69,7 @@ function RegisterForm() {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm({
     defaultValues: { name: "", email: "", password: "" },
@@ -109,6 +98,7 @@ function RegisterForm() {
             }
             isInvalid={errors.name?.message ? true : false}
             errorMessage={errors.name?.message}
+            placeholder="Please enter your name"
           />
 
           {/* Email Input */}
@@ -122,30 +112,36 @@ function RegisterForm() {
             }
             isInvalid={errors.email?.message ? true : false}
             errorMessage={errors.email?.message}
+            placeholder="Please enter your e-mail"
           />
 
           {/* Password Input */}
-          <Input
-            {...register("password", { required: true })}
-            {...InputGeneralConfig}
-            label={"Password"}
-            type={isVisible ? "text" : "password"}
-            endContent={
-              <button
-                className="focus:outline-none"
-                type="button"
-                onClick={toggleVisibility}
-              >
-                {isVisible ? (
-                  <EyeSlashFilledIcon className="pointer-events-none h-7 w-7 flex-shrink-0 text-2xl text-default-400" />
-                ) : (
-                  <EyeFilledIcon className="pointer-events-none h-7 w-7 flex-shrink-0 text-2xl text-default-400" />
-                )}
-              </button>
-            }
-            isInvalid={errors.password?.message ? true : false}
-            errorMessage={errors.password?.message}
-          />
+          <div>
+            <Input
+              {...register("password", { required: true })}
+              {...InputGeneralConfig}
+              label={"Password"}
+              type={isVisible ? "text" : "password"}
+              endContent={
+                <button
+                  className="focus:outline-none"
+                  type="button"
+                  onClick={toggleVisibility}
+                >
+                  {isVisible ? (
+                    <EyeSlashFilledIcon className="pointer-events-none h-7 w-7 flex-shrink-0 text-2xl text-default-400" />
+                  ) : (
+                    <EyeFilledIcon className="pointer-events-none h-7 w-7 flex-shrink-0 text-2xl text-default-400" />
+                  )}
+                </button>
+              }
+              isInvalid={errors.password?.message ? true : false}
+              errorMessage={errors.password?.message}
+              placeholder="Please enter your password"
+            />
+            {/* Password Rules */}
+            <PasswordRoulesChecker password={watch("password")} />
+          </div>
 
           {/* Sign Up Button */}
           <Button
@@ -161,9 +157,9 @@ function RegisterForm() {
         </Form>
 
         {/* Back button */}
-        <ButtonButtonsWrapper>
+        <ButtonOutsideWrapper>
           <ButtonBack />
-        </ButtonButtonsWrapper>
+        </ButtonOutsideWrapper>
       </FormWrapper>
     </>
   );

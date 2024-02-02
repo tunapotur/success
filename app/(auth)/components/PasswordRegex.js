@@ -1,6 +1,15 @@
 export const PasswordRegex =
   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*_-]).{8,16}$/;
 
+export const RegexValidationList = {
+  minLength: /.{8,}/,
+  maxLength: /^.{0,16}$/,
+  digit: /[0-9]/,
+  lowercase: /[a-z]/,
+  uppercase: /[A-Z]/,
+  special: /[#?!@$%^&*_-]/,
+};
+
 // *Regex Test
 // https://rubular.com/r/9TIe3qiNoujkxN
 // https://uibakery.io/regex-library/password
@@ -23,51 +32,8 @@ one digit. [0-9]
 one special character. [#?!@$%^&*_-]
 */
 
-/*
-console.log(/^.{8,}$/.test('12345678'));
-console.log(/^.{0,16}$/.test('12345678123456780'))
-console.log(/([a-z])/.test('abc'));
-console.log(/([A-Z])/.test('AHM'));
-console.log(/([0-9])/.test('124'));
-console.log(/^([#?!@$%^&*_-])/.test('#?!@$%^&*_-'));
+// TODO Boşluk için hata vermiyor. DÜZELTİLECEK
+// https://stackoverflow.com/questions/19121375/regex-for-empty-string-or-white-space
+// https://www.freecodecamp.org/news/how-to-include-empty-string-in-regex/
 
-password: z.string().regex(PasswordRegex, {
-    message:
-      "This password doesn't follow the rules. Please correct your password and enter it again.",
-  }),
-
-
-
-
-/^.{8,}$/ Password must have at least a minimum 8 characters in length
-/^.{0,16}$/ Password must have at least a maximum 16 characters in length
-/([a-z])/ Password must have at least one uppercase English letter. [a-z]
-/([A-Z])/ Password must have at least one lowercase English letter. [A-Z]
-/([0-9])/ Password must have at least one digit. [0-9]
-/([#?!@$%^&*_-])/ Password must have at least one special character. [#?!@$%^&*_-]
-
-
-password: z
-    .string()
-    .regex(/^.{8,}$/, {
-      message: "Password must have at least a minimum 8 characters in length",
-    })
-    .regex(/^.{0,16}$/, {
-      message: "Password must have at least a maximum 16 characters in length",
-    })
-    .regex(/([a-z])/, {
-      message:
-        "Password must have at least one uppercase English letter. [a-z]",
-    })
-    .regex(/([A-Z])/, {
-      message:
-        "Password must have at least one lowercase English letter. [A-Z]",
-    })
-    .regex(/([0-9])/, {
-      message: "Password must have at least one digit. [0-9]",
-    })
-    .regex(/([#?!@$%^&*_-])/, {
-      message:
-        "Password must have at least one special character. [#?!@$%^&*_-]",
-    }),
-*/
+//TODO PasswordRegex için de boşluk var mı kontrol et. DÜZELTİLECEK
