@@ -33,10 +33,29 @@ const RegisterFormDataSchema = z.object({
     .email(
       "The e-mail address is incorrect. Please correct your e-mail address and enter it again.",
     ),
-  password: z.string().regex(PasswordRegex, {
-    message:
-      "This password doesn't follow the rules. Please correct your password and enter it again.",
-  }),
+  password: z
+    .string()
+    .regex(/^.{8,}$/, {
+      message: "Password must have at least a minimum 8 characters in length",
+    })
+    .regex(/^.{0,16}$/, {
+      message: "Password must have at least a maximum 16 characters in length",
+    })
+    .regex(/([a-z])/, {
+      message:
+        "Password must have at least one uppercase English letter. [a-z]",
+    })
+    .regex(/([A-Z])/, {
+      message:
+        "Password must have at least one lowercase English letter. [A-Z]",
+    })
+    .regex(/([0-9])/, {
+      message: "Password must have at least one digit. [0-9]",
+    })
+    .regex(/([#?!@$%^&*_-])/, {
+      message:
+        "Password must have at least one special character. [#?!@$%^&*_-]",
+    }),
 });
 
 // *Regex Test
@@ -47,10 +66,11 @@ const RegisterFormDataSchema = z.object({
 * 
 Password must have at least
 a minimum 8 characters in length
-one uppercase English letter [A-Z]
-one lowercase English letter [a-z]
-one digit [0-9]
-one special character [#?!@$%^&*_-]
+a maximum 16 characters in length
+one uppercase English letter. [A-Z]
+one lowercase English letter. [a-z]
+one digit. [0-9]
+one special character. [#?!@$%^&*_-]
 */
 
 function RegisterForm() {
