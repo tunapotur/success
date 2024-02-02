@@ -24,32 +24,33 @@ import { User } from "lucide-react";
 
 import { InputGeneralConfig } from "../components/InputGeneralConfig";
 import ButtonButtonsWrapper from "../components/ButtomButtonsWrapper";
+import { PasswordRegex } from "../components/PasswordRegex";
 
 const RegisterFormDataSchema = z.object({
-  name: z.string().min(6, { message: "The name must be at least 6 character" }),
+  name: z.string().min(6, { message: "The name must be at least 8 character" }),
   email: z
     .string()
     .email(
       "The e-mail address is incorrect. Please correct your e-mail address and enter it again.",
     ),
-  password: z
-    .string()
-    .regex(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*_-]).{8,}$/, {
-      message:
-        "This password doesn't follow the rules. Please correct your password and enter it again.",
-    }),
+  password: z.string().regex(PasswordRegex, {
+    message:
+      "This password doesn't follow the rules. Please correct your password and enter it again.",
+  }),
 });
 
 // *Regex Test
 // https://rubular.com/r/9TIe3qiNoujkxN
 // https://uibakery.io/regex-library/password
 /*
-* Strong password regex
-Has minimum 8 characters in length. Adjust it by modifying {8,}
-At least one uppercase English letter. You can remove this condition by removing (?=.*?[A-Z])
-At least one lowercase English letter.  You can remove this condition by removing (?=.*?[a-z])
-At least one digit. You can remove this condition by removing (?=.*?[0-9])
-At least one special character,  You can remove this condition by removing (?=.*?[#?!@$%^&*_-])
+* Strong password regex rules
+* 
+Password must have at least
+a minimum 8 characters in length
+one uppercase English letter [A-Z]
+one lowercase English letter [a-z]
+one digit [0-9]
+one special character [#?!@$%^&*_-]
 */
 
 function RegisterForm() {
@@ -63,7 +64,7 @@ function RegisterForm() {
     formState: { errors },
   } = useForm({
     defaultValues: { name: "", email: "", password: "" },
-    // resolver: zodResolver(RegisterFormDataSchema),
+    resolver: zodResolver(RegisterFormDataSchema),
   });
 
   const toggleVisibility = () => setIsVisible(!isVisible);
