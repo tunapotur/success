@@ -21,6 +21,7 @@ import { EyeFilledIcon } from "../components/EyeFilledIcon";
 import { EyeSlashFilledIcon } from "../components/EyeSlashFilledIcon";
 import { AtSign } from "lucide-react";
 import { InputGeneralConfig } from "../components/InputGeneralConfig";
+import ButtonButtonsWrapper from "../components/ButtomButtonsWrapper";
 
 const LoginFormDataSchema = z.object({
   email: z
@@ -142,7 +143,7 @@ function LoginForm() {
         </Form>
 
         {/* Register and Back buttons */}
-        <div className="mt-16 flex flex-col gap-y-6">
+        <ButtonButtonsWrapper>
           <div className="flex flex-col">
             <div className="mb-2 pl-1 pr-12 italic">
               <p>If you don&apos;t have an account</p>
@@ -176,7 +177,7 @@ function LoginForm() {
           >
             Set User Values
           </Button>
-        </div>
+        </ButtonButtonsWrapper>
       </FormWrapper>
     </>
   );
