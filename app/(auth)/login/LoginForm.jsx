@@ -20,8 +20,9 @@ import ButtonBack from "../components/ButtonBack";
 import { EyeFilledIcon } from "../components/EyeFilledIcon";
 import { EyeSlashFilledIcon } from "../components/EyeSlashFilledIcon";
 import { AtSign } from "lucide-react";
+import { InputGeneralConfig } from "../components/InputGeneralConfig";
 
-const FormDataSchema = z.object({
+const LoginFormDataSchema = z.object({
   email: z
     .string()
     .email(
@@ -48,12 +49,12 @@ function LoginForm() {
     setValue,
   } = useForm({
     defaultValues: { email: "", password: "" },
-    resolver: zodResolver(FormDataSchema),
+    resolver: zodResolver(LoginFormDataSchema),
   });
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
-  const onSubmit = async ({ email, password }) => {
+  const onSubmitHandler = async ({ email, password }) => {
     try {
       setIsLoading(true);
       const result = await signIn("credentials", {
@@ -92,17 +93,12 @@ function LoginForm() {
       <FormHeader header={"Login"} />
       <FormWrapper>
         {/* Form */}
-        <Form onSubmit={handleSubmit(onSubmit)}>
+        <Form onSubmit={handleSubmit(onSubmitHandler)}>
           <Input
             {...register("email")}
-            isRequired
+            {...InputGeneralConfig}
             label={"E-Mail"}
-            placeholder="Enter your e-mail"
             type={"e-mail"}
-            size="lg"
-            radius="sm"
-            variant="bordered"
-            labelPlacement="outside"
             endContent={
               <AtSign className="pointer-events-none flex-shrink-0 text-2xl text-default-400" />
             }
@@ -112,14 +108,9 @@ function LoginForm() {
 
           <Input
             {...register("password", { required: true })}
-            isRequired
+            {...InputGeneralConfig}
             label={"Password"}
-            placeholder="Enter your password"
             type={isVisible ? "text" : "password"}
-            size="lg"
-            radius="sm"
-            variant="bordered"
-            labelPlacement="outside"
             endContent={
               <button
                 className="focus:outline-none"
@@ -137,12 +128,12 @@ function LoginForm() {
             errorMessage={errors.password?.message}
           />
 
+          {/* SignIn Button */}
           <Button
             isLoading={isLoading}
             type="submit"
             size="lg"
             radius="sm"
-            // isDisabled={!email || !password}
             variant="shadow"
             className="bg-primary text-primary-foreground"
           >
