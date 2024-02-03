@@ -22,18 +22,23 @@ import { EyeSlashFilledIcon } from "../components/EyeSlashFilledIcon";
 import { AtSign } from "lucide-react";
 import { InputGeneralConfig } from "../components/InputGeneralConfig";
 import ButtonOutsideWrapper from "../components/ButtonOutsideWrapper";
-import { PasswordRegex } from "../components/PasswordRegex";
+import { PasswordRegex } from "../components/PasswordRules";
+import PasswordRules from "../components/PasswordRules";
+import {
+  EmailIncorrectText,
+  PassIncorrectMessage,
+} from "../components/PasswordRules";
 
 const LoginFormDataSchema = z.object({
-  email: z
+  email: z.string().email(EmailIncorrectText),
+  password: z
     .string()
-    .email(
-      "The e-mail address is incorrect. Please correct your e-mail address and enter it again.",
-    ),
-  password: z.string().regex(PasswordRegex, {
-    message:
-      "This password doesn't follow the rules. Please correct your password and enter it again.",
-  }),
+    .regex(PasswordRegex, {
+      message: PassIncorrectMessage,
+    })
+    .regex(PasswordRules.noWhiteSpace.regex, {
+      message: PassIncorrectMessage,
+    }),
 });
 
 function LoginForm() {

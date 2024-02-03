@@ -23,41 +23,37 @@ import { User } from "lucide-react";
 import { InputGeneralConfig } from "../components/InputGeneralConfig";
 import ButtonOutsideWrapper from "../components/ButtonOutsideWrapper";
 
-import { RegexValidationList } from "../components/PasswordRegex";
 import PasswordRoulesChecker from "../components/PasswordRoulesChecker";
-
+import PasswordRules from "../components/PasswordRules";
+import {
+  EmailIncorrectText,
+  NameIncorrectText,
+} from "../components/PasswordRules";
 const { between, digit, lowercase, uppercase, special, noWhiteSpace } =
-  RegexValidationList;
+  PasswordRules;
 
 const RegisterFormDataSchema = z.object({
-  name: z.string().min(6, { message: "The name must be at least 8 character" }),
-  email: z
-    .string()
-    .email(
-      "The e-mail address is incorrect. Please correct your e-mail address and enter it again.",
-    ),
+  name: z.string().min(6, { message: NameIncorrectText }),
+  email: z.string().email(EmailIncorrectText),
   password: z
     .string()
-    .regex(between, {
-      message: "Password must have between 8 and 16 characters in length",
+    .regex(between.regex, {
+      message: between.text,
     })
-    .regex(digit, {
-      message: "Password must have at least one digit. [0-9]",
+    .regex(digit.regex, {
+      message: digit.text,
     })
-    .regex(lowercase, {
-      message:
-        "Password must have at least one uppercase English letter. [a-z]",
+    .regex(lowercase.regex, {
+      message: lowercase.text,
     })
-    .regex(uppercase, {
-      message:
-        "Password must have at least one lowercase English letter. [A-Z]",
+    .regex(uppercase.regex, {
+      message: uppercase.text,
     })
-    .regex(special, {
-      message:
-        "Password must have at least one special character. [#?!@$%^&*_-]",
+    .regex(special.regex, {
+      message: special.text,
     })
-    .regex(noWhiteSpace, {
-      message: "Password must have at least no space character",
+    .regex(noWhiteSpace.regex, {
+      message: noWhiteSpace.text,
     }),
 });
 
