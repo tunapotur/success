@@ -78,24 +78,24 @@ function RegisterForm() {
 
   const onSubmitHandler = async ({ name, email, password }) => {
     try {
-      //TODO process.env.DB_AUTH_URL undefind oluyor neden?
-      console.log(process.env.NEXT_AUTH_URL);
       setIsLoading(true);
-      const resUserExists = await fetch(
-        `${process.env.NEXT_AUTH_URL}/api/userExists`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email }),
+      const resUserExists = await fetch("/api/userExists", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify({ email }),
+      });
 
       const { user } = await resUserExists.json();
 
       if (user) {
-        console.log("User already exists.");
+        toast({
+          variant: "destructive",
+          title: "User already exists.",
+          description: `There is an account on ${email}.`,
+          action: <ToastAction altText="Try again">Try again</ToastAction>,
+        });
         setIsLoading(false);
         return;
       }
@@ -119,14 +119,33 @@ function RegisterForm() {
           redirect: false,
         });
 
+        toast({
+          variant: "destructive",
+          className:
+            "bg-success-600 text-primary-foreground dark:bg-success-400 border-0",
+          description: "Registration successful 👍",
+          duration: 1000,
+        });
         setIsLoading(false);
+        router.refresh();
         router.push("/");
       } else {
-        console.log("User registration failed.");
+        setIsLoading(false);
+        toast({
+          variant: "destructive",
+          title: "Registration Error",
+          description: "User registration failed.",
+          action: <ToastAction altText="Try again">Try again</ToastAction>,
+        });
       }
     } catch (error) {
       setIsLoading(false);
-      console.log(error);
+      toast({
+        variant: "destructive",
+        title: "Registration Error",
+        description: `User registration failed.${error}`,
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      });
     }
   };
 

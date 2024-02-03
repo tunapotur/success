@@ -1,3 +1,4 @@
+//TODO: Email, Name, Password gibi text mesajları için ayrı bir dosya yap oraya taşı.
 export const EmailIncorrectText =
   "The e-mail address is incorrect. Please correct your e-mail address and enter it again.";
 export const NameIncorrectText = "The name must be at least 6 character";
