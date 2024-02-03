@@ -4,6 +4,7 @@ export const PasswordRegex =
 export const RegexValidationList = {
   minLength: /.{8,}/,
   maxLength: /^.{0,16}$/,
+  between: /^.{8,16}$/,
   digit: /[0-9]/,
   lowercase: /[a-z]/,
   uppercase: /[A-Z]/,
@@ -34,8 +35,9 @@ one digit. [0-9]
 one special character. [#?!@$%^&*_-]
 */
 
-// TODO Boşluk için hata vermiyor. DÜZELTİLECEK
-// https://stackoverflow.com/questions/19121375/regex-for-empty-string-or-white-space
-// https://www.freecodecamp.org/news/how-to-include-empty-string-in-regex/
+/*
+Password must have at least a minimum 8 characters in length    
+Password must have at least a maximum 16 characters in length
 
-//TODO PasswordRegex için de boşluk var mı kontrol et. DÜZELTİLECEK
+Password must have between 8 and 16 characters in length
+ */
