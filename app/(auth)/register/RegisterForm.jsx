@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 import { Button } from "@nextui-org/react";
 import { Input } from "@nextui-org/react";
 import { useToast } from "@/components/ui/use-toast";
@@ -29,6 +30,7 @@ import {
   EmailIncorrectText,
   NameIncorrectText,
 } from "../components/PasswordRules";
+
 const { between, digit, lowercase, uppercase, special, noWhiteSpace } =
   PasswordRules;
 
@@ -75,7 +77,53 @@ function RegisterForm() {
   const toggleVisibility = () => setIsVisible(!isVisible);
 
   const onSubmitHandler = async ({ name, email, password }) => {
-    console.log(name, email, password);
+    try {
+      setIsLoading(true);
+      const resUserExists = await fetch("api/userExists", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const { user } = await resUserExists.json();
+
+      if (user) {
+        // setError("User already exists.");
+        console.log("User already exists.");
+        setIsLoading(false);
+        return;
+      }
+
+      const res = await fetch("api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+        }),
+      });
+
+      if (res.ok) {
+        await signIn("credentials", {
+          email,
+          password,
+          redirect: false,
+        });
+
+        setIsLoading(false);
+        router.push("/");
+      } else {
+        console.log("User registration failed.");
+      }
+    } catch (error) {
+      setIsLoading(false);
+      console.log(error);
+    }
   };
 
   return (

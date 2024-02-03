@@ -46,12 +46,10 @@ function LoginForm() {
   const [isVisible, setIsVisible] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
-  // TODO setValue silinecek
   const {
     register,
     handleSubmit,
     formState: { errors },
-    setValue,
   } = useForm({
     defaultValues: { email: "", password: "" },
     resolver: zodResolver(LoginFormDataSchema),
@@ -166,23 +164,6 @@ function LoginForm() {
             </Button>
           </div>
           <ButtonBack />
-          {/* TODO bu 2 button silinecek */}
-          <Button
-            onClick={() => {
-              setValue("email", "tunapotur@yahoo.com");
-              setValue("password", "Tunapotur41_");
-            }}
-          >
-            Set Admin Values
-          </Button>
-          <Button
-            onClick={() => {
-              setValue("email", "useraccount@mail.com");
-              setValue("password", "Userpass@39");
-            }}
-          >
-            Set User Values
-          </Button>
         </ButtonOutsideWrapper>
       </FormWrapper>
     </>
