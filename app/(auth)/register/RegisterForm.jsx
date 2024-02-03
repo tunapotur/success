@@ -78,19 +78,23 @@ function RegisterForm() {
 
   const onSubmitHandler = async ({ name, email, password }) => {
     try {
+      //TODO process.env.DB_AUTH_URL undefind oluyor neden?
+      console.log(process.env.NEXT_AUTH_URL);
       setIsLoading(true);
-      const resUserExists = await fetch("api/userExists", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const resUserExists = await fetch(
+        `${process.env.NEXT_AUTH_URL}/api/userExists`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
         },
-        body: JSON.stringify({ email }),
-      });
+      );
 
       const { user } = await resUserExists.json();
 
       if (user) {
-        // setError("User already exists.");
         console.log("User already exists.");
         setIsLoading(false);
         return;
