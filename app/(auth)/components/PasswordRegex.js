@@ -8,11 +8,13 @@ export const RegexValidationList = {
   lowercase: /[a-z]/,
   uppercase: /[A-Z]/,
   special: /[#?!@$%^&*_-]/,
+  noWhiteSpace: /(?!^[ ]*$)^\S+$/,
 };
 
 // *Regex Test
 // https://rubular.com/r/9TIe3qiNoujkxN
 // https://uibakery.io/regex-library/password
+// https://rubular.com/r/7GtdVJR84VZvbt
 
 /**
  * *Code Sample

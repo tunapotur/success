@@ -1,7 +1,14 @@
 import { RegexValidationList } from "./PasswordRegex";
 
-const { minLength, maxLength, digit, lowercase, uppercase, special } =
-  RegexValidationList;
+const {
+  minLength,
+  maxLength,
+  digit,
+  lowercase,
+  uppercase,
+  special,
+  noWhiteSpace,
+} = RegexValidationList;
 
 function PasswordRoulesChecker({ password }) {
   return (
@@ -36,6 +43,11 @@ function PasswordRoulesChecker({ password }) {
         regex={special}
         password={password}
         ruleText={"one special character. [#?!@$%^&*_-]"}
+      />
+      <RuleCheck
+        regex={noWhiteSpace}
+        password={password}
+        ruleText={"Password cannot contain space characters"}
       />
     </div>
   );

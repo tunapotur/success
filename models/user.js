@@ -6,8 +6,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Name is required"],
       trim: true,
-      minLength: 1,
-      maxLength: 20,
+      maxLength: 120,
     },
     email: {
       type: String,
@@ -16,17 +15,13 @@ const userSchema = new mongoose.Schema(
       lowercase: true,
       unique: true,
       trim: true,
-      minLength: 5,
-      maxLength: 20,
+      minLength: 6,
+      maxLength: 120,
     },
     password: {
       type: String,
       required: [true, "Password is required"],
       trim: true,
-      role: {
-        type: String,
-        default: "user",
-      },
     },
     role: {
       type: String,

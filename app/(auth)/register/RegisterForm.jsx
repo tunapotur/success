@@ -26,8 +26,15 @@ import ButtonOutsideWrapper from "../components/ButtonOutsideWrapper";
 import { RegexValidationList } from "../components/PasswordRegex";
 import PasswordRoulesChecker from "../components/PasswordRoulesChecker";
 
-const { minLength, maxLength, digit, lowercase, uppercase, special } =
-  RegexValidationList;
+const {
+  minLength,
+  maxLength,
+  digit,
+  lowercase,
+  uppercase,
+  special,
+  noWhiteSpace,
+} = RegexValidationList;
 
 const RegisterFormDataSchema = z.object({
   name: z.string().min(6, { message: "The name must be at least 8 character" }),
@@ -58,6 +65,9 @@ const RegisterFormDataSchema = z.object({
     .regex(special, {
       message:
         "Password must have at least one special character. [#?!@$%^&*_-]",
+    })
+    .regex(noWhiteSpace, {
+      message: "Password cannot contain space characters",
     }),
 });
 
