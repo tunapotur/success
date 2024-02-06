@@ -20,9 +20,8 @@ import { EyeFilledIcon } from "../components/EyeFilledIcon";
 import { EyeSlashFilledIcon } from "../components/EyeSlashFilledIcon";
 import { AtSign } from "lucide-react";
 import { User } from "lucide-react";
-import { turkishToEnglish } from "../components/TurkishToEnglish";
 import { InputGeneralConfig } from "../components/InputGeneralConfig";
-import ButtonOutsideWrapper from "../components/ButtonOutsideWrapper";
+import FormAdditionWrapper from "../components/FormAdditionWrapper";
 
 import PasswordRoulesChecker from "../components/PasswordRoulesChecker";
 import PasswordRules from "../components/PasswordRules";
@@ -227,9 +226,9 @@ function RegisterForm() {
         </Form>
 
         {/* Back button */}
-        <ButtonOutsideWrapper>
+        <FormAdditionWrapper>
           <ButtonBack />
-        </ButtonOutsideWrapper>
+        </FormAdditionWrapper>
       </FormWrapper>
     </>
   );

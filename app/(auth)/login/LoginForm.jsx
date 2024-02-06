@@ -20,7 +20,7 @@ import { EyeFilledIcon } from "../components/EyeFilledIcon";
 import { EyeSlashFilledIcon } from "../components/EyeSlashFilledIcon";
 import { AtSign } from "lucide-react";
 import { InputGeneralConfig } from "../components/InputGeneralConfig";
-import ButtonOutsideWrapper from "../components/ButtonOutsideWrapper";
+import FormAdditionWrapper from "../components/FormAdditionWrapper";
 import PasswordRules from "../components/PasswordRules";
 import { EmailIncorrectText } from "../components/FormErrorText";
 
@@ -142,7 +142,7 @@ function LoginForm() {
         </Form>
 
         {/* Register and Back buttons */}
-        <ButtonOutsideWrapper>
+        <FormAdditionWrapper>
           <div className="flex flex-col">
             <div className="mb-2 pl-1 pr-12 italic">
               <p>If you don&apos;t have an account</p>
@@ -159,7 +159,7 @@ function LoginForm() {
             </Button>
           </div>
           <ButtonBack />
-        </ButtonOutsideWrapper>
+        </FormAdditionWrapper>
       </FormWrapper>
     </>
   );
