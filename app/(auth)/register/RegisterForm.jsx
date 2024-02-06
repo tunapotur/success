@@ -78,6 +78,8 @@ function RegisterForm() {
   const onSubmitHandler = async ({ name, email, password }) => {
     try {
       setIsLoading(true);
+
+      // Checking if user exists
       const resUserExists = await fetch("/api/userExists", {
         method: "POST",
         headers: {
@@ -99,6 +101,7 @@ function RegisterForm() {
         return;
       }
 
+      // Creating new user
       const res = await fetch("api/register", {
         method: "POST",
         headers: {
@@ -111,6 +114,7 @@ function RegisterForm() {
         }),
       });
 
+      // If new user created successfully. Sign in new user.
       if (res.ok) {
         await signIn("credentials", {
           email,
