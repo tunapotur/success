@@ -3,8 +3,7 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { Button } from "@nextui-org/react";
-import { Input } from "@nextui-org/react";
+import { Button, Input } from "@nextui-org/react";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import { useForm } from "react-hook-form";
@@ -22,22 +21,18 @@ import { EyeSlashFilledIcon } from "../components/EyeSlashFilledIcon";
 import { AtSign } from "lucide-react";
 import { InputGeneralConfig } from "../components/InputGeneralConfig";
 import ButtonOutsideWrapper from "../components/ButtonOutsideWrapper";
-import { PasswordRegex } from "../components/PasswordRules";
 import PasswordRules from "../components/PasswordRules";
-import {
-  EmailIncorrectText,
-  PassIncorrectMessage,
-} from "../components/PasswordRules";
+import { EmailIncorrectText } from "../components/FormErrorText";
 
 const LoginFormDataSchema = z.object({
   email: z.string().email(EmailIncorrectText),
   password: z
     .string()
-    .regex(PasswordRegex, {
-      message: PassIncorrectMessage,
+    .regex(PasswordRules.all_without_noWhiteSpace.regex, {
+      message: PasswordRules.all_without_noWhiteSpace.text,
     })
     .regex(PasswordRules.noWhiteSpace.regex, {
-      message: PassIncorrectMessage,
+      message: PasswordRules.noWhiteSpace.text,
     }),
 });
 
@@ -54,8 +49,6 @@ function LoginForm() {
     defaultValues: { email: "", password: "" },
     resolver: zodResolver(LoginFormDataSchema),
   });
-
-  const toggleVisibility = () => setIsVisible(!isVisible);
 
   const onSubmitHandler = async ({ email, password }) => {
     try {
@@ -98,8 +91,9 @@ function LoginForm() {
         {/* Form */}
         <Form onSubmit={handleSubmit(onSubmitHandler)}>
           <Input
-            {...register("email")}
+            {...register("email", { required: true })}
             {...InputGeneralConfig}
+            isRequired={true}
             label={"E-Mail"}
             type={"e-mail"}
             endContent={
@@ -113,13 +107,14 @@ function LoginForm() {
           <Input
             {...register("password", { required: true })}
             {...InputGeneralConfig}
+            isRequired={true}
             label={"Password"}
             type={isVisible ? "text" : "password"}
             endContent={
               <button
                 className="focus:outline-none"
                 type="button"
-                onClick={toggleVisibility}
+                onClick={() => setIsVisible(!isVisible)}
               >
                 {isVisible ? (
                   <EyeSlashFilledIcon className="pointer-events-none h-7 w-7 flex-shrink-0 text-2xl text-default-400" />

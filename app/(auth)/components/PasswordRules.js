@@ -1,14 +1,5 @@
-//TODO: Email, Name, Password gibi text mesajları için ayrı bir dosya yap oraya taşı.
-export const EmailIncorrectText =
-  "The e-mail address is incorrect. Please correct your e-mail address and enter it again.";
-export const NameIncorrectText = "The name must be at least 6 character";
-export const PassIncorrectMessage =
-  "This password doesn't follow the rules. Please correct your password and enter it again.";
-
-export const PasswordRegex =
-  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*_-]).{8,16}$/;
-
-const PasswordRules = {
+module.exports = {
+  // const PasswordRules = {
   minLength: {
     key: 0,
     regex: /.{8,}/,
@@ -57,9 +48,15 @@ const PasswordRules = {
     text: "Password must have at least no space character",
     textShort: "no space character",
   },
+  all_without_noWhiteSpace: {
+    key: 8,
+    regex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*_-]).{8,16}$/,
+    text: "This password doesn't follow the rules. Please correct your password and enter it again.",
+    textShort: "password aut of rules",
+  },
 };
 
-export default PasswordRules;
+// export default PasswordRules;
 
 // *Regex Test
 // https://rubular.com/r/9TIe3qiNoujkxN

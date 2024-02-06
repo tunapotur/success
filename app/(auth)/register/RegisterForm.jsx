@@ -20,7 +20,7 @@ import { EyeFilledIcon } from "../components/EyeFilledIcon";
 import { EyeSlashFilledIcon } from "../components/EyeSlashFilledIcon";
 import { AtSign } from "lucide-react";
 import { User } from "lucide-react";
-
+import { turkishToEnglish } from "../components/TurkishToEnglish";
 import { InputGeneralConfig } from "../components/InputGeneralConfig";
 import ButtonOutsideWrapper from "../components/ButtonOutsideWrapper";
 
@@ -158,6 +158,7 @@ function RegisterForm() {
           <Input
             {...register("name")}
             {...InputGeneralConfig}
+            isRequired={true}
             label={"Name"}
             type={"text"}
             endContent={
@@ -171,7 +172,9 @@ function RegisterForm() {
           {/* Email Input */}
           <Input
             {...register("email")}
+            value={turkishToEnglish(watch("email")).toLowerCase()}
             {...InputGeneralConfig}
+            isRequired={true}
             label={"E-Mail"}
             type={"e-mail"}
             endContent={
@@ -187,6 +190,7 @@ function RegisterForm() {
             <Input
               {...register("password", { required: true })}
               {...InputGeneralConfig}
+              isRequired={true}
               label={"Password"}
               type={isVisible ? "text" : "password"}
               endContent={
