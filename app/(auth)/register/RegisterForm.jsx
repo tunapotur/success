@@ -36,7 +36,7 @@ const { between, digit, lowercase, uppercase, special, noWhiteSpace } =
 
 const RegisterFormDataSchema = z.object({
   name: z.string().min(6, { message: NameIncorrectText }),
-  email: z.string().email(EmailIncorrectText),
+  email: z.string().email(EmailIncorrectText).toLowerCase(),
   password: z
     .string()
     .regex(between.regex, {
@@ -172,7 +172,6 @@ function RegisterForm() {
           {/* Email Input */}
           <Input
             {...register("email")}
-            value={turkishToEnglish(watch("email")).toLowerCase()}
             {...InputGeneralConfig}
             isRequired={true}
             label={"E-Mail"}

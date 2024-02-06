@@ -25,7 +25,7 @@ import PasswordRules from "../components/PasswordRules";
 import { EmailIncorrectText } from "../components/FormErrorText";
 
 const LoginFormDataSchema = z.object({
-  email: z.string().email(EmailIncorrectText),
+  email: z.string().email(EmailIncorrectText).toLowerCase(),
   password: z
     .string()
     .regex(PasswordRules.all_without_noWhiteSpace.regex, {
