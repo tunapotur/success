@@ -11,6 +11,7 @@ const userProfileSchema = new Schema(
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+      required: [true, "User profile must belong to a User!"],
     },
   },
   { timestamps: true },

@@ -2,9 +2,12 @@ import { NextResponse } from "next/server";
 import { connectMongoDB } from "@/lib/mongodb";
 import UserProfile from "@/models/UserProfile";
 import { currentUser } from "@/lib/currentUser";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/lib/authOptions";
+
 // import User from "@/models/User";
 
-export async function POST(req) {
+/* export async function POST(req) {
   try {
     const { theme } = await req.json();
 
@@ -25,4 +28,13 @@ export async function POST(req) {
       { status: 500 },
     );
   }
+} */
+export async function GET(req) {
+  return NextResponse.json({ time: new Date().toLocaleString() });
 }
+
+/*
+export async function GET(req) {
+  return NextResponse.json({ time: new Date().toLocaleString() });
+}
+*/
