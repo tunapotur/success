@@ -5,6 +5,10 @@ import User from "@/models/User";
 import { connectMongoDB } from "@/lib/mongodb";
 
 export const authOptions = {
+  session: {
+    strategy: "jwt",
+  },
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     CredentialsProvider({
       name: "credentials",
@@ -30,6 +34,7 @@ export const authOptions = {
     jwt: async ({ token, user }) => {
       const userByEmail = await User.findOne({ email: token.email });
       userByEmail.password = undefined;
+      console.log("Token: ", token);
       token.user = userByEmail;
       return token;
     },
@@ -38,10 +43,6 @@ export const authOptions = {
       return session;
     },
   },
-  session: {
-    strategy: "jwt",
-  },
-  secret: process.env.NEXTAUTH_SECRET,
   pages: {
     signIn: "/",
   },
