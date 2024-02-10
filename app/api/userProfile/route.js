@@ -3,7 +3,7 @@ import { connectMongoDB } from "@/lib/mongodb";
 import UserProfile from "@/models/UserProfile";
 import { currentUser } from "@/lib/currentUser";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/lib/authOptions";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 // import User from "@/models/User";
 
