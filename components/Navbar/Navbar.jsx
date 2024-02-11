@@ -8,9 +8,6 @@ import slugify from "slugify";
 import { LogIn, SquareUserRound, PlusSquare } from "lucide-react";
 import GoalSkelaton from "../GoalSkelatonSvg";
 
-// TODO: kaldırılacak
-import ThemeSwitcher from "@/components/ThemeSwitcher";
-
 function Navbar() {
   const { data: session, status } = useSession();
   const pathname = usePathname();
@@ -49,7 +46,6 @@ function Navbar() {
       ) : (
         <>{SuccessLogo}</>
       )}
-      <ThemeSwitcher />
     </nav>
   );
 }

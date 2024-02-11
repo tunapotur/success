@@ -3,7 +3,7 @@
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
-import { Input } from "@nextui-org/react";
+import { Input, Button } from "@nextui-org/react";
 import FormHeader from "../../components/FormHeader";
 import FormWrapper from "../../components/FormWrapper";
 import { useState } from "react";
@@ -12,19 +12,25 @@ import { RegisterFormDataSchema } from "../../register/RegisterForm";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Form from "../../components/Form";
-import { User as UserIcon } from "lucide-react";
+
 import { InputGeneralConfig } from "../../components/InputGeneralConfig";
-import { EyeFilledIcon } from "../../components/EyeFilledIcon";
-import { EyeSlashFilledIcon } from "../../components/EyeSlashFilledIcon";
-import { AtSign } from "lucide-react";
-import { Button } from "@nextui-org/react";
+
+import {
+  AtSign,
+  LogOut,
+  Save,
+  FileSliders,
+  Sun,
+  Moon,
+  User as UserIcon,
+} from "lucide-react";
+
 import FormAdditionWrapper from "../../components/FormAdditionWrapper";
 import ButtonBack from "../../components/ButtonBack";
 
 function UserProfile() {
   const { data: session, status } = useSession();
   const [isLoading, setIsLoading] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
   const { toast } = useToast();
   const {
     register,
@@ -35,8 +41,6 @@ function UserProfile() {
     defaultValues: { name: "", email: "", password: "" },
     resolver: zodResolver(RegisterFormDataSchema),
   });
-
-  const toggleVisibility = () => setIsVisible(!isVisible);
 
   const onSubmitHandler = async ({ name, email, password }) => {};
 
@@ -74,30 +78,7 @@ function UserProfile() {
             placeholder="Please enter your e-mail"
           />
 
-          {/* Password Input */}
-          <Input
-            {...register("password", { required: true })}
-            {...InputGeneralConfig}
-            isRequired={true}
-            label={"Password"}
-            type={isVisible ? "text" : "password"}
-            endContent={
-              <button
-                className="focus:outline-none"
-                type="button"
-                onClick={toggleVisibility}
-              >
-                {isVisible ? (
-                  <EyeSlashFilledIcon className="pointer-events-none h-7 w-7 flex-shrink-0 text-2xl text-default-400" />
-                ) : (
-                  <EyeFilledIcon className="pointer-events-none h-7 w-7 flex-shrink-0 text-2xl text-default-400" />
-                )}
-              </button>
-            }
-            isInvalid={errors.password?.message ? true : false}
-            errorMessage={errors.password?.message}
-            placeholder="Please enter your password"
-          />
+          <ThemeSwitcher />
 
           {/* Save Button */}
           <Button
@@ -107,6 +88,7 @@ function UserProfile() {
             radius="sm"
             variant="shadow"
             className="bg-primary text-primary-foreground"
+            startContent={<Save />}
           >
             {isLoading ? "Please Wait" : "Save"}
           </Button>
@@ -114,25 +96,22 @@ function UserProfile() {
 
         {/* Back button */}
         <FormAdditionWrapper>
-          <h1>Theme Selection</h1>
-          <ThemeSwitcher />
-
           <Button
             size="lg"
             radius="sm"
-            // startContent={<UserRoundPlus />}
-            className="bg-success-600 text-primary-foreground dark:bg-success-400"
+            startContent={<LogOut />}
+            className="bg-danger-600 text-primary-foreground dark:bg-danger-300"
             onClick={() => signOut({ callbackUrl: "/" })}
           >
             Logout
           </Button>
 
+          <ButtonBack />
           <h1>User Session Infos</h1>
           <div>{status}</div>
           <div>{session?.user?._id}</div>
           <div>{session?.user?.name}</div>
           <div>{session?.user?.email}</div>
-          <ButtonBack />
         </FormAdditionWrapper>
       </FormWrapper>
     </>
