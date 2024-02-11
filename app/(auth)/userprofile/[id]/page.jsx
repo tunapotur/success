@@ -15,15 +15,7 @@ import Form from "../../components/Form";
 
 import { InputGeneralConfig } from "../../components/InputGeneralConfig";
 
-import {
-  AtSign,
-  LogOut,
-  Save,
-  FileSliders,
-  Sun,
-  Moon,
-  User as UserIcon,
-} from "lucide-react";
+import { AtSign, LogOut, Save, User as UserIcon } from "lucide-react";
 
 import FormAdditionWrapper from "../../components/FormAdditionWrapper";
 import ButtonBack from "../../components/ButtonBack";
