@@ -11,7 +11,7 @@ export const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
     CredentialsProvider({
-      name: "credentials",
+      name: "Credentials",
       credentials: {},
 
       async authorize(credentials, req) {
@@ -34,7 +34,7 @@ export const authOptions = {
     jwt: async ({ token, user }) => {
       const userByEmail = await User.findOne({ email: token.email });
       userByEmail.password = undefined;
-      console.log("Token: ", token);
+      // console.log("Token: ", token);
       token.user = userByEmail;
       return token;
     },

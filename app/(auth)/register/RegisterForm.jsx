@@ -33,7 +33,7 @@ import {
 const { between, digit, lowercase, uppercase, special, noWhiteSpace } =
   PasswordRules;
 
-const RegisterFormDataSchema = z.object({
+export const RegisterFormDataSchema = z.object({
   name: z.string().min(6, { message: NameIncorrectText }),
   email: z.string().email(EmailIncorrectText).toLowerCase(),
   password: z

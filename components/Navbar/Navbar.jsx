@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
+import slugify from "slugify";
 
 import { LogIn, SquareUserRound, PlusSquare } from "lucide-react";
 import GoalSkelaton from "../GoalSkelatonSvg";
@@ -11,13 +12,21 @@ import GoalSkelaton from "../GoalSkelatonSvg";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 
 function Navbar() {
-  const { status } = useSession();
+  const { data: session, status } = useSession();
   const pathname = usePathname();
+
+  const userUrl =
+    status === "authenticated"
+      ? slugify(session?.user?.email, {
+          replacement: "_",
+          remove: /[*+~.()'"!:@]/g,
+        })
+      : "";
 
   //Navbar Icons
   const Login = <NavbarIcon link={"login"} Icon={LogIn} />;
   const UserProfile = (
-    <NavbarIcon link={"userprofile/1"} Icon={SquareUserRound} />
+    <NavbarIcon link={`userprofile/${userUrl}`} Icon={SquareUserRound} />
   );
   const SuccessLogo = (
     <NavbarIcon link={"/"} Icon={GoalSkelaton} label={"Success"} />
