@@ -1,6 +1,6 @@
 "use client";
 
-import ThemeSwitcher from "@/components/ThemeSwitcher";
+import ThemeSwitcher from "../../components/ThemeSwitcher";
 import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
 import { Input, Button } from "@nextui-org/react";
@@ -42,6 +42,7 @@ function UserProfile() {
       <FormWrapper>
         <Form onSubmit={handleSubmit(onSubmitHandler)}>
           {/* Name Input */}
+
           <Input
             {...register("name")}
             {...InputGeneralConfig}
