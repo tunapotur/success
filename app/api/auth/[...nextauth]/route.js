@@ -35,7 +35,12 @@ export const authOptions = {
       const userByEmail = await User.findOne({ email: token.email });
       userByEmail.password = undefined;
       // console.log("Token: ", token);
-      token.user = userByEmail;
+      token.user = {
+        id: userByEmail._id,
+        email: userByEmail.email,
+        name: userByEmail.name,
+        role: userByEmail.role,
+      };
       return token;
     },
     session: async ({ session, token }) => {

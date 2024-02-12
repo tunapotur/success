@@ -13,11 +13,20 @@ const items = [
   { key: "dark", name: "Dark", icon: <Moon /> },
 ];
 
-const ThemeSwitcher = () => {
+const ThemeSwitcher = ({ setUserThemeSelection }) => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    setMounted(true);
+    setUserThemeSelection(theme);
+  }, [setUserThemeSelection, theme]);
+
+  function selectTheme(e) {
+    const themeSelection = e.target.value;
+    setTheme(themeSelection);
+    setUserThemeSelection(themeSelection);
+  }
 
   return (
     <div className="flex h-[5rem] flex-col justify-center gap-y-[0.5rem]">
@@ -28,7 +37,7 @@ const ThemeSwitcher = () => {
           {...InputGeneralConfig}
           label="Theme Selection"
           placeholder="Select a theme"
-          onChange={(e) => setTheme(e.target.value)}
+          onChange={selectTheme}
           isLoading={!mounted}
           isDisabled={!mounted}
           selectionMode="single"
