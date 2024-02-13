@@ -18,7 +18,9 @@ export const authOptions = {
         await connectMongoDB();
 
         const { email, password } = credentials;
+
         const user = await User.findOne({ email });
+        console.log("User:", user);
 
         if (!user) throw new Error("This email is not recorded!");
 
@@ -56,44 +58,3 @@ export const authOptions = {
 const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
-
-/*
-
-import NextAuth from "next-auth"
-import GithubProvider from "next-auth/providers/github"
-
-export const authOptions = {
-  // Configure one or more authentication providers
-  providers: [
-    GithubProvider({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
-    }),
-    // ...add more providers here
-  ],
-}
-
-export default NextAuth(authOptions)
-
-
-
-
-import { getServerSession } from "next-auth/next"
-import { authOptions } from "./auth/[...nextauth]"
-
-export default async (req, res) => {
-  const session = await getServerSession(req, res, authOptions)
-
-  if (session) {
-    res.send({
-      content:
-        "This is protected content. You can access this content because you are signed in.",
-    })
-  } else {
-    res.send({
-      error: "You must be signed in to view the protected content on this page.",
-    })
-  }
-}
-
-*/
