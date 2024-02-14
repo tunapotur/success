@@ -48,6 +48,7 @@ function UserProfile() {
 
   const onSubmitHandler = async ({ name, email }) => {
     console.log("User Theme Selection:", userThemeSelection);
+    console.log("User:", session?.user);
   };
 
   return (

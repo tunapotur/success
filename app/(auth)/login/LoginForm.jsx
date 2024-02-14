@@ -53,23 +53,29 @@ function LoginForm() {
   const onSubmitHandler = async ({ email, password }) => {
     try {
       setIsLoading(true);
-      const result = await signIn("credentials", {
+      const signIn_result = await signIn("credentials", {
         email,
         password,
         redirect: false,
       });
 
-      if (result?.error) {
+      if (signIn_result?.error) {
         toast({
           variant: "destructive",
           title: "Login Error",
-          description: result?.error,
+          description: signIn_result?.error,
           action: <ToastAction altText="Try again">Try again</ToastAction>,
         });
         setIsLoading(false);
         return;
       }
 
+      // signIn_result ok operation
+
+      /**
+       *  TODO:burada veri tabanından "userprofiles" tablosuna bak,
+       ** eğer ==> userprofilse.themes bilgisi varsa ThemeProvider'a yönlendir
+       */
       toast({
         variant: "destructive",
         className:
@@ -79,6 +85,7 @@ function LoginForm() {
       });
       router.refresh();
       router.push("/");
+      setIsLoading(false);
     } catch (err) {
       setIsLoading(false);
     }

@@ -9,7 +9,7 @@ import NextThemeProvider from "@/providers/ThemeProvider";
 import { NextUIProvider } from "@/providers/NextUIProvider";
 
 // Components
-import Navbar from "@/components/Navbar/Navbar";
+import Navbar from "@/components/Navbar";
 import { Toaster } from "@/components/ui/toaster";
 
 export const fontSans = FontSans({

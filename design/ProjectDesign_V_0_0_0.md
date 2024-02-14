@@ -5,12 +5,11 @@
 - All success sorted by date.
 ### TODO's
 - [ ] TODO Dark Light tema seçimini veri tabanına yükle.
-Kullanıcı seçiminin **_"Local Storage"_** yazılması performans açısından iyi olacaktır.
+Kullanıcı seçiminin _**"Local Storage"**_ yazılması performans açısından iyi olacaktır.
 Bunu next-themes halledebilir.
 ya tam siyah,
 ya tam beyaz,
 ya da sistem'e göre
-
 - [ ] react-hook-form
 - [ ] react-error-boundary veya Next için 
 - [ ] i18 dil desteği
@@ -32,9 +31,8 @@ ya da sistem'e göre
 - [﻿medium.com/@issam.ahw/simplifying-next-js-authentication-and-internationalization-with-next-auth-and-next-intl-0a01f1330e46](https://medium.com/@issam.ahw/simplifying-next-js-authentication-and-internationalization-with-next-auth-and-next-intl-0a01f1330e46)  
 - [﻿stackoverflow.com/questions/76463059/how-to-implement-next-auth-withauth-middleware-with-nextjs-app-server-side-fetch](https://stackoverflow.com/questions/76463059/how-to-implement-next-auth-withauth-middleware-with-nextjs-app-server-side-fetch)  
 - [﻿stackoverflow.com/questions/70754651/next-auth-v4-with-next-js-middleware?rq=2](https://stackoverflow.com/questions/70754651/next-auth-v4-with-next-js-middleware?rq=2) 
-_**Mongoose Unique Validator kullanılmıyor buna dikkat et.**_
+**_Mongoose Unique Validator kullanılmıyor buna dikkat et._**
 **Örnek Kullanıcı Bilgileri**
-
 ```
 {
   "name":"tunapotur",

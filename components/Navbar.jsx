@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import slugify from "slugify";
 
 import { LogIn, SquareUserRound, PlusSquare } from "lucide-react";
-import GoalSkelaton from "../GoalSkelatonSvg";
+import GoalSkelaton from "./GoalSkelatonSvg";
 
 function Navbar() {
   const { data: session, status } = useSession();
