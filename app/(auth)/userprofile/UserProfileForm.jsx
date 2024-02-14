@@ -1,28 +1,28 @@
 "use client";
 
-import ThemeSwitcher from "../../components/ThemeSwitcher";
+import ThemeSwitcher from "../components/ThemeSwitcher";
 import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
 import { Input, Button } from "@nextui-org/react";
-import FormHeader from "../../components/FormHeader";
-import FormWrapper from "../../components/FormWrapper";
+import FormHeader from "../components/FormHeader";
+import FormWrapper from "../components/FormWrapper";
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Form from "../../components/Form";
+import Form from "../components/Form";
 import * as z from "zod";
 import {
   EmailIncorrectText,
   NameIncorrectText,
-} from "../../components/PasswordRules";
+} from "../components/PasswordRules";
 
-import { InputGeneralConfig } from "../../components/InputGeneralConfig";
+import { InputGeneralConfig } from "../components/InputGeneralConfig";
 
 import { AtSign, LogOut, Save, User as UserIcon } from "lucide-react";
 
-import FormAdditionWrapper from "../../components/FormAdditionWrapper";
-import ButtonBack from "../../components/ButtonBack";
+import FormAdditionWrapper from "../components/FormAdditionWrapper";
+import ButtonBack from "../components/ButtonBack";
 
 const NameEmailSchema = z.object({
   name: z.string().min(6, { message: NameIncorrectText }),
@@ -67,7 +67,6 @@ function UserProfileForm() {
             isInvalid={errors.name?.message ? true : false}
             errorMessage={errors.name?.message}
             placeholder="Please enter your name"
-            value="Tuna Potur"
           />
 
           {/* Email Input */}
@@ -82,7 +81,6 @@ function UserProfileForm() {
             isInvalid={errors.email?.message ? true : false}
             errorMessage={errors.email?.message}
             placeholder="Please enter your e-mail"
-            value="tunapotur@yahoo.com"
           />
 
           <ThemeSwitcher setUserThemeSelection={setUserThemeSelection} />
@@ -121,3 +119,12 @@ function UserProfileForm() {
 }
 
 export default UserProfileForm;
+
+/*
+  <h1>User Session Infos</h1>
+  <div>{status}</div>
+  <div>{session?.user?.id}</div>
+  <div>{session?.user?.name}</div>
+  <div>{session?.user?.email}</div>
+  <div>{session?.user?.role}</div>
+*/

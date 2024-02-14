@@ -20,7 +20,6 @@ export const authOptions = {
         const { email, password } = credentials;
 
         const user = await User.findOne({ email });
-        console.log("User:", user);
 
         if (!user) throw new Error("This email is not recorded!");
 
