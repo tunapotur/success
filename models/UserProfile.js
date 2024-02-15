@@ -5,8 +5,8 @@ const userProfileSchema = new Schema(
   {
     theme: {
       type: String,
-      enum: ["System", "Dark", "Light"],
-      default: "System",
+      enum: ["system", "dark", "light"],
+      default: "system",
     },
     userId: {
       type: mongoose.Schema.Types.ObjectId,

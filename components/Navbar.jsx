@@ -7,6 +7,7 @@ import slugify from "slugify";
 
 import { LogIn, SquareUserRound, PlusSquare } from "lucide-react";
 import GoalSkelaton from "./GoalSkelatonSvg";
+import { REGEX_SLUGIFY_EMAIL } from "@/data/constants";
 
 function Navbar() {
   const { data: session, status } = useSession();
@@ -16,7 +17,7 @@ function Navbar() {
     status === "authenticated"
       ? slugify(session?.user?.email, {
           replacement: "_",
-          remove: /[*+~.()'"!:@]/g,
+          remove: REGEX_SLUGIFY_EMAIL,
         })
       : "";
 

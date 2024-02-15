@@ -1,19 +1,27 @@
-import User from "@/models/User";
+import { REGEX_SLUGIFY_EMAIL } from "@/data/constants";
+import { currentUser } from "@/lib/currentUser";
+import slugify from "slugify";
 import { NextResponse } from "next/server";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-// TODO kullanıcı şifresini de çekecek bir api yapma! Güvenli değil.
-// TODO Sadece Admin kullanıcıları kullanıcı bilgilerini çeksin
 export async function GET(_, req) {
-  const id = req.params.id;
-  const user = await User.findById(id);
-  const session = await getServerSession(authOptions);
+  const user = await currentUser();
+
+  //* Giriş yapmış kullanıcı varsa işlem yapılıyor
+  if (user) {
+    const slugifyId = slugify(user?.email, {
+      replacement: "_",
+      remove: REGEX_SLUGIFY_EMAIL,
+    });
+
+    return NextResponse.json({
+      time: new Date().toLocaleString(),
+      sessionUser: user,
+      slugifyId,
+    });
+  }
 
   return NextResponse.json({
     time: new Date().toLocaleString(),
-    id,
-    user,
-    session,
+    userNotLogIn: "User is not logIn!",
   });
 }
