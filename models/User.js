@@ -13,8 +13,8 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Email is required"],
       index: true,
-      lowercase: true,
       unique: true,
+      lowercase: true,
       trim: true,
       maxLength: 120,
     },
@@ -26,6 +26,11 @@ const userSchema = new Schema(
     role: {
       type: String,
       default: "user",
+    },
+    theme: {
+      type: String,
+      enum: ["system", "dark", "light"],
+      default: "system",
     },
   },
   { timestamps: true },

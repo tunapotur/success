@@ -24,7 +24,7 @@ function Navbar() {
   //Navbar Icons
   const Login = <NavbarIcon link={"login"} Icon={LogIn} />;
   const UserProfile = (
-    <NavbarIcon link={`userprofile/${userUrl}`} Icon={SquareUserRound} />
+    <NavbarIcon link={`user/${userUrl}`} Icon={SquareUserRound} />
   );
   const SuccessLogo = (
     <NavbarIcon link={"/"} Icon={GoalSkelaton} label={"Success"} />

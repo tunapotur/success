@@ -20,6 +20,7 @@ export async function GET(_, req) {
     });
   }
 
+  //TODO burada hada döndür ya da fırlat
   return NextResponse.json({
     time: new Date().toLocaleString(),
     userNotLogIn: "User is not logIn!",

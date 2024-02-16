@@ -30,7 +30,7 @@ const NameEmailSchema = z.object({
   email: z.string().email(EmailIncorrectText).toLowerCase(),
 });
 
-function UserProfileForm() {
+function UserForm() {
   const { data: session, status } = useSession();
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
@@ -60,7 +60,7 @@ function UserProfileForm() {
 
   return (
     <>
-      <FormHeader header={"User Profile"} />
+      <FormHeader header={"User"} />
       <FormWrapper>
         <Form onSubmit={handleSubmit(onSubmitHandler)}>
           {/* Name Input */}
@@ -127,7 +127,7 @@ function UserProfileForm() {
   );
 }
 
-export default UserProfileForm;
+export default UserForm;
 
 /*
   <h1>User Session Infos</h1>
