@@ -1,35 +1,31 @@
 import { NextResponse } from "next/server";
 import { currentUser } from "@/lib/currentUser";
 import { connectMongoDB } from "@/lib/mongodb";
-import User from "@/models/User";
-import UserProfile from "@/models/UserProfile";
+import UserAddress from "@/models/UserAddress";
 
 export async function POST(req) {
   try {
     const user = await currentUser();
-    const { theme } = await req.json();
 
-    if (user) {
-      await connectMongoDB();
-      const dbUser = await User.findById(user.id);
-      await UserProfile.create({ theme, userId: user?.id });
-      return NextResponse.json(
-        {
-          message: "User profile has been modified.",
-          user,
-          theme,
-          dbUser,
-          time: new Date().toLocaleString(),
-        },
-        { status: 200 },
-      );
-    }
+    if (!user) throw new Error("Unauthorized user. Please login or signup.");
+
+    await connectMongoDB();
+    const address = await req.json();
+
+    await UserAddress.create({
+      name: address.name,
+      description: address.description,
+      userId: user.id,
+    });
 
     return NextResponse.json(
       {
-        message: `Unauthorized user. Please login or signup.`,
+        message: "User address has been created.",
+        user,
+        address,
+        time: new Date().toLocaleString(),
       },
-      { status: 401 },
+      { status: 200 },
     );
   } catch (error) {
     return NextResponse.json(
