@@ -11,6 +11,9 @@ const items = [
   { key: "dark", name: "Dark", icon: <Moon /> },
 ];
 
+// https://react-hook-form.com/get-started#Quickstart
+// TODO: Integrating an existing başlığını oku
+// TODO: Integrating with UI libraries başlığını oku
 const ThemeSwitch = ({ isLoading = false, theme, setTheme }) => {
   function selectTheme(e) {
     const themeSelection = e.target.value;
@@ -50,11 +53,3 @@ const ThemeSwitch = ({ isLoading = false, theme, setTheme }) => {
 };
 
 export default ThemeSwitch;
-
-/*
-      {!mounted ? (
-        <InputSkeleton />
-      ) : (
-
-      )}
- */

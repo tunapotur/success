@@ -1,11 +1,15 @@
 import { NextResponse } from "next/server";
 import { connectMongoDB } from "@/lib/mongodb";
 import UserAddress from "@/models/UserAddress";
-import getSessionUserInfo from "@/lib/getSessionUserInfo";
+import getServerSessionInfo from "@/lib/getServerSessionInfo";
 
 export async function POST(req) {
   try {
-    const user = await getSessionUserInfo();
+    const session = await getServerSessionInfo();
+
+    if (!session) throw new Error("Unauthorized user. Please login or signup.");
+
+    const user = session?.user;
 
     await connectMongoDB();
     const address = await req.json();

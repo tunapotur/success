@@ -24,39 +24,49 @@ import { AtSign, LogOut, Save, User as UserIcon } from "lucide-react";
 import FormAdditionWrapper from "../../components/FormAdditionWrapper";
 import ButtonBack from "../../components/ButtonBack";
 import ThemeSwitch from "../../components/ThemeSwitch";
+import InputSkeleton from "../../components/InputSkeleton";
 
 const NameEmailSchema = z.object({
   name: z.string().min(6, { message: NameIncorrectText }),
   email: z.string().email(EmailIncorrectText).toLowerCase(),
 });
 
-function UserForm(props) {
+function UserForm() {
   const { data: session, status } = useSession();
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [isReady, setIsReady] = useState(false);
+  const user = session?.user;
 
-  // Theme bilgilerinin localstorage'den alınması bekleniyor
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  // TODO Varsayalın değerler silinecek. Name ve Email value değerleri düzeltilecek
   const {
     register,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors },
   } = useForm({
-    defaultValues: { name: "", email: "" },
     resolver: zodResolver(NameEmailSchema),
   });
 
+  // Theme bilgilerinin localstorage'den alınması bekleniyor
+  useEffect(() => {
+    setMounted(true);
+    setIsReady(() => status === "authenticated" && mounted === true);
+  }, [status, mounted]);
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      setValue("name", session?.user.name);
+      setValue("email", session?.user.email);
+    }
+  }, [status, setValue, session?.user.name, session?.user.email]);
+
   const onSubmitHandler = async ({ name, email }) => {
-    console.log("Theme Selection:", theme);
-    console.log("Name, Email:", name, email);
-    console.log("Session User: ", session.user);
+    console.log("Name: ", name);
+    console.log("Email: ", email);
+    console.log("Theme: ", theme);
   };
 
   return (
@@ -65,36 +75,42 @@ function UserForm(props) {
       <FormWrapper>
         <Form onSubmit={handleSubmit(onSubmitHandler)}>
           {/* Name Input */}
-          <Input
-            {...register("name")}
-            {...InputGeneralConfig}
-            label={"Name"}
-            type={"text"}
-            endContent={
-              <UserIcon className="pointer-events-none flex-shrink-0 text-2xl text-default-400" />
-            }
-            isInvalid={errors.name?.message ? true : false}
-            errorMessage={errors.name?.message}
-            placeholder="Please enter your name"
-          />
+          <InputWrapper isLoading={!isReady}>
+            <Input
+              {...register("name")}
+              {...InputGeneralConfig}
+              label={"Name"}
+              type={"text"}
+              endContent={
+                <UserIcon className="pointer-events-none flex-shrink-0 text-2xl text-default-400" />
+              }
+              isInvalid={errors.name?.message ? true : false}
+              errorMessage={errors.name?.message}
+              placeholder="Please enter your name"
+              defaultValue={session?.user.name}
+            />
+          </InputWrapper>
 
           {/* Email Input */}
-          <Input
-            {...register("email")}
-            {...InputGeneralConfig}
-            label={"E-Mail"}
-            type={"e-mail"}
-            endContent={
-              <AtSign className="pointer-events-none flex-shrink-0 text-2xl text-default-400" />
-            }
-            isInvalid={errors.email?.message ? true : false}
-            errorMessage={errors.email?.message}
-            placeholder="Please enter your e-mail"
-          />
+          <InputWrapper isLoading={!isReady}>
+            <Input
+              {...register("email")}
+              {...InputGeneralConfig}
+              label={"E-Mail"}
+              type={"e-mail"}
+              endContent={
+                <AtSign className="pointer-events-none flex-shrink-0 text-2xl text-default-400" />
+              }
+              isInvalid={errors.email?.message ? true : false}
+              errorMessage={errors.email?.message}
+              placeholder="Please enter your e-mail"
+              defaultValue={session?.user.email}
+            />
+          </InputWrapper>
 
           {/* ThemeSwitch */}
-          {/* <ThemeSwitcher setUserThemeSelection={setUserThemeSelection} /> */}
-          <ThemeSwitch isLoading={!mounted} theme={theme} setTheme={setTheme} />
+          <ThemeSwitch isLoading={!isReady} theme={theme} setTheme={setTheme} />
+
           {/* Save Button */}
           <Button
             isLoading={isLoading}
@@ -130,11 +146,10 @@ function UserForm(props) {
 
 export default UserForm;
 
-/*
-  <h1>User Session Infos</h1>
-  <div>{status}</div>
-  <div>{session?.user?.id}</div>
-  <div>{session?.user?.name}</div>
-  <div>{session?.user?.email}</div>
-  <div>{session?.user?.role}</div>
-*/
+function InputWrapper({ isLoading, children }) {
+  return (
+    <div className="flex h-[5rem] flex-col justify-center gap-y-[0.5rem]">
+      {isLoading ? <InputSkeleton /> : children}
+    </div>
+  );
+}
