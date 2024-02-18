@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
 import { connectMongoDB } from "@/lib/mongodb";
 import UserAddress from "@/models/UserAddress";
-import { getSession } from "next-auth/react";
+import getSessionUserInfo from "@/lib/getSessionUserInfo";
 
 export async function POST(req) {
   try {
-    const user = await getSession()?.user;
+    const user = await getSessionUserInfo();
 
     await connectMongoDB();
     const address = await req.json();
@@ -18,10 +18,10 @@ export async function POST(req) {
 
     return NextResponse.json(
       {
+        time: new Date().toLocaleString(),
         message: "User address has been created.",
         user,
         address,
-        time: new Date().toLocaleString(),
       },
       { status: 200 },
     );
