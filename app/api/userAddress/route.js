@@ -1,13 +1,11 @@
 import { NextResponse } from "next/server";
-import { currentUser } from "@/lib/currentUser";
 import { connectMongoDB } from "@/lib/mongodb";
 import UserAddress from "@/models/UserAddress";
+import { getSession } from "next-auth/react";
 
 export async function POST(req) {
   try {
-    const user = await currentUser();
-
-    if (!user) throw new Error("Unauthorized user. Please login or signup.");
+    const user = await getSession()?.user;
 
     await connectMongoDB();
     const address = await req.json();

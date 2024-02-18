@@ -3,34 +3,34 @@
 import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
 import { Input, Button } from "@nextui-org/react";
-import FormHeader from "../components/FormHeader";
-import FormWrapper from "../components/FormWrapper";
+import FormHeader from "../../components/FormHeader";
+import FormWrapper from "../../components/FormWrapper";
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { useToast } from "@/components/ui/use-toast";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Form from "../components/Form";
+import Form from "../../components/Form";
 import * as z from "zod";
 import {
   EmailIncorrectText,
   NameIncorrectText,
-} from "../components/PasswordRules";
+} from "../../components/PasswordRules";
 
-import { InputGeneralConfig } from "../components/InputGeneralConfig";
+import { InputGeneralConfig } from "../../components/InputGeneralConfig";
 
 import { AtSign, LogOut, Save, User as UserIcon } from "lucide-react";
 
-import FormAdditionWrapper from "../components/FormAdditionWrapper";
-import ButtonBack from "../components/ButtonBack";
-import ThemeSwitch from "../components/ThemeSwitch";
+import FormAdditionWrapper from "../../components/FormAdditionWrapper";
+import ButtonBack from "../../components/ButtonBack";
+import ThemeSwitch from "../../components/ThemeSwitch";
 
 const NameEmailSchema = z.object({
   name: z.string().min(6, { message: NameIncorrectText }),
   email: z.string().email(EmailIncorrectText).toLowerCase(),
 });
 
-function UserForm() {
+function UserForm(props) {
   const { data: session, status } = useSession();
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
@@ -56,6 +56,7 @@ function UserForm() {
   const onSubmitHandler = async ({ name, email }) => {
     console.log("Theme Selection:", theme);
     console.log("Name, Email:", name, email);
+    console.log("Session User: ", session.user);
   };
 
   return (
