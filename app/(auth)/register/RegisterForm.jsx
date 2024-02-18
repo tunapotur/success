@@ -30,6 +30,8 @@ import {
   NameIncorrectText,
 } from "../components/PasswordRules";
 
+import isUserEmailExists from "@/lib/isUserEmailExists";
+
 const { between, digit, lowercase, uppercase, special, noWhiteSpace } =
   PasswordRules;
 
@@ -79,18 +81,7 @@ function RegisterForm() {
     try {
       setIsLoading(true);
 
-      // Checking if user exists
-      const resUserExists = await fetch("/api/userExists", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      });
-
-      const { user } = await resUserExists.json();
-
-      if (user) {
+      if (await isUserEmailExists(email)) {
         toast({
           variant: "destructive",
           title: "User already exists.",
