@@ -1,32 +1,36 @@
 "use client";
 
-import { signOut } from "next-auth/react";
-import { useSession } from "next-auth/react";
-import { Input, Button } from "@nextui-org/react";
-import FormHeader from "../../components/FormHeader";
-import FormWrapper from "../../components/FormWrapper";
+import { useSession, signOut } from "next-auth/react";
+import { Input, Button, Select, SelectItem } from "@nextui-org/react";
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
-import { useToast } from "@/components/ui/use-toast";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Form from "../../components/Form";
 import * as z from "zod";
+import {
+  AtSign,
+  LogOut,
+  Save,
+  User as UserIcon,
+  FileSliders,
+  Sun,
+  Moon,
+} from "lucide-react";
+
+import { useToast } from "@/components/ui/use-toast";
+import FormHeader from "../../components/FormHeader";
+import FormWrapper from "../../components/FormWrapper";
+import Form from "../../components/Form";
 import {
   EmailIncorrectText,
   NameIncorrectText,
 } from "../../components/PasswordRules";
-
 import { InputGeneralConfig } from "../../components/InputGeneralConfig";
-
-import { AtSign, LogOut, Save, User as UserIcon } from "lucide-react";
-
 import FormAdditionWrapper from "../../components/FormAdditionWrapper";
 import ButtonBack from "../../components/ButtonBack";
-import ThemeSwitch from "../../components/ThemeSwitch";
-import InputSkeleton from "../../components/InputSkeleton";
+import InputWrapper from "../../components/InputWrapper";
 
-const NameEmailSchema = z.object({
+const NameEmailThemeSchema = z.object({
   name: z.string().min(6, { message: NameIncorrectText }),
   email: z.string().email(EmailIncorrectText).toLowerCase(),
 });
@@ -37,31 +41,35 @@ function UserForm() {
   const { toast } = useToast();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const [isReady, setIsReady] = useState(false);
-  const user = session?.user;
 
   const {
     register,
     handleSubmit,
-    watch,
     setValue,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(NameEmailSchema),
+    resolver: zodResolver(NameEmailThemeSchema),
   });
 
-  // Theme bilgilerinin localstorage'den alınması bekleniyor
-  useEffect(() => {
-    setMounted(true);
-    setIsReady(() => status === "authenticated" && mounted === true);
-  }, [status, mounted]);
-
+  // Waiting for Theme and Status(authentication) information
   useEffect(() => {
     if (status === "authenticated") {
       setValue("name", session?.user.name);
       setValue("email", session?.user.email);
+      setMounted(true);
     }
   }, [status, setValue, session?.user.name, session?.user.email]);
+
+  const items = [
+    { key: "system", name: "System", icon: <FileSliders /> },
+    { key: "light", name: "Light", icon: <Sun /> },
+    { key: "dark", name: "Dark", icon: <Moon /> },
+  ];
+
+  function selectTheme(e) {
+    const themeSelection = e.target.value;
+    setTheme(themeSelection);
+  }
 
   const onSubmitHandler = async ({ name, email }) => {
     console.log("Name: ", name);
@@ -75,7 +83,7 @@ function UserForm() {
       <FormWrapper>
         <Form onSubmit={handleSubmit(onSubmitHandler)}>
           {/* Name Input */}
-          <InputWrapper isLoading={!isReady}>
+          <InputWrapper isLoading={!mounted}>
             <Input
               {...register("name")}
               {...InputGeneralConfig}
@@ -92,7 +100,7 @@ function UserForm() {
           </InputWrapper>
 
           {/* Email Input */}
-          <InputWrapper isLoading={!isReady}>
+          <InputWrapper isLoading={!mounted}>
             <Input
               {...register("email")}
               {...InputGeneralConfig}
@@ -108,8 +116,30 @@ function UserForm() {
             />
           </InputWrapper>
 
-          {/* ThemeSwitch */}
-          <ThemeSwitch isLoading={!isReady} theme={theme} setTheme={setTheme} />
+          <InputWrapper isLoading={!mounted}>
+            <Select
+              {...InputGeneralConfig}
+              label="Theme Selection"
+              placeholder="Select a theme"
+              onChange={selectTheme}
+              selectionMode="single"
+              items={items}
+              isLoading={isLoading}
+              isDisabled={isLoading}
+              defaultSelectedKeys={[theme]}
+            >
+              {(item) => (
+                <SelectItem
+                  key={item.key}
+                  value={item.name}
+                  className="capitalize"
+                  startContent={item.icon}
+                >
+                  {item.name}
+                </SelectItem>
+              )}
+            </Select>
+          </InputWrapper>
 
           {/* Save Button */}
           <Button
@@ -145,11 +175,3 @@ function UserForm() {
 }
 
 export default UserForm;
-
-function InputWrapper({ isLoading, children }) {
-  return (
-    <div className="flex h-[5rem] flex-col justify-center gap-y-[0.5rem]">
-      {isLoading ? <InputSkeleton /> : children}
-    </div>
-  );
-}
