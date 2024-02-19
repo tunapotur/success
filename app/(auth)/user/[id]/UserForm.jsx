@@ -56,9 +56,17 @@ function UserForm() {
     if (status === "authenticated") {
       setValue("name", session?.user.name);
       setValue("email", session?.user.email);
+      setTheme(session?.user.theme);
       setMounted(true);
     }
-  }, [status, setValue, session?.user.name, session?.user.email]);
+  }, [
+    status,
+    setValue,
+    setTheme,
+    session?.user.name,
+    session?.user.email,
+    session?.user.theme,
+  ]);
 
   const items = [
     { key: "system", name: "System", icon: <FileSliders /> },
@@ -67,7 +75,6 @@ function UserForm() {
   ];
 
   const onSubmitHandler = async ({ name, email }) => {
-    console.log("User Id: ", session?.user.id);
     console.log("Name: ", name);
     console.log("Email: ", email);
     console.log("Theme: ", theme);

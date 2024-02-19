@@ -41,6 +41,7 @@ export const authOptions = {
         email: userByEmail.email,
         name: userByEmail.name,
         role: userByEmail.role,
+        theme: userByEmail.theme,
       };
       return token;
     },
