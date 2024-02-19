@@ -155,6 +155,7 @@ function RegisterForm() {
             isRequired={true}
             label={"Name"}
             type={"text"}
+            isDisabled={isLoading}
             endContent={
               <User className="pointer-events-none flex-shrink-0 text-2xl text-default-400" />
             }
@@ -170,6 +171,7 @@ function RegisterForm() {
             isRequired={true}
             label={"E-Mail"}
             type={"e-mail"}
+            isDisabled={isLoading}
             endContent={
               <AtSign className="pointer-events-none flex-shrink-0 text-2xl text-default-400" />
             }
@@ -186,6 +188,7 @@ function RegisterForm() {
               isRequired={true}
               label={"Password"}
               type={isVisible ? "text" : "password"}
+              isDisabled={isLoading}
               endContent={
                 <button
                   className="focus:outline-none"
@@ -222,7 +225,7 @@ function RegisterForm() {
 
         {/* Back button */}
         <FormAdditionWrapper>
-          <ButtonBack />
+          <ButtonBack isDisabled={isLoading} />
         </FormAdditionWrapper>
       </FormWrapper>
     </>

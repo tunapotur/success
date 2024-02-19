@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@nextui-org/react";
 import { MoveLeft } from "lucide-react";
 
-function ButtonBack() {
+function ButtonBack({ isDisabled }) {
   const router = useRouter();
   return (
     <Button
@@ -12,6 +12,7 @@ function ButtonBack() {
       radius="sm"
       variant="bordered"
       startContent={<MoveLeft />}
+      isDisabled={isDisabled}
       onClick={() => router.back()}
     >
       Back

@@ -103,6 +103,7 @@ function LoginForm() {
             isRequired={true}
             label={"E-Mail"}
             type={"e-mail"}
+            isDisabled={isLoading}
             endContent={
               <AtSign className="pointer-events-none flex-shrink-0 text-2xl text-default-400" />
             }
@@ -117,6 +118,7 @@ function LoginForm() {
             isRequired={true}
             label={"Password"}
             type={isVisible ? "text" : "password"}
+            isDisabled={isLoading}
             endContent={
               <button
                 className="focus:outline-none"
@@ -159,13 +161,14 @@ function LoginForm() {
               size="lg"
               radius="sm"
               startContent={<UserRoundPlus />}
+              isDisabled={isLoading}
               className="bg-success-600 text-primary-foreground dark:bg-success-400"
               onClick={() => router.push("/register")}
             >
               Register
             </Button>
           </div>
-          <ButtonBack />
+          <ButtonBack isDisabled={isLoading} />
         </FormAdditionWrapper>
       </FormWrapper>
     </>

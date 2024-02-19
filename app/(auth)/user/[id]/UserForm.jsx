@@ -30,17 +30,17 @@ import FormAdditionWrapper from "../../components/FormAdditionWrapper";
 import ButtonBack from "../../components/ButtonBack";
 import InputWrapper from "../../components/InputWrapper";
 
-const NameEmailThemeSchema = z.object({
-  name: z.string().min(6, { message: NameIncorrectText }),
-  email: z.string().email(EmailIncorrectText).toLowerCase(),
-});
-
 function UserForm() {
   const { data: session, status } = useSession();
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+
+  const NameEmailThemeSchema = z.object({
+    name: z.string().min(6, { message: NameIncorrectText }),
+    email: z.string().email(EmailIncorrectText).toLowerCase(),
+  });
 
   const {
     register,
@@ -66,11 +66,6 @@ function UserForm() {
     { key: "dark", name: "Dark", icon: <Moon /> },
   ];
 
-  function selectTheme(e) {
-    const themeSelection = e.target.value;
-    setTheme(themeSelection);
-  }
-
   const onSubmitHandler = async ({ name, email }) => {
     console.log("Name: ", name);
     console.log("Email: ", email);
@@ -89,6 +84,7 @@ function UserForm() {
               {...InputGeneralConfig}
               label={"Name"}
               type={"text"}
+              isDisabled={isLoading || !mounted}
               endContent={
                 <UserIcon className="pointer-events-none flex-shrink-0 text-2xl text-default-400" />
               }
@@ -106,6 +102,7 @@ function UserForm() {
               {...InputGeneralConfig}
               label={"E-Mail"}
               type={"e-mail"}
+              isDisabled={isLoading || !mounted}
               endContent={
                 <AtSign className="pointer-events-none flex-shrink-0 text-2xl text-default-400" />
               }
@@ -121,11 +118,11 @@ function UserForm() {
               {...InputGeneralConfig}
               label="Theme Selection"
               placeholder="Select a theme"
-              onChange={selectTheme}
+              onChange={(e) => setTheme(e.target.value)}
               selectionMode="single"
               items={items}
-              isLoading={isLoading}
-              isDisabled={isLoading}
+              isLoading={isLoading || !mounted}
+              isDisabled={isLoading || !mounted}
               defaultSelectedKeys={[theme]}
             >
               {(item) => (
@@ -143,7 +140,7 @@ function UserForm() {
 
           {/* Save Button */}
           <Button
-            isLoading={isLoading}
+            isDisabled={isLoading || !mounted}
             type="submit"
             size="lg"
             radius="sm"
@@ -163,11 +160,12 @@ function UserForm() {
             startContent={<LogOut />}
             className="bg-danger-600 text-primary-foreground dark:bg-danger-300"
             onClick={() => signOut({ callbackUrl: "/" })}
+            isDisabled={isLoading || !mounted}
           >
             Logout
           </Button>
 
-          <ButtonBack />
+          <ButtonBack isDisabled={isLoading || !mounted} />
         </FormAdditionWrapper>
       </FormWrapper>
     </>
