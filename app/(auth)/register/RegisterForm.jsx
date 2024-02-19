@@ -93,7 +93,7 @@ function RegisterForm() {
       }
 
       // Creating new user
-      const res = await fetch("api/register", {
+      const response = await fetch("api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -106,7 +106,7 @@ function RegisterForm() {
       });
 
       // If new user created successfully. Sign in new user.
-      if (res.ok) {
+      if (response.ok) {
         await signIn("credentials", {
           email,
           password,
@@ -128,7 +128,7 @@ function RegisterForm() {
         toast({
           variant: "destructive",
           title: "Registration Error",
-          description: "User registration failed.",
+          description: "User registration failed",
           action: <ToastAction altText="Try again">Try again</ToastAction>,
         });
       }

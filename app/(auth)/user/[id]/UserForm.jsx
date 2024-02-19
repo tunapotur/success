@@ -10,7 +10,6 @@ import * as z from "zod";
 import {
   AtSign,
   LogOut,
-  Save,
   User as UserIcon,
   FileSliders,
   Sun,
@@ -29,6 +28,8 @@ import { InputGeneralConfig } from "../../components/InputGeneralConfig";
 import FormAdditionWrapper from "../../components/FormAdditionWrapper";
 import ButtonBack from "../../components/ButtonBack";
 import InputWrapper from "../../components/InputWrapper";
+import isUserEmailExists from "@/lib/isUserEmailExists";
+import { ToastAction } from "@radix-ui/react-toast";
 
 function UserForm() {
   const { data: session, status } = useSession();
@@ -52,6 +53,7 @@ function UserForm() {
   });
 
   // Waiting for Theme and Status(authentication) information
+  // useEffect controls form element values when changes
   useEffect(() => {
     if (status === "authenticated") {
       setValue("name", session?.user.name);
@@ -75,9 +77,63 @@ function UserForm() {
   ];
 
   const onSubmitHandler = async ({ name, email }) => {
-    console.log("Name: ", name);
-    console.log("Email: ", email);
-    console.log("Theme: ", theme);
+    try {
+      setIsLoading(true);
+      // if (await isUserEmailExists(email)) {
+      //   toast({
+      //     variant: "destructive",
+      //     title: "User already exists.",
+      //     description: `There is an account on ${email}`,
+      //     action: <ToastAction altText="Try again">Try again</ToastAction>,
+      //   });
+      //   setIsLoading(false);
+      //   return;
+      // }
+
+      // Updating user datas
+      const response = await fetch("/api/register/", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          newName: name,
+          newEmail: email,
+          newTheme: theme,
+        }),
+      });
+
+      const result = await response.json();
+      console.log(result);
+
+      // If new user update successfully
+      if (response.ok) {
+        toast({
+          variant: "destructive",
+          className:
+            "bg-success-600 text-primary-foreground dark:bg-success-400 border-0",
+          description: "User update successful 👍",
+          duration: 1000,
+        });
+        setIsLoading(false);
+      } else {
+        setIsLoading(false);
+        toast({
+          variant: "destructive",
+          title: "User Update Error",
+          description: "User updating failed",
+          action: <ToastAction altText="Try again">Try again</ToastAction>,
+        });
+      }
+    } catch (error) {
+      setIsLoading(false);
+      toast({
+        variant: "destructive",
+        title: "User Update Error",
+        description: `User updating failed${error}`,
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      });
+    }
   };
 
   return (
@@ -148,15 +204,14 @@ function UserForm() {
 
           {/* Save Button */}
           <Button
-            isDisabled={isLoading || !mounted}
+            isLoading={isLoading || !mounted}
             type="submit"
             size="lg"
             radius="sm"
             variant="shadow"
             className="bg-primary text-primary-foreground"
-            startContent={<Save />}
           >
-            {isLoading ? "Please Wait" : "Save"}
+            {isLoading ? "Please Wait" : "Update"}
           </Button>
         </Form>
 

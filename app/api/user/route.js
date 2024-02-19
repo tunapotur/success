@@ -26,7 +26,7 @@ export async function GET(req) {
   }
 }
 
-export async function PUT(req) {
+export async function PUT(req, _) {
   try {
     const session = await getServerSessionInfo();
 
@@ -37,14 +37,23 @@ export async function PUT(req) {
     const userId = session?.user.id;
     const { newName, newEmail, newTheme } = await req.json();
 
-    await User.findByIdAndUpdate(userId, {
-      name: newName,
-      email: newEmail,
-      theme: newTheme,
-    });
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      {
+        name: newName,
+        email: newEmail,
+        theme: newTheme,
+      },
+      //TODO silinebilir dikkat. gereksiz gibi duruyor.
+      { new: true },
+    );
 
     return NextResponse.json(
-      { time: new Date().toLocaleString(), message: "Success updated" },
+      {
+        time: new Date().toLocaleString(),
+        message: "Success updated",
+        updatedUser,
+      },
       { status: 200 },
     );
   } catch (error) {
