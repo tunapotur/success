@@ -67,6 +67,7 @@ function UserForm() {
   ];
 
   const onSubmitHandler = async ({ name, email }) => {
+    console.log("User Id: ", session?.user.id);
     console.log("Name: ", name);
     console.log("Email: ", email);
     console.log("Theme: ", theme);
