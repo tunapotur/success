@@ -36,6 +36,7 @@ function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+// TODO lib'e at
 function isEmpty(obj) {
   for (const prop in obj) {
     if (Object.hasOwn(obj, prop)) {
@@ -96,6 +97,11 @@ function UserForm() {
     { key: "light", name: "Light", icon: <Sun /> },
     { key: "dark", name: "Dark", icon: <Moon /> },
   ];
+
+  /* TODO Theme Select düzenlenecek
+  Theme select seçimi yapılınca devreye girmeyecek
+  Theme update olunca devreye girecek(değişim olacak)
+   */
 
   const onSubmitHandler = async ({ name, email }) => {
     try {
