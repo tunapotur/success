@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 
 import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 import FormHeader from "../components/FormHeader";
 import FormWrapper from "../components/FormWrapper";
 import Form from "../components/Form";
@@ -29,7 +30,6 @@ import FormAdditionWrapper from "../components/FormAdditionWrapper";
 import ButtonBack from "../components/ButtonBack";
 import InputWrapper from "../components/InputWrapper";
 import isUserEmailExists from "@/lib/isUserEmailExists";
-import { ToastAction } from "@radix-ui/react-toast";
 
 // TODO lib'e at
 function capitalizeFirstLetter(string) {
@@ -46,9 +46,9 @@ function isEmpty(obj) {
 }
 
 function UserForm() {
+  const { toast } = useToast();
   const { data: session, status } = useSession();
   const [isLoading, setIsLoading] = useState(false);
-  const { toast } = useToast();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [previousUserInfos, setPreviousUserInfos] = useState({});
@@ -111,11 +111,6 @@ function UserForm() {
               newUserInfos[key]),
         );
 
-      console.log("Previous User Infos: ", previousUserInfos);
-      console.log("New User Infos: ", newUserInfos);
-      console.log("Email: ", changedUserInfos?.email);
-      console.log("Changed Object: ", changedUserInfos);
-
       if (changedUserInfos?.newEmail)
         if (await isUserEmailExists(email)) {
           toast({
@@ -149,7 +144,6 @@ function UserForm() {
       });
 
       const result = await response.json();
-      console.log(result);
 
       // If new user update successfully
       if (response.ok) {
