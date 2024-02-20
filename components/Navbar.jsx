@@ -13,19 +13,17 @@ function Navbar() {
   const { data: session, status } = useSession();
   const pathname = usePathname();
 
-  const userUrl =
+  /*   const userUrl =
     status === "authenticated"
       ? slugify(session?.user?.email, {
           replacement: "_",
           remove: REGEX_SLUGIFY_EMAIL,
         })
-      : "";
+      : ""; */
 
   //Navbar Icons
   const Login = <NavbarIcon link={"login"} Icon={LogIn} />;
-  const UserProfile = (
-    <NavbarIcon link={`user/${userUrl}`} Icon={SquareUserRound} />
-  );
+  const UserProfile = <NavbarIcon link={`user`} Icon={SquareUserRound} />;
   const SuccessLogo = (
     <NavbarIcon link={"/"} Icon={GoalSkelaton} label={"Success"} />
   );

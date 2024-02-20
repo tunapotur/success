@@ -17,19 +17,24 @@ import {
 } from "lucide-react";
 
 import { useToast } from "@/components/ui/use-toast";
-import FormHeader from "../../components/FormHeader";
-import FormWrapper from "../../components/FormWrapper";
-import Form from "../../components/Form";
+import FormHeader from "../components/FormHeader";
+import FormWrapper from "../components/FormWrapper";
+import Form from "../components/Form";
 import {
   EmailIncorrectText,
   NameIncorrectText,
-} from "../../components/PasswordRules";
-import { InputGeneralConfig } from "../../components/InputGeneralConfig";
-import FormAdditionWrapper from "../../components/FormAdditionWrapper";
-import ButtonBack from "../../components/ButtonBack";
-import InputWrapper from "../../components/InputWrapper";
+} from "../components/FormErrorText";
+import { InputGeneralConfig } from "../components/InputGeneralConfig";
+import FormAdditionWrapper from "../components/FormAdditionWrapper";
+import ButtonBack from "../components/ButtonBack";
+import InputWrapper from "../components/InputWrapper";
 import isUserEmailExists from "@/lib/isUserEmailExists";
 import { ToastAction } from "@radix-ui/react-toast";
+
+// TODO lib'e at
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 function UserForm() {
   const { data: session, status } = useSession();
@@ -37,6 +42,7 @@ function UserForm() {
   const { toast } = useToast();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [previousUserInfos, setPreviousUserInfos] = useState({});
 
   const NameEmailThemeSchema = z.object({
     name: z.string().min(6, { message: NameIncorrectText }),
@@ -60,6 +66,11 @@ function UserForm() {
       setValue("email", session?.user.email);
       setTheme(session?.user.theme);
       setMounted(true);
+      setPreviousUserInfos({
+        name: session?.user.name,
+        email: session?.user.email,
+        theme: session?.user.theme,
+      });
     }
   }, [
     status,
@@ -68,6 +79,7 @@ function UserForm() {
     session?.user.name,
     session?.user.email,
     session?.user.theme,
+    setPreviousUserInfos,
   ]);
 
   const items = [
@@ -79,28 +91,41 @@ function UserForm() {
   const onSubmitHandler = async ({ name, email }) => {
     try {
       setIsLoading(true);
-      // if (await isUserEmailExists(email)) {
-      //   toast({
-      //     variant: "destructive",
-      //     title: "User already exists.",
-      //     description: `There is an account on ${email}`,
-      //     action: <ToastAction altText="Try again">Try again</ToastAction>,
-      //   });
-      //   setIsLoading(false);
-      //   return;
-      // }
+
+      const newUserInfos = { name, email, theme };
+      const changedUserInfos = {};
+      Object.keys(previousUserInfos)
+        .filter((key) => previousUserInfos[key] !== newUserInfos[key])
+        .map(
+          (key) =>
+            (changedUserInfos["new".concat(capitalizeFirstLetter(key))] =
+              newUserInfos[key]),
+        );
+
+      console.log("Previous User Infos: ", previousUserInfos);
+      console.log("New User Infos: ", newUserInfos);
+      console.log("Email: ", changedUserInfos?.email);
+      console.log("Changed Object: ", changedUserInfos);
+
+      if (changedUserInfos?.newEmail)
+        if (await isUserEmailExists(email)) {
+          toast({
+            variant: "destructive",
+            title: "User already exists.",
+            description: `There is an account on ${email}`,
+            action: <ToastAction altText="Try again">Try again</ToastAction>,
+          });
+          setIsLoading(false);
+          return;
+        }
 
       // Updating user datas
-      const response = await fetch("/api/register/", {
+      const response = await fetch("api/user", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          newName: name,
-          newEmail: email,
-          newTheme: theme,
-        }),
+        body: JSON.stringify(changedUserInfos),
       });
 
       const result = await response.json();
@@ -152,7 +177,11 @@ function UserForm() {
               endContent={
                 <UserIcon className="pointer-events-none flex-shrink-0 text-2xl text-default-400" />
               }
-              isInvalid={errors.name?.message ? true : false}
+              /* eğer mesaj varsa
+              önce mesajın değeri dönecek,
+              ilk ünlem mesaja önce boolen false yapacak
+              ikinci ünlem false'u true yapacak*/
+              isInvalid={!!errors.name?.message}
               errorMessage={errors.name?.message}
               placeholder="Please enter your name"
               defaultValue={session?.user.name}
@@ -170,7 +199,7 @@ function UserForm() {
               endContent={
                 <AtSign className="pointer-events-none flex-shrink-0 text-2xl text-default-400" />
               }
-              isInvalid={errors.email?.message ? true : false}
+              isInvalid={!!errors.email?.message}
               errorMessage={errors.email?.message}
               placeholder="Please enter your e-mail"
               defaultValue={session?.user.email}

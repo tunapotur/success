@@ -44,8 +44,6 @@ export async function PUT(req, _) {
         email: newEmail,
         theme: newTheme,
       },
-      //TODO silinebilir dikkat. gereksiz gibi duruyor.
-      { new: true },
     );
 
     return NextResponse.json(
