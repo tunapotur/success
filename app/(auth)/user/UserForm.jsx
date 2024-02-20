@@ -36,6 +36,15 @@ function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+function isEmpty(obj) {
+  for (const prop in obj) {
+    if (Object.hasOwn(obj, prop)) {
+      return false;
+    }
+  }
+  return true;
+}
+
 function UserForm() {
   const { data: session, status } = useSession();
   const [isLoading, setIsLoading] = useState(false);
@@ -118,6 +127,17 @@ function UserForm() {
           setIsLoading(false);
           return;
         }
+
+      if (isEmpty(changedUserInfos)) {
+        toast({
+          variant: "destructive",
+          title: "No changes",
+          description: `There is no information to update the user!`,
+          action: <ToastAction altText="Try again">Try again</ToastAction>,
+        });
+        setIsLoading(false);
+        return;
+      }
 
       // Updating user datas
       const response = await fetch("api/user", {
