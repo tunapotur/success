@@ -15,6 +15,8 @@ export async function GET(req) {
 
     const user = await User.findById(userId);
 
+    user.password = null;
+
     return NextResponse.json({ user }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
@@ -37,14 +39,13 @@ export async function PUT(req, _) {
     const userId = session?.user.id;
     const { newName, newEmail, newTheme } = await req.json();
 
-    const updatedUser = await User.findByIdAndUpdate(
-      userId,
-      {
-        name: newName,
-        email: newEmail,
-        theme: newTheme,
-      },
-    );
+    await User.findByIdAndUpdate(userId, {
+      name: newName,
+      email: newEmail,
+      theme: newTheme,
+    });
+
+    const updatedUser = await User.findById(userId);
 
     return NextResponse.json(
       {

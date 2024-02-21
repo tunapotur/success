@@ -55,7 +55,7 @@ const themeSelections = [
 const NameEmailThemeSchema = z.object({
   name: z.string().min(6, { message: NameIncorrectText }),
   email: z.string().email(EmailIncorrectText).toLowerCase(),
-  themeSelect: z.enum(themeSelections.map((item) => item.key)),
+  theme: z.enum(themeSelections.map((item) => item.key)),
 });
 
 function UserForm() {
@@ -75,19 +75,37 @@ function UserForm() {
     resolver: zodResolver(NameEmailThemeSchema),
   });
 
+  // TODO bu açıklamalar düzeltilecek
   // Waiting for Theme and Status(authentication) information
   // useEffect controls form element values when changes
   useEffect(() => {
+    async function fetchUser() {
+      const response = await fetch("api/user", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const { user } = await response.json();
+
+      setPreviousUserInfos({
+        name: user.name,
+        email: user.email,
+        theme: user.theme,
+      });
+    }
+    fetchUser();
+
     if (status === "authenticated") {
       setValue("name", session?.user.name);
       setValue("email", session?.user.email);
       setTheme(session?.user.theme);
       setMounted(true);
-      setPreviousUserInfos({
-        name: session?.user.name,
-        email: session?.user.email,
-        theme: session?.user.theme,
-      });
+      // TODO kullanıcı bilgilerini veri tabanından al. Session bilgisi sadece kullanıcı logon olunca çalışıyor
+      // TODO: veri tabanı kullanıcı bilgileri güncellenidğinde session güncelleniyor mu?
+
+      //TODO session işlemlerini sil
     }
   }, [
     status,
@@ -104,7 +122,7 @@ function UserForm() {
   Theme update olunca devreye girecek(değişim olacak)
    */
 
-  const onSubmitHandler2 = async ({ name, email }) => {
+  const onSubmitHandler = async ({ name, email, theme }) => {
     try {
       setIsLoading(true);
 
@@ -118,6 +136,7 @@ function UserForm() {
               newUserInfos[key]),
         );
 
+      // Email Exists Check
       if (changedUserInfos?.newEmail)
         if (await isUserEmailExists(email)) {
           toast({
@@ -130,6 +149,7 @@ function UserForm() {
           return;
         }
 
+      // No Changes Check
       if (isEmpty(changedUserInfos)) {
         toast({
           variant: "destructive",
@@ -152,6 +172,12 @@ function UserForm() {
 
       const result = await response.json();
 
+      setPreviousUserInfos({
+        name: result.updatedUser.name,
+        email: result.updatedUser.email,
+        theme: result.updatedUser.theme,
+      });
+
       // If new user update successfully
       if (response.ok) {
         toast({
@@ -161,6 +187,8 @@ function UserForm() {
           description: "User update successful 👍",
           duration: 1000,
         });
+
+        setTheme(theme);
         setIsLoading(false);
       } else {
         setIsLoading(false);
@@ -180,14 +208,6 @@ function UserForm() {
         action: <ToastAction altText="Try again">Try again</ToastAction>,
       });
     }
-  };
-
-  const onSubmitHandler = async (data) => {
-    alert(JSON.stringify(data));
-    console.log(
-      "Select Keys: ",
-      themeSelections.map((item) => item.key),
-    );
   };
 
   return (
@@ -253,7 +273,7 @@ function UserForm() {
 
           <InputWrapper isLoading={!mounted}>
             <Controller
-              name="themeSelect"
+              name="theme"
               render={({ field }) => (
                 <Select
                   {...field}
