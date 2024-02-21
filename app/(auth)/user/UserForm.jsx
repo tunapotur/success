@@ -4,7 +4,7 @@ import { useSession, signOut } from "next-auth/react";
 import { Input, Button, Select, SelectItem } from "@nextui-org/react";
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import {
@@ -46,6 +46,18 @@ function isEmpty(obj) {
   return true;
 }
 
+const themeSelections = [
+  { key: "system", name: "System", icon: <FileSliders /> },
+  { key: "light", name: "Light", icon: <Sun /> },
+  { key: "dark", name: "Dark", icon: <Moon /> },
+];
+
+const NameEmailThemeSchema = z.object({
+  name: z.string().min(6, { message: NameIncorrectText }),
+  email: z.string().email(EmailIncorrectText).toLowerCase(),
+  themeSelect: z.enum(themeSelections.map((item) => item.key)),
+});
+
 function UserForm() {
   const { toast } = useToast();
   const { data: session, status } = useSession();
@@ -54,16 +66,10 @@ function UserForm() {
   const [mounted, setMounted] = useState(false);
   const [previousUserInfos, setPreviousUserInfos] = useState({});
 
-  // TODO bunu UserForm'un dışına taşı
-  const NameEmailThemeSchema = z.object({
-    name: z.string().min(6, { message: NameIncorrectText }),
-    email: z.string().email(EmailIncorrectText).toLowerCase(),
-  });
-
   const {
-    register,
     handleSubmit,
     setValue,
+    control,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(NameEmailThemeSchema),
@@ -93,19 +99,12 @@ function UserForm() {
     setPreviousUserInfos,
   ]);
 
-  // TODO bunu UserForm'un dışına taşı
-  const items = [
-    { key: "system", name: "System", icon: <FileSliders /> },
-    { key: "light", name: "Light", icon: <Sun /> },
-    { key: "dark", name: "Dark", icon: <Moon /> },
-  ];
-
   /* TODO Theme Select düzenlenecek
   Theme select seçimi yapılınca devreye girmeyecek
   Theme update olunca devreye girecek(değişim olacak)
    */
 
-  const onSubmitHandler = async ({ name, email }) => {
+  const onSubmitHandler2 = async ({ name, email }) => {
     try {
       setIsLoading(true);
 
@@ -183,6 +182,14 @@ function UserForm() {
     }
   };
 
+  const onSubmitHandler = async (data) => {
+    alert(JSON.stringify(data));
+    console.log(
+      "Select Keys: ",
+      themeSelections.map((item) => item.key),
+    );
+  };
+
   return (
     <>
       <FormHeader header={"User"} />
@@ -190,46 +197,93 @@ function UserForm() {
         <Form onSubmit={handleSubmit(onSubmitHandler)}>
           {/* Name Input */}
           <InputWrapper isLoading={!mounted}>
-            <Input
-              {...register("name")}
-              {...InputGeneralConfig}
-              label={"Name"}
-              type={"text"}
-              isDisabled={isLoading || !mounted}
-              endContent={
-                <UserIcon className="pointer-events-none flex-shrink-0 text-2xl text-default-400" />
-              }
-              /* eğer mesaj varsa
-              önce mesajın değeri dönecek,
-              ilk ünlem mesaja önce boolen false yapacak
-              ikinci ünlem false'u true yapacak*/
-              isInvalid={!!errors.name?.message}
-              errorMessage={errors.name?.message}
-              placeholder="Please enter your name"
+            <Controller
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  {...InputGeneralConfig}
+                  label={"Name"}
+                  type={"text"}
+                  isDisabled={isLoading || !mounted}
+                  endContent={
+                    <UserIcon className="pointer-events-none flex-shrink-0 text-2xl text-default-400" />
+                  }
+                  /* eğer mesaj varsa
+                    önce mesajın değeri dönecek,
+                    ilk ünlem mesaja önce boolen false yapacak
+                    ikinci ünlem false'u true yapacak*/
+                  isInvalid={!!errors.name?.message}
+                  errorMessage={errors.name?.message}
+                  placeholder="Please enter your name"
+                  defaultValue={session?.user.name}
+                />
+              )}
+              name="name"
+              control={control}
               defaultValue={session?.user.name}
+              className=""
             />
           </InputWrapper>
 
           {/* Email Input */}
           <InputWrapper isLoading={!mounted}>
-            <Input
-              {...register("email")}
-              {...InputGeneralConfig}
-              label={"E-Mail"}
-              type={"e-mail"}
-              isDisabled={isLoading || !mounted}
-              endContent={
-                <AtSign className="pointer-events-none flex-shrink-0 text-2xl text-default-400" />
-              }
-              isInvalid={!!errors.email?.message}
-              errorMessage={errors.email?.message}
-              placeholder="Please enter your e-mail"
+            <Controller
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  {...InputGeneralConfig}
+                  label={"E-Mail"}
+                  type={"e-mail"}
+                  isDisabled={isLoading || !mounted}
+                  endContent={
+                    <AtSign className="pointer-events-none flex-shrink-0 text-2xl text-default-400" />
+                  }
+                  isInvalid={!!errors.email?.message}
+                  errorMessage={errors.email?.message}
+                  placeholder="Please enter your e-mail"
+                  defaultValue={session?.user.email}
+                />
+              )}
+              name="email"
+              control={control}
               defaultValue={session?.user.email}
+              className=""
             />
           </InputWrapper>
 
           <InputWrapper isLoading={!mounted}>
+            <Controller
+              name="themeSelect"
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  {...InputGeneralConfig}
+                  label="Theme Selection"
+                  placeholder="Select a theme"
+                  selectionMode="single"
+                  items={themeSelections}
+                  isLoading={isLoading || !mounted}
+                  isDisabled={isLoading || !mounted}
+                  defaultSelectedKeys={[theme]}
+                >
+                  {(item) => (
+                    <SelectItem
+                      key={item.key}
+                      value={item.name}
+                      className="capitalize"
+                      startContent={item.icon}
+                    >
+                      {item.name}
+                    </SelectItem>
+                  )}
+                </Select>
+              )}
+              control={control}
+              defaultValue={theme}
+            />
+            {/*             
             <Select
+            {...field}
               {...InputGeneralConfig}
               label="Theme Selection"
               placeholder="Select a theme"
@@ -250,7 +304,8 @@ function UserForm() {
                   {item.name}
                 </SelectItem>
               )}
-            </Select>
+            </Select> 
+            */}
           </InputWrapper>
 
           {/* Save Button */}
