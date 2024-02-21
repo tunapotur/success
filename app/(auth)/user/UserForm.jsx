@@ -54,6 +54,7 @@ function UserForm() {
   const [mounted, setMounted] = useState(false);
   const [previousUserInfos, setPreviousUserInfos] = useState({});
 
+  // TODO bunu UserForm'un dışına taşı
   const NameEmailThemeSchema = z.object({
     name: z.string().min(6, { message: NameIncorrectText }),
     email: z.string().email(EmailIncorrectText).toLowerCase(),
@@ -92,6 +93,7 @@ function UserForm() {
     setPreviousUserInfos,
   ]);
 
+  // TODO bunu UserForm'un dışına taşı
   const items = [
     { key: "system", name: "System", icon: <FileSliders /> },
     { key: "light", name: "Light", icon: <Sun /> },
