@@ -30,35 +30,7 @@ import FormAdditionWrapper from "../components/FormAdditionWrapper";
 import ButtonBack from "../components/ButtonBack";
 import InputWrapper from "../components/InputWrapper";
 import isUserEmailExists from "@/lib/isUserEmailExists";
-
-// TODO lib'e at
-function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-// TODO lib'e at
-function isEmpty(obj) {
-  for (const prop in obj) {
-    if (Object.hasOwn(obj, prop)) {
-      return false;
-    }
-  }
-  return true;
-}
-
-// TODO lib'e at
-function objectDiff(baseObj, dataObj) {
-  const diffObj = {};
-
-  Object.keys(baseObj)
-    .filter((key) => baseObj[key] !== dataObj[key])
-    .map(
-      (key) =>
-        (diffObj["new".concat(capitalizeFirstLetter(key))] = dataObj[key]),
-    );
-
-  return isEmpty(diffObj) ? null : diffObj;
-}
+import objectDiff from "@/lib/objectDiff";
 
 const themeSelections = [
   { key: "system", name: "System", icon: <FileSliders /> },
