@@ -59,13 +59,19 @@ function UserForm() {
     resolver: zodResolver(NameEmailThemeSchema),
   });
 
+  // These derived variable populate inputs for initial
+  /**If input default value gets null,
+   * REACT gives us error.
+   * So we give empty string("") in first render */
   const prevUserName = previousUserInfos ? previousUserInfos.name : "";
   const prevUserEmail = previousUserInfos ? previousUserInfos.email : "";
 
+  // It's for theme usage
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  // It's get user information and set previous user info
   useEffect(() => {
     const fetchUser = async () => {
       const response = await fetch("api/user", {
@@ -87,6 +93,7 @@ function UserForm() {
     fetchUser();
   }, []);
 
+  //These db values populates inputs for initial
   useEffect(() => {
     setValue("name", previousUserInfos?.name);
     setValue("email", previousUserInfos?.email);
@@ -134,16 +141,16 @@ function UserForm() {
         body: JSON.stringify(changedUserInfos),
       });
 
-      const result = await response.json();
-
-      setPreviousUserInfos({
-        name: result.updatedUser.name,
-        email: result.updatedUser.email,
-        theme: result.updatedUser.theme,
-      });
-
       // If new user update successfully
       if (response.ok) {
+        const result = await response.json();
+
+        setPreviousUserInfos({
+          name: result.updatedUser.name,
+          email: result.updatedUser.email,
+          theme: result.updatedUser.theme,
+        });
+
         toast({
           variant: "destructive",
           className:
@@ -154,6 +161,8 @@ function UserForm() {
 
         setTheme(theme);
         setIsLoading(false);
+
+        if (changedUserInfos?.newEmail) signOut({ callbackUrl: "/" });
       } else {
         setIsLoading(false);
         toast({
@@ -277,8 +286,8 @@ function UserForm() {
           </Button>
         </Form>
 
-        {/* Back button */}
         <FormAdditionWrapper>
+          {/* LogOut button */}
           <Button
             size="lg"
             radius="sm"
@@ -290,6 +299,7 @@ function UserForm() {
             Logout
           </Button>
 
+          {/* Back button */}
           <ButtonBack isDisabled={isLoading || !mounted} />
         </FormAdditionWrapper>
       </FormWrapper>
