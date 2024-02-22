@@ -1,6 +1,6 @@
 "use client";
 
-import { useSession, signOut } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import { Input, Button, Select, SelectItem } from "@nextui-org/react";
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
@@ -74,12 +74,10 @@ const NameEmailThemeSchema = z.object({
 
 function UserForm() {
   const { toast } = useToast();
-  const { data: session, status } = useSession();
   const [isLoading, setIsLoading] = useState(false);
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const [previousUserInfos, setPreviousUserInfos] = useState("");
-
+  const [previousUserInfos, setPreviousUserInfos] = useState(null);
   const {
     handleSubmit,
     setValue,
@@ -89,11 +87,15 @@ function UserForm() {
     resolver: zodResolver(NameEmailThemeSchema),
   });
 
-  // TODO bu açıklamalar düzeltilecek
-  // Waiting for Theme and Status(authentication) information
-  // useEffect controls form element values when changes
+  const prevUserName = previousUserInfos ? previousUserInfos.name : "";
+  const prevUserEmail = previousUserInfos ? previousUserInfos.email : "";
+
   useEffect(() => {
-    async function fetchUser() {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const fetchUser = async () => {
       const response = await fetch("api/user", {
         method: "GET",
         headers: {
@@ -108,33 +110,16 @@ function UserForm() {
         email: user.email,
         theme: user.theme,
       });
-    }
+    };
+
     fetchUser();
+  }, []);
 
-    if (status === "authenticated") {
-      setValue("name", session?.user.name);
-      setValue("email", session?.user.email);
-      setTheme(session?.user.theme);
-      setMounted(true);
-      // TODO kullanıcı bilgilerini veri tabanından al. Session bilgisi sadece kullanıcı logon olunca çalışıyor
-      // TODO: veri tabanı kullanıcı bilgileri güncellenidğinde session güncelleniyor mu?
-
-      //TODO session işlemlerini sil
-    }
-  }, [
-    status,
-    setValue,
-    setTheme,
-    session?.user.name,
-    session?.user.email,
-    session?.user.theme,
-    setPreviousUserInfos,
-  ]);
-
-  /* TODO Theme Select düzenlenecek
-  Theme select seçimi yapılınca devreye girmeyecek
-  Theme update olunca devreye girecek(değişim olacak)
-   */
+  useEffect(() => {
+    setValue("name", previousUserInfos?.name);
+    setValue("email", previousUserInfos?.email);
+    setValue("theme", previousUserInfos?.theme);
+  }, [setValue, previousUserInfos]);
 
   const onSubmitHandler = async ({ name, email, theme }) => {
     try {
@@ -242,13 +227,11 @@ function UserForm() {
                   isInvalid={!!errors.name?.message}
                   errorMessage={errors.name?.message}
                   placeholder="Please enter your name"
-                  defaultValue={session?.user.name}
                 />
               )}
               name="name"
               control={control}
-              defaultValue={session?.user.name}
-              className=""
+              defaultValue={prevUserName}
             />
           </InputWrapper>
 
@@ -268,16 +251,15 @@ function UserForm() {
                   isInvalid={!!errors.email?.message}
                   errorMessage={errors.email?.message}
                   placeholder="Please enter your e-mail"
-                  defaultValue={session?.user.email}
                 />
               )}
               name="email"
               control={control}
-              defaultValue={session?.user.email}
-              className=""
+              defaultValue={prevUserEmail}
             />
           </InputWrapper>
 
+          {/* Theme Switch */}
           <InputWrapper isLoading={!mounted}>
             <Controller
               name="theme"
@@ -308,31 +290,6 @@ function UserForm() {
               control={control}
               defaultValue={theme}
             />
-            {/*             
-            <Select
-            {...field}
-              {...InputGeneralConfig}
-              label="Theme Selection"
-              placeholder="Select a theme"
-              onChange={(e) => setTheme(e.target.value)}
-              selectionMode="single"
-              items={items}
-              isLoading={isLoading || !mounted}
-              isDisabled={isLoading || !mounted}
-              defaultSelectedKeys={[theme]}
-            >
-              {(item) => (
-                <SelectItem
-                  key={item.key}
-                  value={item.name}
-                  className="capitalize"
-                  startContent={item.icon}
-                >
-                  {item.name}
-                </SelectItem>
-              )}
-            </Select> 
-            */}
           </InputWrapper>
 
           {/* Save Button */}
