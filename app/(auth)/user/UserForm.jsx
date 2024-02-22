@@ -46,6 +46,20 @@ function isEmpty(obj) {
   return true;
 }
 
+// TODO lib'e at
+function objectDiff(baseObj, dataObj) {
+  const diffObj = {};
+
+  Object.keys(baseObj)
+    .filter((key) => baseObj[key] !== dataObj[key])
+    .map(
+      (key) =>
+        (diffObj["new".concat(capitalizeFirstLetter(key))] = dataObj[key]),
+    );
+
+  return isEmpty(diffObj) ? null : diffObj;
+}
+
 const themeSelections = [
   { key: "system", name: "System", icon: <FileSliders /> },
   { key: "light", name: "Light", icon: <Sun /> },
@@ -64,7 +78,7 @@ function UserForm() {
   const [isLoading, setIsLoading] = useState(false);
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const [previousUserInfos, setPreviousUserInfos] = useState({});
+  const [previousUserInfos, setPreviousUserInfos] = useState("");
 
   const {
     handleSubmit,
@@ -127,14 +141,19 @@ function UserForm() {
       setIsLoading(true);
 
       const newUserInfos = { name, email, theme };
-      const changedUserInfos = {};
-      Object.keys(previousUserInfos)
-        .filter((key) => previousUserInfos[key] !== newUserInfos[key])
-        .map(
-          (key) =>
-            (changedUserInfos["new".concat(capitalizeFirstLetter(key))] =
-              newUserInfos[key]),
-        );
+      const changedUserInfos = objectDiff(previousUserInfos, newUserInfos);
+
+      // No Changes Check
+      if (!changedUserInfos) {
+        toast({
+          variant: "destructive",
+          title: "No changes",
+          description: `There is no information to update the user!`,
+          action: <ToastAction altText="Try again">Try again</ToastAction>,
+        });
+        setIsLoading(false);
+        return;
+      }
 
       // Email Exists Check
       if (changedUserInfos?.newEmail)
@@ -148,18 +167,6 @@ function UserForm() {
           setIsLoading(false);
           return;
         }
-
-      // No Changes Check
-      if (isEmpty(changedUserInfos)) {
-        toast({
-          variant: "destructive",
-          title: "No changes",
-          description: `There is no information to update the user!`,
-          action: <ToastAction altText="Try again">Try again</ToastAction>,
-        });
-        setIsLoading(false);
-        return;
-      }
 
       // Updating user datas
       const response = await fetch("api/user", {
