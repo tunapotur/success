@@ -34,7 +34,7 @@ import isUserEmailExists from "@/lib/isUserEmailExists";
 
 const { between, digit, lowercase, uppercase, special, noWhiteSpace } =
   PasswordRules;
-
+// TODO name ve email kontrolü yok
 export const RegisterFormDataSchema = z.object({
   name: z.string().min(6, { message: NameIncorrectText }),
   email: z.string().email(EmailIncorrectText).toLowerCase(),
