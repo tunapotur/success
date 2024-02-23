@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Button, Input } from "@nextui-org/react";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import { useForm } from "react-hook-form";
+import { useTheme } from "next-themes";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
@@ -39,6 +40,7 @@ const LoginFormDataSchema = z.object({
 function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const { setTheme } = useTheme();
   const { toast } = useToast();
   const router = useRouter();
   const {
@@ -71,11 +73,6 @@ function LoginForm() {
       }
 
       // signIn_result ok operation
-
-      /**
-       *  TODO:burada veri tabanından "userprofiles" tablosuna bak,
-       ** eğer ==> userprofilse.themes bilgisi varsa ThemeProvider'a yönlendir
-       */
       toast({
         variant: "destructive",
         className:
@@ -83,6 +80,18 @@ function LoginForm() {
         description: "Logged in successfully 👍",
         duration: 1000,
       });
+
+      const response = await fetch("api/user", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const { user } = await response.json();
+
+      setTheme(user.theme);
+
       router.refresh();
       router.push("/");
       setIsLoading(false);

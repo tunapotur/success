@@ -47,7 +47,7 @@ const NameEmailThemeSchema = z.object({
 function UserForm() {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const { setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [previousUserInfos, setPreviousUserInfos] = useState(null);
   const {
@@ -65,6 +65,7 @@ function UserForm() {
    * So we give empty string("") in first render */
   const prevUserName = previousUserInfos ? previousUserInfos.name : "";
   const prevUserEmail = previousUserInfos ? previousUserInfos.email : "";
+  const prevUserTheme = previousUserInfos ? previousUserInfos.theme : "system";
 
   // It's for theme usage
   useEffect(() => {
@@ -254,7 +255,7 @@ function UserForm() {
                   items={themeSelections}
                   isLoading={isLoading || !mounted}
                   isDisabled={isLoading || !mounted}
-                  defaultSelectedKeys={[theme]}
+                  defaultSelectedKeys={[prevUserTheme]}
                 >
                   {(item) => (
                     <SelectItem
@@ -269,7 +270,7 @@ function UserForm() {
                 </Select>
               )}
               control={control}
-              defaultValue={theme}
+              defaultValue={prevUserTheme}
             />
           </InputWrapper>
 
