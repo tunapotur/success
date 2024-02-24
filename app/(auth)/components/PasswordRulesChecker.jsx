@@ -1,6 +1,6 @@
 import PasswordRules from "./PasswordRules";
 
-function PasswordRoulesChecker({ password }) {
+function PasswordRulesChecker({ password }) {
   return (
     <div className="ml-2 mt-2">
       <h3 className="mb-1 font-medium">Password must have at least</h3>
@@ -40,7 +40,7 @@ function RuleCheck({ regex, password, ruleText }) {
   );
 }
 
-export default PasswordRoulesChecker;
+export default PasswordRulesChecker;
 
 // const {
 //   between,

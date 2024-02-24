@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Button, Input } from "@nextui-org/react";
@@ -55,24 +55,25 @@ function LoginForm() {
   const onSubmitHandler = async ({ email, password }) => {
     try {
       setIsLoading(true);
-      const signIn_result = await signIn("credentials", {
+      const signInResult = await signIn("credentials", {
         email,
         password,
         redirect: false,
       });
 
-      if (signIn_result?.error) {
+      // SignIn error
+      if (signInResult?.error) {
         toast({
           variant: "destructive",
           title: "Login Error",
-          description: signIn_result?.error,
+          description: signInResult?.error,
           action: <ToastAction altText="Try again">Try again</ToastAction>,
         });
         setIsLoading(false);
         return;
       }
 
-      // signIn_result ok operation
+      // SignIn Result OK operation
       toast({
         variant: "destructive",
         className:
@@ -116,7 +117,7 @@ function LoginForm() {
             endContent={
               <AtSign className="pointer-events-none flex-shrink-0 text-2xl text-default-400" />
             }
-            isInvalid={errors.email?.message ? true : false}
+            isInvalid={!!errors.email?.message}
             errorMessage={errors.email?.message}
             placeholder="Please enter your e-mail"
           />
@@ -141,7 +142,7 @@ function LoginForm() {
                 )}
               </button>
             }
-            isInvalid={errors.password?.message ? true : false}
+            isInvalid={!!errors.password?.message}
             errorMessage={errors.password?.message}
             placeholder="Please enter your password"
           />

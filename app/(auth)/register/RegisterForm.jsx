@@ -23,7 +23,7 @@ import { User } from "lucide-react";
 import { InputGeneralConfig } from "../components/InputGeneralConfig";
 import FormAdditionWrapper from "../components/FormAdditionWrapper";
 
-import PasswordRoulesChecker from "../components/PasswordRoulesChecker";
+import PasswordRulesChecker from "../components/PasswordRulesChecker";
 import PasswordRules from "../components/PasswordRules";
 import {
   EmailIncorrectText,
@@ -159,7 +159,7 @@ function RegisterForm() {
             endContent={
               <User className="pointer-events-none flex-shrink-0 text-2xl text-default-400" />
             }
-            isInvalid={errors.name?.message ? true : false}
+            isInvalid={!!errors.name?.message}
             errorMessage={errors.name?.message}
             placeholder="Please enter your name"
           />
@@ -175,7 +175,7 @@ function RegisterForm() {
             endContent={
               <AtSign className="pointer-events-none flex-shrink-0 text-2xl text-default-400" />
             }
-            isInvalid={errors.email?.message ? true : false}
+            isInvalid={!!errors.email?.message}
             errorMessage={errors.email?.message}
             placeholder="Please enter your e-mail"
           />
@@ -202,12 +202,12 @@ function RegisterForm() {
                   )}
                 </button>
               }
-              isInvalid={errors.password?.message ? true : false}
+              isInvalid={!!errors.password?.message}
               errorMessage={errors.password?.message}
               placeholder="Please enter your password"
             />
             {/* Password Rules */}
-            <PasswordRoulesChecker password={watch("password")} />
+            <PasswordRulesChecker password={watch("password")} />
           </div>
 
           {/* Sign Up Button */}

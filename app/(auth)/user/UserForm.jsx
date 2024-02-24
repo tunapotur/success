@@ -47,7 +47,7 @@ const NameEmailThemeSchema = z.object({
 function UserForm() {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
-  const { setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [previousUserInfos, setPreviousUserInfos] = useState(null);
   const {
@@ -58,14 +58,6 @@ function UserForm() {
   } = useForm({
     resolver: zodResolver(NameEmailThemeSchema),
   });
-
-  // These derived variable populate inputs for initial
-  /**If input default value gets null,
-   * REACT gives us error.
-   * So we give empty string("") in first render */
-  const prevUserName = previousUserInfos ? previousUserInfos.name : "";
-  const prevUserEmail = previousUserInfos ? previousUserInfos.email : "";
-  const prevUserTheme = previousUserInfos ? previousUserInfos.theme : "system";
 
   // It's for theme usage
   useEffect(() => {
@@ -133,7 +125,7 @@ function UserForm() {
           return;
         }
 
-      // Updating user datas
+      // Updating user data
       const response = await fetch("api/user", {
         method: "PUT",
         headers: {
@@ -163,7 +155,7 @@ function UserForm() {
         setTheme(theme);
         setIsLoading(false);
 
-        if (changedUserInfos?.newEmail) signOut({ callbackUrl: "/" });
+        if (changedUserInfos?.newEmail) await signOut({ callbackUrl: "/" });
       } else {
         setIsLoading(false);
         toast({
@@ -202,10 +194,14 @@ function UserForm() {
                   endContent={
                     <UserIcon className="pointer-events-none flex-shrink-0 text-2xl text-default-400" />
                   }
-                  /* eğer mesaj varsa
-                    önce mesajın değeri dönecek,
-                    ilk ünlem mesaja önce boolen false yapacak
-                    ikinci ünlem false'u true yapacak*/
+                  /* If the error message doesn't exist,
+                  the error message turns undefined.
+                  First, not operator(!) makes an undefined value to be true.
+                  Second not operator(!) makes true to be false.
+                  (!!undefined = false)
+                  If an error message exists, this equation is calculated true.
+                  (!!"Error message" = true)
+                   */
                   isInvalid={!!errors.name?.message}
                   errorMessage={errors.name?.message}
                   placeholder="Please enter your name"
@@ -213,7 +209,9 @@ function UserForm() {
               )}
               name="name"
               control={control}
-              defaultValue={prevUserName}
+              /**If input default value gets null, REACT gives us error.
+               * So we give empty string("") in first render then input value*/
+              defaultValue={previousUserInfos ? previousUserInfos?.name : ""}
             />
           </InputWrapper>
 
@@ -237,7 +235,7 @@ function UserForm() {
               )}
               name="email"
               control={control}
-              defaultValue={prevUserEmail}
+              defaultValue={previousUserInfos ? previousUserInfos?.email : ""}
             />
           </InputWrapper>
 
@@ -255,7 +253,7 @@ function UserForm() {
                   items={themeSelections}
                   isLoading={isLoading || !mounted}
                   isDisabled={isLoading || !mounted}
-                  defaultSelectedKeys={[prevUserTheme]}
+                  defaultSelectedKeys={[theme]}
                 >
                   {(item) => (
                     <SelectItem
@@ -270,7 +268,7 @@ function UserForm() {
                 </Select>
               )}
               control={control}
-              defaultValue={prevUserTheme}
+              defaultValue={theme}
             />
           </InputWrapper>
 
