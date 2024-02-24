@@ -13,7 +13,8 @@ const items = [
   { key: "dark", name: "Dark", icon: <Moon /> },
 ];
 
-// TODO: Bu anında Theme değiştiren switch. Gerekirse kaldırılacak.
+/*This is instantly switch.
+It's change theme instantly on localhost*/
 const ThemeSwitcher = ({ setUserThemeSelection }) => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
