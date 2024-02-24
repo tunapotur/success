@@ -35,17 +35,17 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <NextUIProvider>
             <NextThemeProvider>
-              <div className="flex flex-col items-center">
-                <div className="h-screen w-full sm:w-[40rem]">
-                  <main className="h-[calc(100%-theme(space.20))] overflow-y-auto p-4">
-                    {children}
-                    <div className="mt-8"></div>
-                  </main>
+              <div className="static flex h-screen flex-col items-center sm:w-[40rem]">
+                <main className="w-full overflow-y-auto p-4">
+                  {children}
+                  <div className="mt-8"></div>
+                </main>
 
-                  <div className="h-20 w-full">
-                    <Navbar />
-                  </div>
-                </div>
+                <Navbar
+                  style={
+                    "rounded-lg flex h-[5.25rem] w-[94%] flex-row items-center justify-around fixed bottom-3 border-2 border-foreground backdrop-blur-md shadow-xl"
+                  }
+                />
               </div>
             </NextThemeProvider>
           </NextUIProvider>

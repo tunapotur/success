@@ -8,7 +8,7 @@ import { Skeleton } from "@nextui-org/react";
 import { LogIn, SquareUserRound, PlusSquare } from "lucide-react";
 import GoalSkelaton from "./GoalSkelatonSvg";
 
-function Navbar() {
+function Navbar({ style }) {
   const { data: session, status } = useSession();
   const pathname = usePathname();
 
@@ -37,7 +37,7 @@ import { REGEX_SLUGIFY_EMAIL } from "@/data/constants";
   );
 
   return (
-    <nav className="flex h-full flex-row items-center justify-around">
+    <nav className={style}>
       {pathname === "/" || pathname.includes("/success/") ? (
         <>
           {status === "unauthenticated" ? Login : UserProfile}
