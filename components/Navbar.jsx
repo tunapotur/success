@@ -31,7 +31,7 @@ import { REGEX_SLUGIFY_EMAIL } from "@/data/constants";
   );
   const AddSuccess = (
     <NavbarIcon
-      link={status === "unauthenticated" ? "login" : "addsuccess"}
+      link={status === "unauthenticated" ? "login" : "addSuccess"}
       Icon={PlusSquare}
     />
   );
