@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { connectMongoDB } from "@/lib/mongodb";
-import UserAddress from "@/models/UserAddress";
+import Success from "@/models/Success";
 import getServerSessionInfo from "@/lib/getServerSessionInfo";
 
 export async function POST(req) {
@@ -12,27 +12,29 @@ export async function POST(req) {
     const user = session?.user;
 
     await connectMongoDB();
-    const address = await req.json();
+    const success = await req.json();
+    const { date, header, detail } = success;
 
-    await UserAddress.create({
-      name: address.name,
-      description: address.description,
+    await Success.create({
+      date,
+      header,
+      detail,
       userId: user.id,
     });
 
     return NextResponse.json(
       {
         time: new Date().toLocaleString(),
-        message: "User address has been created.",
+        message: "Success has been created.",
+        success,
         user,
-        address,
       },
       { status: 200 },
     );
   } catch (error) {
     return NextResponse.json(
       {
-        message: `An error occurred while creating the user profile. ${error.message}`,
+        message: `An error occurred while creating the success. ${error.message}`,
       },
       { status: 500 },
     );

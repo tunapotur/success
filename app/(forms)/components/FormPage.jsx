@@ -1,9 +1,8 @@
-import { getServerSession } from "next-auth";
+import getServerSessionInfo from "@/lib/getServerSessionInfo";
 import { redirect } from "next/navigation";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 async function FormPage({ children, isUserToBeLogin = true }) {
-  const session = await getServerSession(authOptions);
+  const session = await getServerSessionInfo();
 
   if (!session && isUserToBeLogin) redirect("/");
 

@@ -168,7 +168,7 @@ function UserForm() {
       toast({
         variant: "destructive",
         title: "User Update Error",
-        description: `User updating failed${error}`,
+        description: `User updating failed. ${error}`,
         action: <ToastAction altText="Try again">Try again</ToastAction>,
       });
     }

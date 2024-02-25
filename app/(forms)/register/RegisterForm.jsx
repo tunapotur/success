@@ -137,7 +137,7 @@ function RegisterForm() {
       toast({
         variant: "destructive",
         title: "Registration Error",
-        description: `User registration failed.${error}`,
+        description: `User registration failed. ${error}`,
         action: <ToastAction altText="Try again">Try again</ToastAction>,
       });
     }
