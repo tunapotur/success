@@ -11,11 +11,13 @@ import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import { InputGeneralConfig } from "../components/InputGeneralConfig";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 
 function AddSuccessForm() {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const { register, handleSubmit } = useForm();
+  const router = useRouter();
 
   const onSubmitHandler = async ({ date, header, detail }) => {
     try {
@@ -56,6 +58,7 @@ function AddSuccessForm() {
         });
       }
     } catch (error) {
+      setIsLoading(false);
       toast({
         variant: "destructive",
         title: "Success Creation Error",
