@@ -2,18 +2,12 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-import RegisterForm from "./RegisterForm";
-
-async function Register() {
+async function FormPage({ children, isUserToBeLogin = true }) {
   const session = await getServerSession(authOptions);
 
-  if (session) redirect("/");
+  if (!session && isUserToBeLogin) redirect("/");
 
-  return (
-    <>
-      <RegisterForm />
-    </>
-  );
+  return <>{children}</>;
 }
 
-export default Register;
+export default FormPage;

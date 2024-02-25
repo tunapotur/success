@@ -37,14 +37,13 @@ export default function RootLayout({ children }) {
             <NextThemeProvider>
               <div className="flex flex-col items-center">
                 <div className="static flex h-screen w-full flex-col items-center sm:block sm:w-[40rem]">
-                  <main className="w-full overflow-y-auto p-4">
+                  <main className="w-full overflow-y-auto p-[1rem]">
                     {children}
-                    <div className="mt-8"></div>
                   </main>
 
                   <Navbar
                     style={
-                      "rounded-lg flex h-[5.25rem] w-[96%] sm:w-[40rem] flex-row items-center justify-around fixed bottom-[1.5rem] border backdrop-blur-sm backdrop-contrast-125"
+                      "rounded-lg flex h-[5.25rem] w-[calc(100%-2rem)] sm:w-[40rem] flex-row items-center justify-around fixed bottom-[1.5rem] border backdrop-blur-sm backdrop-contrast-125"
                     }
                   />
                 </div>
@@ -57,3 +56,5 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
+
+// <main className="h-[calc(100%-theme(space.20))] overflow-y-auto p-4">
