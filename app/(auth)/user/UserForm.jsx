@@ -59,11 +59,6 @@ function UserForm() {
     resolver: zodResolver(NameEmailThemeSchema),
   });
 
-  // It's for theme usage
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   // It's get user information and set previous user info
   useEffect(() => {
     const fetchUser = async () => {
@@ -88,9 +83,13 @@ function UserForm() {
 
   //These db values populates inputs for initial
   useEffect(() => {
-    setValue("name", previousUserInfos?.name);
-    setValue("email", previousUserInfos?.email);
-    setValue("theme", previousUserInfos?.theme);
+    if (previousUserInfos) {
+      setValue("name", previousUserInfos?.name);
+      setValue("email", previousUserInfos?.email);
+      setValue("theme", previousUserInfos?.theme);
+      // It's for theme usage
+      setMounted(true);
+    }
   }, [setValue, previousUserInfos]);
 
   const onSubmitHandler = async ({ name, email, theme }) => {
