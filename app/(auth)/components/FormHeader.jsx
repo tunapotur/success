@@ -1,6 +1,6 @@
 function FormHeader({ header }) {
   return (
-    <h1 className="mb-[2rem] text-4xl font-bold capitalize tracking-wider text-primary drop-shadow-sm">
+    <h1 className="mb-[2rem] text-4xl font-bold capitalize tracking-wide text-primary underline drop-shadow-sm">
       {header}
     </h1>
   );
