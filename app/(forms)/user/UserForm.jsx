@@ -1,5 +1,4 @@
 "use client";
-// bla bal
 
 import { signOut } from "next-auth/react";
 import { Input, Button, Select, SelectItem } from "@nextui-org/react";
