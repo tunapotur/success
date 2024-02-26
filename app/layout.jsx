@@ -19,13 +19,15 @@ export const fontSans = FontSans({
 
 export const metadata = {
   title: "Success",
-  description: "Save all your succeses in one place",
+  description: "Save all your success in one place",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head />
+      <head>
+        <title></title>
+      </head>
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",

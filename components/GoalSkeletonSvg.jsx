@@ -1,6 +1,6 @@
 // https://react-svgr.com/playground/
 
-const GoalSkelaton = (props) => (
+const GoalSkeleton = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={682.667}
@@ -13,4 +13,4 @@ const GoalSkelaton = (props) => (
   </svg>
 );
 
-export default GoalSkelaton;
+export default GoalSkeleton;

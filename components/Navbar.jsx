@@ -4,30 +4,22 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { Skeleton } from "@nextui-org/react";
-
-import { LogIn, SquareUserRound, PlusSquare } from "lucide-react";
-import GoalSkelaton from "./GoalSkelatonSvg";
+import { LogIn, PlusSquare, UserCog, BookUser } from "lucide-react";
+import GoalSkeleton from "./GoalSkeletonSvg";
 
 function Navbar({ style }) {
   const { data: session, status } = useSession();
   const pathname = usePathname();
 
-  /*   
-  import slugify from "slugify";
-import { REGEX_SLUGIFY_EMAIL } from "@/data/constants";
   const userUrl =
-    status === "authenticated"
-      ? slugify(session?.user?.email, {
-          replacement: "_",
-          remove: REGEX_SLUGIFY_EMAIL,
-        })
-      : ""; */
+    status === "authenticated" ? `userSuccessList/${session?.user?.id}` : "";
 
   //Navbar Icons
   const Login = <NavbarIcon link={"login"} Icon={LogIn} />;
-  const UserProfile = <NavbarIcon link={`user`} Icon={SquareUserRound} />;
+  const UserProfile = <NavbarIcon link={`user`} Icon={UserCog} />;
+  const UserSuccessList = <NavbarIcon link={userUrl} Icon={BookUser} />;
   const SuccessLogo = (
-    <NavbarIcon link={"/"} Icon={GoalSkelaton} label={"Success"} />
+    <NavbarIcon link={"/"} Icon={GoalSkeleton} label={"Success"} />
   );
   const AddSuccess = (
     <NavbarIcon
@@ -40,7 +32,7 @@ import { REGEX_SLUGIFY_EMAIL } from "@/data/constants";
     <nav className={style}>
       {pathname === "/" || pathname.includes("/success/") ? (
         <>
-          {status === "unauthenticated" ? Login : UserProfile}
+          {status === "unauthenticated" ? Login : UserSuccessList}
           {SuccessLogo}
           {AddSuccess}
         </>
@@ -50,6 +42,35 @@ import { REGEX_SLUGIFY_EMAIL } from "@/data/constants";
     </nav>
   );
 }
+
+/*
+      {status === "unauthenticated" && (
+        <>
+          <Login />
+          <SuccessLogo />
+          <AddSuccess />
+        </>
+      )}
+      {status === "authenticated" && (
+        <>
+          <UserSuccessList />
+          <SuccessLogo />
+          <AddSuccess />
+        </>
+      )}
+*/
+
+/*
+      {pathname === "/" || pathname.includes("/success/") ? (
+        <>
+          {status === "unauthenticated" ? Login : UserSuccessList}
+          {SuccessLogo}
+          {AddSuccess}
+        </>
+      ) : (
+        <>{SuccessLogo}</>
+      )}
+ */
 
 function NavbarIcon({ link, Icon, label }) {
   const { status } = useSession();
@@ -70,3 +91,14 @@ function NavbarIcon({ link, Icon, label }) {
 }
 
 export default Navbar;
+
+/*
+import slugify from "slugify";
+import { REGEX_SLUGIFY_EMAIL } from "@/data/constants";
+
+slugify(session?.user?.email, {
+          replacement: "_",
+          remove: REGEX_SLUGIFY_EMAIL,
+        })
+
+* */
