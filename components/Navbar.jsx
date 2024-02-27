@@ -6,62 +6,106 @@ import { useSession } from "next-auth/react";
 import { Skeleton } from "@nextui-org/react";
 
 import { LogIn, SquareUserRound, PlusSquare, BookUser } from "lucide-react";
-import GoalSkelaton from "./GoalSkelatonSvg";
+import GoalSkeleton from "./GoalSkeletonSvg";
 
 function Navbar({ style }) {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const pathname = usePathname();
-
-  //Navbar Icons
-  const Login = () => <NavbarIcon link={"/login"} Icon={LogIn} />;
-  const UserProfile = () => <NavbarIcon link={`/user`} Icon={SquareUserRound} />;
-  const UserSuccessList = () => <NavbarIcon link={`/successList/${session?.user?.id}`} Icon={BookUser} />;
-  const SuccessLogo = () =>
-    <NavbarIcon link={"/"} Icon={GoalSkelaton} label={"Success"} />
-  ;
-  const AddSuccess = () =>
-    <NavbarIcon
-      link={status === "unauthenticated" ? "/login" : "/addSuccess"}
-      Icon={PlusSquare}
-    />
-  ;
 
   return (
     <nav className={style}>
-      {status === "authenticated" &&
-        (<>
-          {pathname === "/" && <UserSuccessList />}
-          {pathname.includes("successList") && <UserProfile />}
-          <SuccessLogo />
-          {(pathname === "/" || pathname.includes("successList")) && <AddSuccess />}
-        </>)}
-      {status === "unauthenticated" &&
-        (<>
-          {pathname === "/" && <Login />}
-          <SuccessLogo />
-          {pathname === "/" && <AddSuccess />}
-        </>)}
+      {status === "loading" && (
+        <>
+          {pathname === "/" || pathname.includes("successList") ? (
+            <>
+              <NavIconSkeleton />
+              <NavIconSkeleton />
+              <NavIconSkeleton />
+            </>
+          ) : (
+            <NavIconSkeleton />
+          )}
+        </>
+      )}
+
+      {status === "unauthenticated" && (
+        <>
+          {pathname === "/" && (
+            <>
+              <Login />
+              <SuccessLogo />
+              <AddSuccess />
+            </>
+          )}
+          {(pathname.includes("register") || pathname.includes("login")) && (
+            <SuccessLogo />
+          )}
+        </>
+      )}
+
+      {status === "authenticated" && (
+        <>
+          {pathname === "/" && (
+            <>
+              <UserSuccessList />
+              <SuccessLogo />
+              <AddSuccess />
+            </>
+          )}
+          {pathname.includes("successList") && (
+            <>
+              <UserProfile />
+              <SuccessLogo />
+              <AddSuccess />
+            </>
+          )}
+          {(pathname.includes("user") || pathname.includes("addSuccess")) && (
+            <SuccessLogo />
+          )}
+        </>
+      )}
     </nav>
   );
 }
 
 function NavbarIcon({ link, Icon, label }) {
-  const { status } = useSession();
-
   return (
     <Link className="flex flex-col items-center justify-center" href={link}>
-      {status === "loading" ? (
-        <Skeleton className="h-[3rem] w-[3rem] rounded-lg" />
-      ) : (
-        <>
-          {!label && <Icon strokeWidth={1} className={"h-[3rem] w-[3rem]"} />}
-          {label && <Icon className={"h-[2.5rem] w-[2.5rem]"} />}
-          {label && <div className="text-[0.75rem] leading-none">{label}</div>}
-        </>
-      )}
+      <>
+        {!label && <Icon strokeWidth={1} className={"h-[3rem] w-[3rem]"} />}
+        {label && <Icon className={"h-[2.5rem] w-[2.5rem]"} />}
+        {label && <div className="text-[0.75rem] leading-none">{label}</div>}
+      </>
     </Link>
   );
 }
+
+//Navbar Icons
+const Login = () => <NavbarIcon link={"/login"} Icon={LogIn} />;
+const UserProfile = () => <NavbarIcon link={`/user`} Icon={SquareUserRound} />;
+const UserSuccessList = () => {
+  const { data: session } = useSession();
+  return (
+    <NavbarIcon link={`/successList/${session?.user?.id}`} Icon={BookUser} />
+  );
+};
+const SuccessLogo = () => (
+  <NavbarIcon link={"/"} Icon={GoalSkeleton} label={"Success"} />
+);
+const AddSuccess = () => {
+  const { status } = useSession();
+  return (
+    <NavbarIcon
+      link={status === "unauthenticated" ? "/login" : "/addSuccess"}
+      Icon={PlusSquare}
+    />
+  );
+};
+const NavIconSkeleton = () => (
+  <Skeleton className="h-[3rem] w-[3rem] rounded-lg" />
+);
+
+export default Navbar;
 
 /*
 import slugify from "slugify";
@@ -97,5 +141,3 @@ const userUrl =
         </>
       )}
 */
-
-export default Navbar;
