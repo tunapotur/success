@@ -44,8 +44,8 @@ module.exports = {
   },
   noWhiteSpace: {
     key: 7,
-    regex: /(?!^[ ]*$)^\S+$/,
-    text: "Password must have at least no space character",
+    regex: /(?!^ *$)^\S+$/,
+    text: "Password must have no space character",
     textShort: "no space character",
   },
   all_without_noWhiteSpace: {

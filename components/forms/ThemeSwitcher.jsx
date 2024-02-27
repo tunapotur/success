@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { Select, SelectItem } from "@nextui-org/react";
 import { FileSliders, Sun, Moon } from "lucide-react";
-import { InputGeneralConfig } from "@/app/(auth)/components/InputGeneralConfig";
-import InputSkeleton from "@/app/(auth)/components/InputSkeleton";
+import { InputGeneralConfig } from "@/app/(auth)/forms/InputGeneralConfig";
+import InputSkeleton from "@/app/(auth)/forms/InputSkeleton";
 
 const items = [
   { key: "system", name: "System", icon: <FileSliders /> },

@@ -17,17 +17,17 @@ import {
 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
-import FormHeader from "../components/FormHeader";
-import FormWrapper from "../components/FormWrapper";
-import Form from "../components/Form";
+import FormHeader from "@/components/forms/FormHeader";
+import FormWrapper from "@/components/forms/FormWrapper";
+import Form from "@/components/forms/Form";
 import {
   EmailIncorrectText,
   NameIncorrectText,
-} from "../components/FormErrorText";
-import { InputGeneralConfig } from "../components/InputGeneralConfig";
-import FormAdditionWrapper from "../components/FormAdditionWrapper";
-import ButtonBack from "../components/ButtonBack";
-import InputWrapper from "../components/InputWrapper";
+} from "@/components/forms/FormErrorText";
+import { InputGeneralConfig } from "@/components/forms/InputGeneralConfig";
+import FormAdditionWrapper from "@/components/forms/FormAdditionWrapper";
+import ButtonBack from "@/components/forms/ButtonBack";
+import InputWrapper from "@/components/forms/InputWrapper";
 import isUserEmailExists from "@/lib/isUserEmailExists";
 import objectDiff from "@/lib/objectDiff";
 
