@@ -12,18 +12,18 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
 //Form Components
-import FormHeader from "../components/FormHeader";
+import FormHeader from "@/components/forms/FormHeader";
 import { UserRoundPlus } from "lucide-react";
-import FormWrapper from "../components/FormWrapper";
-import Form from "../components/Form";
-import ButtonBack from "../components/ButtonBack";
-import { EyeFilledIcon } from "../components/EyeFilledIcon";
-import { EyeSlashFilledIcon } from "../components/EyeSlashFilledIcon";
+import FormWrapper from "@/components/forms/FormWrapper";
+import Form from "@/components/forms/Form";
+import ButtonBack from "@/components/forms/ButtonBack";
+import { EyeFilledIcon } from "@/components/forms/EyeFilledIcon";
+import { EyeSlashFilledIcon } from "@/components/forms/EyeSlashFilledIcon";
 import { AtSign } from "lucide-react";
-import { InputGeneralConfig } from "../components/InputGeneralConfig";
-import FormAdditionWrapper from "../components/FormAdditionWrapper";
-import PasswordRules from "../components/PasswordRules";
-import { EmailIncorrectText } from "../components/FormErrorText";
+import { InputGeneralConfig } from "@/components/forms/InputGeneralConfig";
+import FormAdditionWrapper from "@/components/forms/FormAdditionWrapper";
+import PasswordRules from "@/components/forms/PasswordRules";
+import { EmailIncorrectText } from "@/components/forms/FormErrorText";
 
 const LoginFormDataSchema = z.object({
   email: z.string().email(EmailIncorrectText).toLowerCase(),

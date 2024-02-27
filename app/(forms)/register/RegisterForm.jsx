@@ -12,23 +12,23 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
 //Form Components
-import FormHeader from "../components/FormHeader";
-import FormWrapper from "../components/FormWrapper";
-import Form from "../components/Form";
-import ButtonBack from "../components/ButtonBack";
-import { EyeFilledIcon } from "../components/EyeFilledIcon";
-import { EyeSlashFilledIcon } from "../components/EyeSlashFilledIcon";
+import FormHeader from "@/components/forms/FormHeader";
+import FormWrapper from "@/components/forms/FormWrapper";
+import Form from "@/components/forms/Form";
+import ButtonBack from "@/components/forms/ButtonBack";
+import { EyeFilledIcon } from "@/components/forms/EyeFilledIcon";
+import { EyeSlashFilledIcon } from "@/components/forms/EyeSlashFilledIcon";
 import { AtSign } from "lucide-react";
 import { User } from "lucide-react";
-import { InputGeneralConfig } from "../components/InputGeneralConfig";
-import FormAdditionWrapper from "../components/FormAdditionWrapper";
+import { InputGeneralConfig } from "@/components/forms/InputGeneralConfig";
+import FormAdditionWrapper from "@/components/forms/FormAdditionWrapper";
 
-import PasswordRulesChecker from "../components/PasswordRulesChecker";
-import PasswordRules from "../components/PasswordRules";
+import PasswordRulesChecker from "@/components/forms/PasswordRulesChecker";
+import PasswordRules from "@/components/forms/PasswordRules";
 import {
   EmailIncorrectText,
   NameIncorrectText,
-} from "../components/FormErrorText";
+} from "@/components/forms/FormErrorText";
 
 import isUserEmailExists from "@/lib/isUserEmailExists";
 

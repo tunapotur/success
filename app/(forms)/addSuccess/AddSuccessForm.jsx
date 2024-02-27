@@ -1,15 +1,15 @@
 "use client";
 
-import FormHeader from "../components/FormHeader";
-import FormWrapper from "../components/FormWrapper";
-import Form from "../components/Form";
-import FormAdditionWrapper from "../components/FormAdditionWrapper";
-import ButtonBack from "../components/ButtonBack";
+import FormHeader from "@/components/forms/FormHeader";
+import FormWrapper from "@/components/forms/FormWrapper";
+import Form from "@/components/forms/Form";
+import FormAdditionWrapper from "@/components/forms/FormAdditionWrapper";
+import ButtonBack from "@/components/forms/ButtonBack";
 import { Input, Textarea, Button } from "@nextui-org/react";
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
-import { InputGeneralConfig } from "../components/InputGeneralConfig";
+import { InputGeneralConfig } from "@/components/forms/InputGeneralConfig";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 

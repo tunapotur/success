@@ -1,5 +1,5 @@
 import UserForm from "./UserForm";
-import FormPage from "../components/FormPage";
+import FormPage from "@/components/forms/FormPage";
 
 function User() {
   return (
