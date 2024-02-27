@@ -69,4 +69,16 @@ function NavbarIcon({ link, Icon, label }) {
   );
 }
 
+/*
+      {status === "loading" ? (
+        <Skeleton className="h-[3rem] w-[3rem] rounded-lg" />
+      ) : (
+        <>
+          {!label && <Icon strokeWidth={1} className={"h-[3rem] w-[3rem]"} />}
+          {label && <Icon className={"h-[2.5rem] w-[2.5rem]"} />}
+          {label && <div className="text-[0.75rem] leading-none">{label}</div>}
+        </>
+      )}
+*/
+
 export default Navbar;
