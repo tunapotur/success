@@ -86,7 +86,10 @@ const UserProfile = () => <NavbarIcon link={`/user`} Icon={SquareUserRound} />;
 const UserSuccessList = () => {
   const { data: session } = useSession();
   return (
-    <NavbarIcon link={`/successList/${session?.user?.id}`} Icon={BookUser} />
+    <NavbarIcon
+      link={`/userSuccessList/${session?.user?.id}`}
+      Icon={BookUser}
+    />
   );
 };
 const SuccessLogo = () => (
