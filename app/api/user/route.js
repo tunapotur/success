@@ -3,37 +3,44 @@ import { connectMongoDB } from "@/lib/mongodb";
 import User from "@/models/User";
 import getServerSessionInfo from "@/lib/getServerSessionInfo";
 
-export async function GET(req) {
+export async function GET() {
+  const session = await getServerSessionInfo();
+
+  if (!session) return NextResponse.json(
+    {
+      message: "Unauthorized user. Please login or signup."
+    },
+    { status: 401 }
+  );
+
   try {
-    const session = await getServerSessionInfo();
-
-    if (!session) throw new Error("Unauthorized user. Please login or signup.");
-
     await connectMongoDB();
 
-    const userId = session?.user.id;
-
-    const user = await User.findById(userId);
-
+    const user = await User.findById(session?.user.id);
     user.password = null;
 
     return NextResponse.json({ user }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       {
-        message: `An error occurred while updating the user profile. ${error.message}`,
+        message: `An error occurred while updating the user profile. ${error.message}`
       },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }
 
-export async function PUT(req, _) {
+export async function PUT(req) {
+  const session = await getServerSessionInfo();
+
+  if (!session) return NextResponse.json(
+    {
+      message: "Unauthorized user. Please login or signup."
+    },
+    { status: 401 }
+  );
+
   try {
-    const session = await getServerSessionInfo();
-
-    if (!session) throw new Error("Unauthorized user. Please login or signup.");
-
     await connectMongoDB();
 
     const userId = session?.user.id;
@@ -42,7 +49,7 @@ export async function PUT(req, _) {
     await User.findByIdAndUpdate(userId, {
       name: newName,
       email: newEmail,
-      theme: newTheme,
+      theme: newTheme
     });
 
     const updatedUser = await User.findById(userId);
@@ -51,16 +58,16 @@ export async function PUT(req, _) {
       {
         time: new Date().toLocaleString(),
         message: "Success updated",
-        updatedUser,
+        updatedUser
       },
-      { status: 200 },
+      { status: 200 }
     );
   } catch (error) {
     return NextResponse.json(
       {
-        message: `An error occurred while updating the user profile. ${error.message}`,
+        message: `An error occurred while updating the user profile. ${error.message}`
       },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }
