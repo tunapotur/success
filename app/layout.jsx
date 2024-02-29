@@ -39,7 +39,7 @@ export default function RootLayout({ children }) {
             <NextThemeProvider>
               <div className="flex flex-col items-center">
                 <div className="static flex h-screen w-full flex-col items-center sm:block sm:w-[40rem]">
-                  <main className="w-full overflow-y-auto p-[1rem]">
+                  <main className="w-full overflow-y-auto p-[1rem] pb-[10rem]">
                     {children}
                   </main>
 
