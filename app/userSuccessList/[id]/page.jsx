@@ -8,25 +8,20 @@
 // TODO: olmayan bir kulanıcı id'si url param olarak girilirse not found page dönecek
 // TODO: next: { revalidate: 0 }, parametresi nextjs'in fetch i cash'lemesi. bunun için const dosyasına belirli değerler girip tanımlanacak.
 
-import success from "@/models/Success";
+import SuccessCart from "@/components/SuccessCart";
+import { SUCCESS_LIST_REVALIDATE_DURATION } from "@/data/constants";
 
 export const dynamicParams = true;
 
-// Will revalidate every 1 moment
-// 60*60 = 3600 1 hour
-const revalidateDuration = 60;
-
-// http://localhost:3000/api/userSuccessList/65d305aef8a0af475dc21a76
-// http://localhost:3000/userSuccessList/65d305aef8a0af475dc21a76
 async function getUserSuccessList(userId) {
   const response = await fetch(
-    `http://localhost:3000/api/userSuccessList/${userId}`,
+    `${process.env.NEXTAUTH_URL}/api/userSuccessList/${userId}`,
     {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
-      next: { revalidate: revalidateDuration },
+      next: { revalidate: SUCCESS_LIST_REVALIDATE_DURATION },
     },
   );
 
@@ -46,25 +41,9 @@ async function UserSuccessList({ params }) {
       <div>User Success List</div>
       <div>
         {userSuccessList.map((success) => (
-          <Success key={success.id} success={success} />
+          <SuccessCart key={success.id} success={success} />
         ))}
       </div>
-    </>
-  );
-}
-
-function Success({ success }) {
-  const { id, date, header, detail, userId } = success;
-  return (
-    <>
-      <div>--------------------</div>
-      <div>{id}</div>
-      <div>{date}</div>
-      <div>{header}</div>
-      <div>{detail}</div>
-      <div>{userId}</div>
-      <div>--------------------</div>
-      <br />
     </>
   );
 }

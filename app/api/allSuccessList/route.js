@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { connectMongoDB } from "@/lib/mongodb";
 import Success from "@/models/Success";
+import mapSuccessData from "@/lib/mapSuccessData";
 
 export async function GET(request, context) {
   try {
@@ -8,15 +9,9 @@ export async function GET(request, context) {
 
     const data = await Success.find({});
 
-    const successList = data.map((success) => ({
-      id: success._id,
-      date: success.date,
-      header: success.header,
-      detail: success.detail,
-      userId: success.userId,
-    }));
+    const allSuccessList = mapSuccessData(data);
 
-    return NextResponse.json({ successList }, { status: 200 });
+    return NextResponse.json({ allSuccessList }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       {
