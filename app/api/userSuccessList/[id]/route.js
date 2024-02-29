@@ -6,9 +6,19 @@ export async function GET(request, context) {
   try {
     await connectMongoDB();
 
-    const userAllSuccess = await Success.find({ userId: context.params.id });
+    const data = await Success.find({
+      userId: context.params.id,
+    });
 
-    return NextResponse.json({ userAllSuccess }, { status: 200 });
+    const userSuccessList = data.map((success) => ({
+      id: success._id,
+      date: success.date,
+      header: success.header,
+      detail: success.detail,
+      userId: success.userId,
+    }));
+
+    return NextResponse.json({ userSuccessList }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       {
