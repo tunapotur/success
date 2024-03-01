@@ -8,6 +8,7 @@ const routIndexList = [
       { name: "Home", language: "en" },
       { name: "Ana Sayfa", language: "tr" },
     ],
+    authorization: ["user"],
   },
   {
     id: "0001",
@@ -18,16 +19,18 @@ const routIndexList = [
       { name: "Success", language: "en" },
       { name: "Başarı", language: "tr" },
     ],
+    authorization: ["user"],
   },
   {
     id: "0002",
     path: "userSuccessList",
     isId: true,
-    isAuthenticated: false,
+    isAuthenticated: true,
     text: [
       { name: "User Success List", language: "en" },
       { name: "Kullanıcı Başarı Listesi", language: "tr" },
     ],
+    authorization: ["user"],
   },
   {
     id: "0003",
@@ -38,6 +41,7 @@ const routIndexList = [
       { name: "Add Success", language: "en" },
       { name: "Başarı Ekle", language: "tr" },
     ],
+    authorization: ["user"],
   },
   {
     id: "0004",
@@ -48,6 +52,7 @@ const routIndexList = [
       { name: "Login", language: "en" },
       { name: "Giriş", language: "tr" },
     ],
+    authorization: ["user"],
   },
   {
     id: "0005",
@@ -58,16 +63,18 @@ const routIndexList = [
       { name: "Register", language: "en" },
       { name: "Kayıt", language: "tr" },
     ],
+    authorization: ["user"],
   },
   {
     id: "0006",
-    path: "user",
+    path: "editUser",
     isId: false,
     isAuthenticated: true,
     text: [
-      { name: "User", language: "en" },
-      { name: "Kullanıcı", language: "tr" },
+      { name: "Edit User", language: "en" },
+      { name: "Kullanıcı Düzenleme", language: "tr" },
     ],
+    authorization: ["user"],
   },
 ];
 

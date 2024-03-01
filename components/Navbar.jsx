@@ -30,14 +30,13 @@ function Navbar({ style }) {
 
       {status === "unauthenticated" && (
         <>
-          {pathname === "/" && (
+          {pathname === "/" ? (
             <>
               <Login />
               <SuccessLogo />
               <AddSuccess />
             </>
-          )}
-          {(pathname.includes("register") || pathname.includes("login")) && (
+          ) : (
             <SuccessLogo />
           )}
         </>
@@ -81,11 +80,14 @@ function NavbarIcon({ link, Icon, label }) {
 
 //Navbar Icons
 const Login = () => <NavbarIcon link={"/login"} Icon={LogIn} />;
+
 const UserProfile = () => (
   <NavbarIcon link={`/editUser`} Icon={SquareUserRound} />
 );
+
 const UserSuccessList = () => {
   const { data: session } = useSession();
+
   return (
     <NavbarIcon
       link={`/userSuccessList/${session?.user?.id}`}
@@ -93,11 +95,14 @@ const UserSuccessList = () => {
     />
   );
 };
+
 const SuccessLogo = () => (
   <NavbarIcon link={"/"} Icon={GoalSkeleton} label={"Success"} />
 );
+
 const AddSuccess = () => {
   const { status } = useSession();
+
   return (
     <NavbarIcon
       link={status === "unauthenticated" ? "/login" : "/addSuccess"}
@@ -105,6 +110,7 @@ const AddSuccess = () => {
     />
   );
 };
+
 const NavIconSkeleton = () => (
   <Skeleton className="h-[3rem] w-[3rem] rounded-lg" />
 );
