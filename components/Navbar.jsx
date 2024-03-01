@@ -16,7 +16,7 @@ function Navbar({ style }) {
     <nav className={style}>
       {status === "loading" && (
         <>
-          {pathname === "/" || pathname.includes("successList") ? (
+          {pathname === "/" || pathname.includes("userSuccessList") ? (
             <>
               <NavIconSkeleton />
               <NavIconSkeleton />
@@ -52,16 +52,15 @@ function Navbar({ style }) {
               <AddSuccess />
             </>
           )}
-          {pathname.includes("successList") && (
+          {pathname.includes("userSuccessList") && (
             <>
               <UserProfile />
               <SuccessLogo />
               <AddSuccess />
             </>
           )}
-          {(pathname.includes("user") || pathname.includes("addSuccess")) && (
-            <SuccessLogo />
-          )}
+          {(pathname.includes("editUser") ||
+            pathname.includes("addSuccess")) && <SuccessLogo />}
         </>
       )}
     </nav>
@@ -82,7 +81,9 @@ function NavbarIcon({ link, Icon, label }) {
 
 //Navbar Icons
 const Login = () => <NavbarIcon link={"/login"} Icon={LogIn} />;
-const UserProfile = () => <NavbarIcon link={`/user`} Icon={SquareUserRound} />;
+const UserProfile = () => (
+  <NavbarIcon link={`/editUser`} Icon={SquareUserRound} />
+);
 const UserSuccessList = () => {
   const { data: session } = useSession();
   return (
@@ -119,28 +120,5 @@ const userUrl =
         replacement: "_",
         remove: REGEX_SLUGIFY_EMAIL,
       })
-    : ""; */
-
-/*
-      {pathname === "/" || pathname.includes("/success/") ? (
-        <>
-          {status === "unauthenticated" ? Login : UserProfile}
-          {SuccessLogo}
-          {AddSuccess}
-        </>
-      ) : (
-        <>{SuccessLogo}</>
-      )}
-*/
-
-/*
-      {status === "loading" ? (
-        <Skeleton className="h-[3rem] w-[3rem] rounded-lg" />
-      ) : (
-        <>
-          {!label && <Icon strokeWidth={1} className={"h-[3rem] w-[3rem]"} />}
-          {label && <Icon className={"h-[2.5rem] w-[2.5rem]"} />}
-          {label && <div className="text-[0.75rem] leading-none">{label}</div>}
-        </>
-      )}
+    : "";
 */
