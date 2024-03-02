@@ -1,20 +1,25 @@
 import { NextResponse } from "next/server";
 import { withAuth } from "next-auth/middleware";
 
+export const config = {
+  matcher: [
+    "/addSuccess/:path*",
+    "/editUser/:path*",
+    "/login/:path*",
+    "/register/:path*",
+  ],
+};
+
 export default withAuth(async function middleware(req) {}, {
   callbacks: {
     authorized: ({ req, token }) => {
+      const url = req.nextUrl.pathname;
+
       if (token === null) {
-        if (
-          req.nextUrl.pathname.startsWith("/addSuccess") ||
-          req.nextUrl.pathname.startsWith("/editUser")
-        )
+        if (url.startsWith("/addSuccess") || url.startsWith("/editUser"))
           return false;
       } else {
-        if (
-          req.nextUrl.pathname.startsWith("/login") ||
-          req.nextUrl.pathname.startsWith("/register")
-        )
+        if (url.startsWith("/login") || url.startsWith("/register"))
           return false;
       }
       return true;
