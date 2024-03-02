@@ -1,10 +1,10 @@
-import UserForm from "./UserForm";
+import EditUserForm from "./EditUserForm";
 import FormPage from "@/components/forms/FormPage";
 
 function User() {
   return (
     <FormPage>
-      <UserForm />
+      <EditUserForm />
     </FormPage>
   );
 }

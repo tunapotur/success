@@ -43,7 +43,7 @@ const NameEmailThemeSchema = z.object({
   theme: z.enum(themeSelections.map((item) => item.key)),
 });
 
-function UserForm() {
+function EditUserForm() {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const { theme, setTheme } = useTheme();
@@ -176,7 +176,7 @@ function UserForm() {
 
   return (
     <>
-      <FormHeader header={"User"} />
+      <FormHeader header={"Edit User"} />
       <FormWrapper>
         <Form onSubmit={handleSubmit(onSubmitHandler)}>
           {/* Name Input */}
@@ -304,4 +304,4 @@ function UserForm() {
   );
 }
 
-export default UserForm;
+export default EditUserForm;
