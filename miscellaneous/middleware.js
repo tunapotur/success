@@ -15,17 +15,30 @@ export default withAuth(async function middleware(req) {}, {
     authorized: ({ req, token }) => {
       const url = req.nextUrl.pathname;
 
-      if (token === null) {
-        if (url.startsWith("/addSuccess") || url.startsWith("/editUser"))
-          return false;
-      } else {
-        if (url.startsWith("/login") || url.startsWith("/register"))
-          return false;
-      }
-      return true;
+      if (!token && (url.includes("/addSuccess") || url.includes("/editUser")))
+        return false;
+
+      // the user is authenticated.
+      return !(token && (url.includes("/login") || url.includes("/register")));
     },
   },
 });
+
+/*
+{
+  callbacks: {
+    authorized: ({ req, token }) => {
+      const url = req.nextUrl.pathname;
+
+      if (!token && (url.includes("/addSuccess") || url.includes("/editUser")))
+        return false;
+
+      // the user is authenticated.
+      return !(token && (url.includes("/login") || url.includes("/register")));
+    },
+  },
+}
+*/
 
 /**
  ** https://medium.com/ascentic-technology/authentication-with-next-js-13-and-next-auth-9c69d55d6bfd
@@ -34,6 +47,24 @@ export default withAuth(async function middleware(req) {}, {
  ** https://stackoverflow.com/questions/70754651/next-auth-v4-with-next-js-middleware?rq=2
  ** https://blog.stackademic.com/how-next-js-middlewares-work-103cae315163
  */
+
+/*
+export default withAuth(async function middleware(req) {}, {
+  callbacks: {
+    authorized: ({ req, token }) => {
+      const url = req.nextUrl.pathname;
+
+      if (!token && (url.includes("/addSuccess") || url.includes("/editUser")))
+        return false;
+
+      if (token && (url.includes("/login") || url.includes("/register")))
+        return false;
+
+      return true;
+    },
+  },
+});
+*/
 
 /*
 import { NextResponse } from "next/server";
@@ -61,4 +92,7 @@ export default withAuth(
     },
   },
 );
+
+// export { default } from "next-auth/middleware";
+// export const config = { matcher: ["/dashboard"] };
 */

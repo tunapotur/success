@@ -35,7 +35,6 @@ export const authOptions = {
     jwt: async ({ token, user }) => {
       const userByEmail = await User.findOne({ email: token.email });
       userByEmail.password = undefined;
-      // console.log("Token: ", token);
       token.user = {
         id: userByEmail._id,
         email: userByEmail.email,
@@ -51,7 +50,7 @@ export const authOptions = {
     },
   },
   pages: {
-    signIn: "/",
+    signIn: "/login",
   },
 };
 
