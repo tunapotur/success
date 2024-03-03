@@ -47,8 +47,8 @@ const routIndexList = [
     isAuthenticated: false,
     redirect: "authenticated",
     text: [
-      { name: "Login", language: "en" },
-      { name: "Giriş", language: "tr" },
+      { name: "User Login", language: "en" },
+      { name: "Kullanıcı Giriş", language: "tr" },
     ],
     authorization: null,
   },
@@ -92,8 +92,12 @@ const routIndexList = [
 
 export default routIndexList;
 
-export function getLinkName(id, language = "en") {
-  return routIndexList
-    .filter((item) => item.id === id)[0]
-    .text.filter((item) => item.language === language)[0].name;
+export function getRoutObjFromPath(path, language = "en") {
+  const routObj = routIndexList.filter((item) => item.path === path)[0];
+
+  routObj.name = routObj.text.filter(
+    (item) => item.language === language,
+  )[0].name;
+
+  return routObj;
 }
