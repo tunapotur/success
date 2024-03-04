@@ -43,6 +43,7 @@ const NameEmailThemeSchema = z.object({
   theme: z.enum(themeSelections.map((item) => item.key)),
 });
 
+// TODO: Kullanıcı veritabanında güncellendiğinde session'da güncellenmiyor olabilir. güncelleme yapılınca signOut yapmak en mantıklısı.
 function EditUserForm() {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);

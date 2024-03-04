@@ -1,11 +1,12 @@
 import { NextResponse } from "next/server";
 import { connectMongoDB } from "@/lib/mongodb";
 import Success from "@/models/Success";
-import getServerSessionInfo from "@/lib/getServerSessionInfo";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-export async function POST(req) {
+export async function POST(req, res) {
   try {
-    const session = await getServerSessionInfo();
+    const session = await getServerSession(req, res, authOptions);
 
     if (!session) throw new Error("Unauthorized user. Please login or signup.");
 

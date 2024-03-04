@@ -1,26 +1,33 @@
 "use client";
 
-import { useEffect } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
-import { getSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { getRoutObjFromRoutIndexList } from "@/data/routIndexList";
 
-function PageControl({ children }) {
+//TODO: loading durumunu unutma.Prob olarak skeleton alınıp yüklenebilir
+function PageControl({ children, loading }) {
   const pathName = usePathname();
+  const [routObj, setRoutObj] = useState(null);
+  const { status } = useSession();
+  const router = useRouter();
 
   useEffect(() => {
-    console.log("Path Name :", pathName);
-  }, [pathName]);
+    setRoutObj(getRoutObjFromRoutIndexList(pathName));
 
-  useEffect(() => {
-    const getPageData = async () => {
-      const session = await getSession();
-      const userInfo = session?.user;
+    if (status === "unauthenticated") {
+      if (routObj.redirect.when === "unauthenticated") {
+        router.push(routObj.redirect.link);
+      }
+    }
+  }, [pathName, routObj, router, status]);
 
-      console.log("UserInfo :", userInfo);
-    };
+  if (status === "loading") {
+    return <h1>{loading}</h1>;
+  }
 
-    getPageData();
-  }, []);
+  if (routObj === null) return;
 
   return <>{children}</>;
 }

@@ -1,16 +1,7 @@
-/** if page doesn't need authentication,
- * so it also doesn't need authorization.
- * That's why we can say;
- * if isAuthenticated is false authorization must be null. */
-// authorization can have "user", "admin","superior", "etc." roles.
-
 const routIndexList = [
   {
     id: "0000",
     path: "/",
-    isId: false,
-    isAuthenticated: false,
-    authorization: null,
     redirect: null,
     text: [
       { name: "Home", language: "en" },
@@ -20,9 +11,6 @@ const routIndexList = [
   {
     id: "0001",
     path: "/success",
-    isId: true,
-    isAuthenticated: false,
-    authorization: null,
     redirect: null,
     text: [
       { name: "Success", language: "en" },
@@ -32,9 +20,6 @@ const routIndexList = [
   {
     id: "0002",
     path: "/userSuccessList",
-    isId: true,
-    isAuthenticated: false,
-    authorization: null,
     redirect: null,
     text: [
       { name: "User Success List", language: "en" },
@@ -44,10 +29,7 @@ const routIndexList = [
   {
     id: "0003",
     path: "/login",
-    isId: false,
-    isAuthenticated: false,
-    authorization: null,
-    redirect: "authenticated",
+    redirect: { when: "authenticated", link: "/" },
     text: [
       { name: "User Login", language: "en" },
       { name: "Kullanıcı Giriş", language: "tr" },
@@ -56,10 +38,7 @@ const routIndexList = [
   {
     id: "0004",
     path: "/register",
-    isId: false,
-    isAuthenticated: false,
-    authorization: null,
-    redirect: "authenticated",
+    redirect: { when: "authenticated", link: "/" },
     text: [
       { name: "Register", language: "en" },
       { name: "Kayıt", language: "tr" },
@@ -68,10 +47,7 @@ const routIndexList = [
   {
     id: "0005",
     path: "/editUser",
-    isId: false,
-    isAuthenticated: true,
-    authorization: ["user"],
-    redirect: "unauthenticated",
+    redirect: { when: "unauthenticated", link: "/login" },
     text: [
       { name: "Edit User", language: "en" },
       { name: "Kullanıcı Düzenleme", language: "tr" },
@@ -80,10 +56,7 @@ const routIndexList = [
   {
     id: "0006",
     path: "/addSuccess",
-    isId: false,
-    isAuthenticated: true,
-    authorization: ["user"],
-    redirect: "unauthenticated",
+    redirect: { when: "unauthenticated", link: "/login" },
     text: [
       { name: "Add Success", language: "en" },
       { name: "Başarı Ekle", language: "tr" },

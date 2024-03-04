@@ -2,9 +2,9 @@ import FormPage from "@/components/forms/FormPage";
 import AddSuccessForm from "./AddSuccessForm";
 import PageControl from "@/components/PageControl";
 
-function AddSuccess() {
+async function AddSuccess() {
   return (
-    <PageControl>
+    <PageControl loading={"Skeleton Loading..."}>
       <FormPage>{<AddSuccessForm />}</FormPage>
     </PageControl>
   );

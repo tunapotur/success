@@ -53,7 +53,7 @@ function AddSuccessForm() {
         toast({
           variant: "destructive",
           title: "Registration Error",
-          description: "Success creation failed!",
+          description: `Success creation failed!`,
           action: <ToastAction altText="Try again">Try again</ToastAction>,
         });
       }

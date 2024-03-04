@@ -1,17 +1,19 @@
 import { NextResponse } from "next/server";
 import { connectMongoDB } from "@/lib/mongodb";
 import User from "@/models/User";
-import getServerSessionInfo from "@/lib/getServerSessionInfo";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export async function GET() {
-  const session = await getServerSessionInfo();
+  const session = await getServerSession(req, res, authOptions);
 
-  if (!session) return NextResponse.json(
-    {
-      message: "Unauthorized user. Please login or signup."
-    },
-    { status: 401 }
-  );
+  if (!session)
+    return NextResponse.json(
+      {
+        message: "Unauthorized user. Please login or signup.",
+      },
+      { status: 401 },
+    );
 
   try {
     await connectMongoDB();
@@ -23,9 +25,9 @@ export async function GET() {
   } catch (error) {
     return NextResponse.json(
       {
-        message: `An error occurred while updating the user profile. ${error.message}`
+        message: `An error occurred while updating the user profile. ${error.message}`,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -33,12 +35,13 @@ export async function GET() {
 export async function PUT(req) {
   const session = await getServerSessionInfo();
 
-  if (!session) return NextResponse.json(
-    {
-      message: "Unauthorized user. Please login or signup."
-    },
-    { status: 401 }
-  );
+  if (!session)
+    return NextResponse.json(
+      {
+        message: "Unauthorized user. Please login or signup.",
+      },
+      { status: 401 },
+    );
 
   try {
     await connectMongoDB();
@@ -49,7 +52,7 @@ export async function PUT(req) {
     await User.findByIdAndUpdate(userId, {
       name: newName,
       email: newEmail,
-      theme: newTheme
+      theme: newTheme,
     });
 
     const updatedUser = await User.findById(userId);
@@ -58,16 +61,16 @@ export async function PUT(req) {
       {
         time: new Date().toLocaleString(),
         message: "Success updated",
-        updatedUser
+        updatedUser,
       },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     return NextResponse.json(
       {
-        message: `An error occurred while updating the user profile. ${error.message}`
+        message: `An error occurred while updating the user profile. ${error.message}`,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
