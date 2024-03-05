@@ -1,12 +1,10 @@
 import EditUserForm from "./EditUserForm";
-import FormPage from "@/components/forms/FormPage";
+import requireRedirectPath from "@/lib/requireRedirectPath";
 
-function User() {
-  return (
-    <FormPage>
-      <EditUserForm />
-    </FormPage>
-  );
+async function EditUser() {
+  await requireRedirectPath("/editUser");
+
+  return <EditUserForm />;
 }
 
-export default User;
+export default EditUser;

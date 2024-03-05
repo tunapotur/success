@@ -1,13 +1,10 @@
-import FormPage from "@/components/forms/FormPage";
 import AddSuccessForm from "./AddSuccessForm";
-import PageControl from "@/components/PageControl";
+import requireRedirectPath from "@/lib/requireRedirectPath";
 
 async function AddSuccess() {
-  return (
-    <PageControl loading={"Skeleton Loading..."}>
-      <FormPage>{<AddSuccessForm />}</FormPage>
-    </PageControl>
-  );
+  await requireRedirectPath("/addSuccess");
+
+  return <AddSuccessForm />;
 }
 
 export default AddSuccess;

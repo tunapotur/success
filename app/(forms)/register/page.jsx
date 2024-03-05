@@ -1,12 +1,9 @@
-import FormPage from "@/components/forms/FormPage";
 import RegisterForm from "./RegisterForm";
+import requireRedirectPath from "@/lib/requireRedirectPath";
 
-function Register() {
-  return (
-    <FormPage isUserToBeLogin={false}>
-      <RegisterForm />
-    </FormPage>
-  );
+async function Register() {
+  await requireRedirectPath("/register");
+  return <RegisterForm />;
 }
 
 export default Register;

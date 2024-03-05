@@ -1,12 +1,9 @@
-import FormPage from "@/components/forms/FormPage";
 import LoginForm from "./LoginForm";
+import requireRedirectPath from "@/lib/requireRedirectPath";
 
 async function Login() {
-  return (
-    <FormPage isUserToBeLogin={false}>
-      <LoginForm />
-    </FormPage>
-  );
+  await requireRedirectPath("/login");
+  return <LoginForm />;
 }
 
 export default Login;

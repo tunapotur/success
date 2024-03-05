@@ -10,8 +10,24 @@
 
 import SuccessCart from "@/components/SuccessCart";
 import { SUCCESS_LIST_REVALIDATE_DURATION } from "@/data/constants";
+import requireRedirectPath from "@/lib/requireRedirectPath";
 
 export const dynamicParams = true;
+
+async function UserSuccessList({ params }) {
+  await requireRedirectPath("/userSuccessList");
+  const { userSuccessList } = await getUserSuccessList(params.id);
+  return (
+    <>
+      <div>User Success List</div>
+      <div>
+        {userSuccessList.map((success) => (
+          <SuccessCart key={success.id} success={success} />
+        ))}
+      </div>
+    </>
+  );
+}
 
 async function getUserSuccessList(userId) {
   const response = await fetch(
@@ -31,21 +47,6 @@ async function getUserSuccessList(userId) {
   }
 
   return await response.json();
-}
-
-async function UserSuccessList({ params }) {
-  const { userSuccessList } = await getUserSuccessList(params.id);
-
-  return (
-    <>
-      <div>User Success List</div>
-      <div>
-        {userSuccessList.map((success) => (
-          <SuccessCart key={success.id} success={success} />
-        ))}
-      </div>
-    </>
-  );
 }
 
 export default UserSuccessList;

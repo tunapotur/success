@@ -10,15 +10,13 @@ export default withAuth(
     const url = req.nextUrl.pathname;
     const userRole = req?.nextauth?.token?.user?.role;
 
-    if (url?.includes("/admin") && userRole !== "admin")
+    if (url?.includes("/admin") && userRole !== "admin") {
       return NextResponse.redirect(new URL("/restricted", req.url));
+    }
   },
   {
     callbacks: {
       authorized: ({ token }) => token != null,
-    },
-    pages: {
-      signIn: "/login",
     },
   },
 );
