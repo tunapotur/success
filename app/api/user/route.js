@@ -4,8 +4,8 @@ import User from "@/models/User";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-export async function GET() {
-  const session = await getServerSession(req, res, authOptions);
+export async function GET(req, res) {
+  const session = await getServerSession(authOptions);
 
   if (!session)
     return NextResponse.json(
@@ -32,8 +32,8 @@ export async function GET() {
   }
 }
 
-export async function PUT(req) {
-  const session = await getServerSessionInfo();
+export async function PUT(req, res) {
+  const session = await getServerSession(authOptions);
 
   if (!session)
     return NextResponse.json(

@@ -6,7 +6,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export async function POST(req, res) {
   try {
-    const session = await getServerSession(req, res, authOptions);
+    const session = await getServerSession(authOptions);
 
     if (!session) throw new Error("Unauthorized user. Please login or signup.");
 
