@@ -1,4 +1,4 @@
-const routIndexList = [
+const routObjList = [
   {
     id: "0000",
     path: "/",
@@ -64,10 +64,10 @@ const routIndexList = [
   },
 ];
 
-export default routIndexList;
+export default routObjList;
 
-export function getRoutObjFromRoutIndexList(path, language = "en") {
-  const routObj = routIndexList.filter((item) => item.path === path)[0];
+export function getRoutObj(path, language = "en") {
+  const routObj = routObjList.filter((item) => item.path === path)[0];
 
   routObj.name = routObj.text.filter(
     (item) => item.language === language,
