@@ -29,7 +29,7 @@ const routObjList = [
   {
     id: "0003",
     path: "/login",
-    redirect: { when: "authenticated", link: "/" },
+    redirect: { type: "authenticated", link: "/" },
     text: [
       { name: "User Login", language: "en" },
       { name: "Kullanıcı Giriş", language: "tr" },
@@ -38,7 +38,7 @@ const routObjList = [
   {
     id: "0004",
     path: "/register",
-    redirect: { when: "authenticated", link: "/" },
+    redirect: { type: "authenticated", link: "/" },
     text: [
       { name: "Register", language: "en" },
       { name: "Kayıt", language: "tr" },
@@ -47,7 +47,7 @@ const routObjList = [
   {
     id: "0005",
     path: "/editUser",
-    redirect: { when: "unauthenticated", link: "/login" },
+    redirect: { type: "unauthenticated", link: "/login" },
     text: [
       { name: "Edit User", language: "en" },
       { name: "Kullanıcı Düzenleme", language: "tr" },
@@ -56,7 +56,7 @@ const routObjList = [
   {
     id: "0006",
     path: "/addSuccess",
-    redirect: { when: "unauthenticated", link: "/login" },
+    redirect: { type: "unauthenticated", link: "/login" },
     text: [
       { name: "Add Success", language: "en" },
       { name: "Başarı Ekle", language: "tr" },

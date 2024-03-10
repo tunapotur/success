@@ -101,11 +101,11 @@ const SuccessLogo = () => (
 );
 
 const AddSuccess = () => {
-  const { status } = useSession();
-
+  // const { status } = useSession();
   return (
     <NavbarIcon
-      link={status === "unauthenticated" ? "/login" : "/addSuccess"}
+      // link={status === "unauthenticated" ? "/login" : "/addSuccess"}
+      link={"/addSuccess"}
       Icon={PlusSquare}
     />
   );
