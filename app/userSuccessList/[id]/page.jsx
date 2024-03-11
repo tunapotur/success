@@ -10,12 +10,10 @@
 
 import SuccessCart from "@/components/SuccessCart";
 import { SUCCESS_LIST_REVALIDATE_DURATION } from "@/data/constants";
-import requireRedirectPath from "@/lib/requireRedirectPath";
 
 export const dynamicParams = true;
 
 async function UserSuccessList({ params }) {
-  await requireRedirectPath("/userSuccessList");
   const { userSuccessList } = await getUserSuccessList(params.id);
   return (
     <>
