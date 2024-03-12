@@ -1,9 +1,7 @@
+import H1 from "@/components/H1";
+
 function FormHeader({ header }) {
-  return (
-    <h1 className="mb-[2rem] text-4xl font-bold capitalize tracking-wide text-primary underline drop-shadow-sm">
-      {header}
-    </h1>
-  );
+  return <H1>{header}</H1>;
 }
 
 export default FormHeader;

@@ -1,5 +1,6 @@
 import SuccessCart from "@/components/SuccessCart";
 import { SUCCESS_LIST_REVALIDATE_DURATION } from "@/data/constants";
+import H1 from "@/components/H1";
 
 export const dynamicParams = true;
 
@@ -28,7 +29,7 @@ async function Home() {
 
   return (
     <>
-      <h1>Main Page</h1>
+      <H1>Main Page</H1>
       <div>
         {allSuccessList.map((success) => (
           <SuccessCart key={success.id} success={success} />

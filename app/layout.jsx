@@ -45,7 +45,7 @@ export default function RootLayout({ children }) {
 
                   <Navbar
                     style={
-                      "rounded-lg flex h-[5.25rem] w-[calc(100%-2rem)] sm:w-[40rem] flex-row items-center justify-around fixed bottom-[1rem] border backdrop-blur-sm backdrop-contrast-125 bg-slate-400/20"
+                      "z-50 rounded-lg flex h-[5.25rem] w-[calc(100%-2rem)] sm:w-[40rem] flex-row items-center justify-around fixed bottom-[1rem] border backdrop-blur-sm backdrop-contrast-125 bg-slate-400/20"
                     }
                   />
                 </div>
