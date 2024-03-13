@@ -13,7 +13,9 @@ async function UserSuccessList({ params }) {
   const { userSuccessList } = await getUserSuccessList(params.id);
   return (
     <>
-      <H1>User Success List</H1>
+      <div className="mb-[1rem] flex flex-row items-end justify-between px-4">
+        <H1>User Success List</H1>
+      </div>
       <div>
         {userSuccessList.map((success) => (
           <SuccessCart key={success.id} success={success} />
