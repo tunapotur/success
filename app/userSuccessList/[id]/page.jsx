@@ -5,16 +5,31 @@
 
 import SuccessCart from "@/components/SuccessCart";
 import { SUCCESS_LIST_REVALIDATE_DURATION } from "@/data/constants";
-import H1 from "@/components/H1";
+import getUserById from "@/lib/getUserById";
+import Image from "next/image";
+import Logo from "@/public/goal-bold.png";
 
 export const dynamicParams = true;
 
 async function UserSuccessList({ params }) {
   const { userSuccessList } = await getUserSuccessList(params.id);
+  const user = await getUserById(params.id);
+  console.log("User: ", user);
   return (
     <>
-      <div className="mb-[1rem] flex flex-row items-end justify-between px-4">
-        <H1>User Success List</H1>
+      <div className={"flex flex-row items-center justify-between px-4"}>
+        <Image
+          src={Logo}
+          alt="Success Bold Logo"
+          width={40}
+          placeholder="blur"
+          quality={100}
+          className="h-[3rem] w-[3rem]"
+        />
+        <h1 className="mb-4 flex flex-col items-end text-xl font-bold capitalize italic leading-tight tracking-normal text-primary">
+          <div>{user.name}</div>
+          <div className={"underline"}>Success List</div>
+        </h1>
       </div>
       <div>
         {userSuccessList.map((success) => (

@@ -1,6 +1,6 @@
 "use client";
 
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { Input, Button, Select, SelectItem } from "@nextui-org/react";
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
@@ -58,11 +58,12 @@ function EditUserForm() {
   } = useForm({
     resolver: zodResolver(NameEmailThemeSchema),
   });
+  const { data: session } = useSession();
 
   // It's get user information and set previous user info
   useEffect(() => {
     const fetchUser = async () => {
-      const response = await fetch("api/user", {
+      const response = await fetch(`api/user/${session?.user?.id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -79,7 +80,7 @@ function EditUserForm() {
     };
 
     fetchUser();
-  }, []);
+  }, [session?.user?.id]);
 
   //These db values populates inputs for initial
   useEffect(() => {

@@ -1,36 +1,8 @@
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
 import { NextResponse } from "next/server";
 import { connectMongoDB } from "@/lib/mongodb";
 import User from "@/models/User";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/authOptions";
-
-export async function GET(req, res) {
-  const session = await getServerSession(authOptions);
-
-  if (!session)
-    return NextResponse.json(
-      {
-        message: "Unauthorized user. Please login or signup.",
-      },
-      { status: 401 },
-    );
-
-  try {
-    await connectMongoDB();
-
-    const user = await User.findById(session?.user.id);
-    user.password = null;
-
-    return NextResponse.json({ user }, { status: 200 });
-  } catch (error) {
-    return NextResponse.json(
-      {
-        message: `An error occurred while updating the user profile. ${error.message}`,
-      },
-      { status: 500 },
-    );
-  }
-}
 
 export async function PUT(req, res) {
   const session = await getServerSession(authOptions);

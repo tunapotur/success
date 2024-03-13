@@ -9,6 +9,7 @@ import { ToastAction } from "@/components/ui/toast";
 import { useForm } from "react-hook-form";
 import { useTheme } from "next-themes";
 import { zodResolver } from "@hookform/resolvers/zod";
+
 import * as z from "zod";
 
 //Form Components
@@ -82,7 +83,7 @@ function LoginForm() {
         duration: 1000,
       });
 
-      const response = await fetch("api/user", {
+      const response = await fetch(`api/getUserByEmail/${email}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
