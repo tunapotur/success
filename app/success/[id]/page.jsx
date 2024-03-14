@@ -3,6 +3,17 @@ import { SUCCESS_LIST_REVALIDATE_DURATION } from "@/data/constants";
 import H1 from "@/components/H1";
 import Image from "next/image";
 import Logo from "@/public/goal-bold.png";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Divider,
+  Link,
+} from "@nextui-org/react";
+import { UserRound } from "lucide-react";
+
+import { format, parseISO } from "date-fns";
 
 export const dynamicParams = true;
 
@@ -32,12 +43,56 @@ async function Success({ params }) {
   const success = await getSuccess(params.id);
   return (
     <>
-      <div>Success Detail</div>
-      <div>{success._id}</div>
-      <div>{success.header}</div>
-      <div>{success.detail}</div>
-      <div>{success.userId}</div>
+      <SuccessDetail success={success} />
     </>
+  );
+}
+
+function SuccessDetail({ success }) {
+  const { date, header, detail } = success;
+
+  return (
+    <Card className="mb-5 min-h-[75vh]">
+      <CardHeader className="justify-between">
+        <div className="flex h-10 w-10 flex-col items-center justify-center">
+          <UserRound className="h-10 w-10" />
+        </div>
+
+        <div className="ml-4 flex flex-col">
+          <p className="text-md line-clamp-1 font-bold capitalize text-primary">
+            {header}
+          </p>
+          <p className="text-right text-small text-default-500">
+            {format(parseISO(date), "dd  MMMM yyyy")}
+          </p>
+        </div>
+      </CardHeader>
+
+      <Divider />
+
+      <CardBody className="min-h-[5rem] p-5">
+        <div className={"mb-4 flex flex-col items-end"}>
+          <h1 className="mb-1 text-2xl font-bold capitalize text-primary">
+            {header}
+          </h1>
+          <p className="text-right text-small text-default-500">
+            {format(parseISO(date), "dd  MMMM yyyy")}
+          </p>
+        </div>
+        <p className="text-[1.125rem] leading-7 tracking-wide">{detail}</p>
+      </CardBody>
+
+      <Divider />
+      <CardFooter>
+        <Link
+          isExternal
+          showAnchorIcon
+          href="https://github.com/nextui-org/nextui"
+        >
+          Visit source code on GitHub.
+        </Link>
+      </CardFooter>
+    </Card>
   );
 }
 

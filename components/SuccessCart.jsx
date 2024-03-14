@@ -7,6 +7,7 @@ import {
 } from "@nextui-org/react";
 import { UserRound } from "lucide-react";
 import Link from "next/link";
+
 export default function SuccessCart({ success }) {
   const { id, date, header, detail } = success;
 
@@ -19,9 +20,9 @@ export default function SuccessCart({ success }) {
           </div>
 
           <div className="ml-4 flex flex-col">
-            <p className="text-md line-clamp-1 font-bold capitalize text-primary">
+            <h2 className="text-md font-bold capitalize text-primary">
               {header}
-            </p>
+            </h2>
             <p className="text-right text-small text-default-500">
               {format(parseISO(date), "dd  MMMM yyyy")}
             </p>
@@ -29,7 +30,7 @@ export default function SuccessCart({ success }) {
         </CardHeader>
         <Divider />
         <CardBody className="min-h-[5rem]">
-          <p className="line-clamp-5">{detail}</p>
+          <p className="">{detail}</p>
         </CardBody>
       </Card>
     </Link>
