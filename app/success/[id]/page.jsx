@@ -29,9 +29,16 @@ async function getSuccess(id) {
 }
 
 async function Success({ params }) {
-  const success = getSuccess(params.id);
-  console.log(success);
-  return <div>Success Detail</div>;
+  const success = await getSuccess(params.id);
+  return (
+    <>
+      <div>Success Detail</div>
+      <div>{success._id}</div>
+      <div>{success.header}</div>
+      <div>{success.detail}</div>
+      <div>{success.userId}</div>
+    </>
+  );
 }
 
 export default Success;
