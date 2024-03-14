@@ -14,10 +14,10 @@ export const dynamicParams = true;
 async function UserSuccessList({ params }) {
   const { userSuccessList } = await getUserSuccessList(params.id);
   const user = await getUserById(params.id);
-  console.log("User: ", user);
+
   return (
     <>
-      <div className={"flex flex-row items-center justify-between px-4"}>
+      <div className={"mb-6 flex flex-row items-start justify-between px-4"}>
         <Image
           src={Logo}
           alt="Success Bold Logo"
@@ -26,9 +26,9 @@ async function UserSuccessList({ params }) {
           quality={100}
           className="h-[3rem] w-[3rem]"
         />
-        <h1 className="mb-4 flex flex-col items-end text-xl font-bold capitalize italic leading-tight tracking-normal text-primary">
+        <h1 className="flex flex-col items-end text-xl font-bold capitalize italic leading-tight tracking-normal text-primary">
           <div>{user.name}</div>
-          <div className={"underline"}>Success List</div>
+          <div className={"underline"}>Success</div>
         </h1>
       </div>
       <div>

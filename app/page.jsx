@@ -31,7 +31,7 @@ async function Home() {
 
   return (
     <>
-      <div className="mb-[1rem] flex flex-row items-center justify-between px-4">
+      <div className="mb-6 flex flex-row items-center justify-between px-4">
         <Image
           src={Logo}
           alt="Success Bold Logo"
