@@ -71,7 +71,7 @@ function SuccessDetail({ success }) {
       <Divider />
 
       <CardBody className="min-h-[5rem] p-5">
-        <div className={"mb-4 flex flex-col items-end"}>
+        <div className={"mb-5 flex flex-col items-end"}>
           <h1 className="mb-1 text-2xl font-bold capitalize text-primary">
             {header}
           </h1>
@@ -79,7 +79,9 @@ function SuccessDetail({ success }) {
             {format(parseISO(date), "dd  MMMM yyyy")}
           </p>
         </div>
-        <p className="text-[1.125rem] leading-7 tracking-wide">{detail}</p>
+        <p className="font-montserrat px-2 text-justify indent-8 text-[1.15rem] font-light leading-9 tracking-wider">
+          {detail}
+        </p>
       </CardBody>
 
       <Divider />

@@ -1,5 +1,5 @@
 import "@/styles/globals.css";
-import { Inter as FontSans } from "next/font/google";
+import { Inter as FontSans, Roboto, Montserrat } from "next/font/google";
 
 import { cn } from "@/lib/utils";
 
@@ -17,6 +17,22 @@ export const fontSans = FontSans({
   variable: "--font-sans",
 });
 
+export const roboto = Roboto({
+  weight: ["300", "400"],
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-roboto",
+});
+
+export const montserrat = Montserrat({
+  weight: ["300", "400"],
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-montserrat",
+});
+
 export const metadata = {
   title: "Success",
   description: "Save all your success in one place",
@@ -24,7 +40,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${fontSans.variable} ${roboto.variable} ${montserrat.variable}`}
+    >
       <head>
         <title></title>
       </head>
