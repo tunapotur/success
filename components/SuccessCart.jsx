@@ -14,13 +14,13 @@ export default function SuccessCart({ success }) {
   return (
     <Link href={`/success/${id}`}>
       <Card className="mb-5 max-h-[20rem]">
-        <CardHeader className="justify-between">
-          <div className="flex h-10 w-10 flex-col items-center justify-center">
-            <UserRound className="h-10 w-10" />
+        <CardHeader className="justify-between px-6">
+          <div className="flex h-12 w-12 flex-col items-center justify-center">
+            <UserRound className="h-12 w-12" />
           </div>
 
           <div className="ml-4 flex flex-col">
-            <h2 className="text-md font-bold capitalize text-primary">
+            <h2 className="text-md line-clamp-2 text-right font-bold capitalize text-primary">
               {header}
             </h2>
             <p className="text-right text-small text-default-500">
@@ -29,8 +29,8 @@ export default function SuccessCart({ success }) {
           </div>
         </CardHeader>
         <Divider />
-        <CardBody className="min-h-[5rem]">
-          <p className="">{detail}</p>
+        <CardBody className="min-h-[5rem] px-6">
+          <p className="line-clamp-3">{detail}</p>
         </CardBody>
       </Card>
     </Link>
