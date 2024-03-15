@@ -1,8 +1,4 @@
-import SuccessCart from "@/components/SuccessCart";
 import { SUCCESS_LIST_REVALIDATE_DURATION } from "@/data/constants";
-import H1 from "@/components/H1";
-import Image from "next/image";
-import Logo from "@/public/goal-bold.png";
 import {
   Card,
   CardHeader,
@@ -59,9 +55,7 @@ function SuccessDetail({ success }) {
         </div>
 
         <div className="ml-4 flex flex-col">
-          <p className="text-md line-clamp-1 font-bold capitalize text-primary">
-            {header}
-          </p>
+          <p className="text-md font-bold capitalize text-primary">{header}</p>
           <p className="text-right text-small text-default-500">
             {format(parseISO(date), "dd  MMMM yyyy")}
           </p>
@@ -79,7 +73,7 @@ function SuccessDetail({ success }) {
             {format(parseISO(date), "dd  MMMM yyyy")}
           </p>
         </div>
-        <p className="font-montserrat px-2 text-justify indent-8 text-[1.15rem] font-light leading-9 tracking-wider">
+        <p className="font-montserrat px-2 text-justify text-[1.15rem] font-medium leading-7 tracking-wider">
           {detail}
         </p>
       </CardBody>
