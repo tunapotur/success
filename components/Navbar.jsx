@@ -30,7 +30,7 @@ function Navbar({ style }) {
 
       {status === "unauthenticated" && (
         <>
-          {pathname === "/" ? (
+          {pathname === "/" || pathname.includes("success") ? (
             <>
               <Login />
               <SuccessLogo />
@@ -50,7 +50,8 @@ function Navbar({ style }) {
               <SuccessLogo />
               <AddSuccess />
             </>
-          ) : pathname.includes("userSuccessList") ? (
+          ) : pathname.includes("userSuccessList") ||
+            pathname.includes("success") ? (
             <>
               <UserProfile />
               <SuccessLogo />

@@ -70,7 +70,7 @@ function SuccessDetail({ success, user }) {
 
   return (
     <Card className="mb-5 min-h-[75vh]">
-      <CardHeader className="items-center justify-end px-12">
+      <CardHeader className="items-center justify-end px-4">
         <Link href={`/userSuccessList/${userId}`}>
           <div className="mr-4 flex flex-col">
             <p className="text-md font-bold capitalize text-primary">
@@ -86,9 +86,9 @@ function SuccessDetail({ success, user }) {
 
       <Divider />
 
-      <CardBody className="min-h-[5rem] px-12 py-6">
+      <CardBody className="min-h-[5rem] px-4 py-6">
         <div className={"mb-5 flex flex-col items-end"}>
-          <h1 className="mb-1 text-left indent-[2rem] text-2xl font-medium capitalize text-primary">
+          <h1 className="mb-1 text-right indent-[2rem] text-2xl font-medium capitalize text-primary">
             {header}
           </h1>
           <p className="text-right text-small text-default-500">
