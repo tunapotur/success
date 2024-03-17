@@ -16,7 +16,9 @@ function Navbar({ style }) {
     <nav className={style}>
       {status === "loading" && (
         <>
-          {pathname === "/" || pathname.includes("userSuccessList") ? (
+          {pathname === "/" ||
+          pathname.includes("userSuccessList") ||
+          pathname.includes("success") ? (
             <>
               <NavIconSkeleton />
               <NavIconSkeleton />
