@@ -25,10 +25,9 @@ async function User({ params }) {
         <FormAdditionWrapper>
           {String(session.user.id) === params.id ? <ButtonEditUser /> : <></>}
 
-          <ButtonUserSuccesList />
-          {/* Back button */}
-          {/*TODO Sayfa yüklemesi süresinde disable yapılacak. Nextjs Suspense özelliği kullanılabilir*/}
+          {/*TODO Sayfa yüklemesi süresinde bu butonlar disable yapılacak. Nextjs Suspense özelliği kullanılabilir*/}
           {/*<ButtonBack isDisabled={isLoading || !mounted} />*/}
+          <ButtonUserSuccesList />
           <ButtonBack />
         </FormAdditionWrapper>
       </FormWrapper>

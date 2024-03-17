@@ -3,6 +3,7 @@ import { SUCCESS_LIST_REVALIDATE_DURATION } from "@/data/constants";
 import H1 from "@/components/H1";
 import Image from "next/image";
 import Logo from "@/public/goal-bold.png";
+import ButtonBack from "@/components/forms/ButtonBack";
 
 export const dynamicParams = true;
 
@@ -46,6 +47,10 @@ async function Home() {
         {allSuccessList.map((success) => (
           <SuccessCart key={success.id} success={success} />
         ))}
+      </div>
+
+      <div className={"mt-16"}>
+        <ButtonBack />
       </div>
     </>
   );

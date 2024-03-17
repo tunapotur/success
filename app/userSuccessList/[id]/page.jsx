@@ -9,6 +9,7 @@ import getUserById from "@/lib/getUserById";
 import Image from "next/image";
 import Logo from "@/public/goal-bold.png";
 import { Link } from "@nextui-org/react";
+import ButtonBack from "@/components/forms/ButtonBack";
 
 export const dynamicParams = true;
 
@@ -40,6 +41,9 @@ async function UserSuccessList({ params }) {
         {userSuccessList.map((success) => (
           <SuccessCart key={success.id} success={success} />
         ))}
+      </div>
+      <div className={"mt-16"}>
+        <ButtonBack />
       </div>
     </>
   );

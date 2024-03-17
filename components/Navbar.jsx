@@ -1,35 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { Skeleton } from "@nextui-org/react";
 
-import { LogIn, SquareUserRound, PlusSquare, BookUser } from "lucide-react";
+import { LogIn, SquareUserRound, PlusSquare } from "lucide-react";
 import GoalSkeleton from "./GoalSkeletonSvg";
 
 function Navbar({ style }) {
   const { status } = useSession();
-  const pathname = usePathname();
 
   return (
     <nav className={style}>
-      {status === "loading" && (
-        <>
-          {pathname === "/" ||
-          pathname.includes("userSuccessList") ||
-          pathname.includes("success") ? (
-            <>
-              <NavIconSkeleton />
-              <NavIconSkeleton />
-              <NavIconSkeleton />
-            </>
-          ) : (
-            <NavIconSkeleton />
-          )}
-        </>
-      )}
-
       {status === "unauthenticated" && (
         <>
           <Login />
@@ -40,33 +22,21 @@ function Navbar({ style }) {
 
       {status === "authenticated" && (
         <>
-          {pathname.includes("editUser") || pathname.includes("addSuccess") ? (
-            <>
-              <SuccessLogo />
-            </>
-          ) : (
-            <>
-              <UserProfile />
-              <SuccessLogo />
-              <AddSuccess />
-            </>
-          )}
+          <UserProfile />
+          <SuccessLogo />
+          <AddSuccess />
+        </>
+      )}
+
+      {status === "loading" && (
+        <>
+          <NavIconSkeleton />
+          <NavIconSkeleton />
+          <NavIconSkeleton />
         </>
       )}
     </nav>
   );
-}
-
-{
-  /*
- <UserSuccessList />
- <SuccessLogo />
- <AddSuccess />
-
- <UserProfile />
- <SuccessLogo />
- <AddSuccess />
-*/
 }
 
 function NavbarIcon({ link, Icon, label }) {
@@ -89,17 +59,6 @@ const UserProfile = () => {
 
   return (
     <NavbarIcon link={`/user/${session?.user?.id}`} Icon={SquareUserRound} />
-  );
-};
-
-const UserSuccessList = () => {
-  const { data: session } = useSession();
-
-  return (
-    <NavbarIcon
-      link={`/userSuccessList/${session?.user?.id}`}
-      Icon={BookUser}
-    />
   );
 };
 
