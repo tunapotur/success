@@ -32,40 +32,41 @@ function Navbar({ style }) {
 
       {status === "unauthenticated" && (
         <>
-          {pathname === "/" || pathname.includes("success") ? (
-            <>
-              <Login />
-              <SuccessLogo />
-              <AddSuccess />
-            </>
-          ) : (
-            <SuccessLogo />
-          )}
+          <Login />
+          <SuccessLogo />
+          <AddSuccess />
         </>
       )}
 
       {status === "authenticated" && (
         <>
-          {pathname === "/" ? (
+          {pathname.includes("editUser") || pathname.includes("addSuccess") ? (
             <>
-              <UserSuccessList />
               <SuccessLogo />
-              <AddSuccess />
             </>
-          ) : pathname.includes("userSuccessList") ||
-            pathname.includes("success") ? (
+          ) : (
             <>
               <UserProfile />
               <SuccessLogo />
               <AddSuccess />
             </>
-          ) : (
-            <SuccessLogo />
           )}
         </>
       )}
     </nav>
   );
+}
+
+{
+  /*
+ <UserSuccessList />
+ <SuccessLogo />
+ <AddSuccess />
+
+ <UserProfile />
+ <SuccessLogo />
+ <AddSuccess />
+*/
 }
 
 function NavbarIcon({ link, Icon, label }) {
@@ -83,9 +84,13 @@ function NavbarIcon({ link, Icon, label }) {
 //Navbar Icons
 const Login = () => <NavbarIcon link={"/login"} Icon={LogIn} />;
 
-const UserProfile = () => (
-  <NavbarIcon link={`/editUser`} Icon={SquareUserRound} />
-);
+const UserProfile = () => {
+  const { data: session } = useSession();
+
+  return (
+    <NavbarIcon link={`/user/${session?.user?.id}`} Icon={SquareUserRound} />
+  );
+};
 
 const UserSuccessList = () => {
   const { data: session } = useSession();

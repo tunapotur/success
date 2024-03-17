@@ -8,6 +8,7 @@ import { SUCCESS_LIST_REVALIDATE_DURATION } from "@/data/constants";
 import getUserById from "@/lib/getUserById";
 import Image from "next/image";
 import Logo from "@/public/goal-bold.png";
+import { Link } from "@nextui-org/react";
 
 export const dynamicParams = true;
 
@@ -18,18 +19,22 @@ async function UserSuccessList({ params }) {
   return (
     <>
       <div className={"mb-6 flex flex-row items-start justify-between px-4"}>
-        <Image
-          src={Logo}
-          alt="Success Bold Logo"
-          width={40}
-          placeholder="blur"
-          quality={100}
-          className="h-[3rem] w-[3rem]"
-        />
-        <h1 className="flex flex-col items-end text-xl font-bold capitalize italic leading-tight tracking-normal text-primary">
-          <div>{user.name}</div>
-          <div className={"underline"}>Success</div>
-        </h1>
+        <Link href={`/`}>
+          <Image
+            src={Logo}
+            alt="Success Bold Logo"
+            width={40}
+            placeholder="blur"
+            quality={100}
+            className="h-[3rem] w-[3rem]"
+          />
+        </Link>
+        <Link href={`/user/${user._id}`}>
+          <h1 className="flex flex-col items-end text-xl font-bold capitalize italic leading-tight tracking-normal text-primary">
+            <div>{user.name}</div>
+            <div className={"underline"}>Success</div>
+          </h1>
+        </Link>
       </div>
       <div>
         {userSuccessList.map((success) => (

@@ -14,6 +14,7 @@ function ButtonBack({ isDisabled }) {
       startContent={<MoveLeft />}
       isDisabled={isDisabled}
       onClick={() => router.back()}
+      className={"w-full"}
     >
       Back
     </Button>
