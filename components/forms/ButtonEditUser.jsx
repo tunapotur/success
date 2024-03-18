@@ -23,7 +23,7 @@ function ButtonEditUser({ isDisabled, userId }) {
           startContent={<UserCog />}
           isDisabled={isDisabled}
           onClick={() => router.push(`/editUser/${userId}`)}
-          className="w-full bg-cyan-600 text-primary-foreground"
+          className="w-full bg-primary text-primary-foreground"
         >
           Edit User
         </Button>

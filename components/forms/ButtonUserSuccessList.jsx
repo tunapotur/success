@@ -18,7 +18,7 @@ function ButtonUserSuccessList({ isDisabled }) {
       startContent={<List />}
       isDisabled={isDisabled}
       onClick={() => router.push(link)}
-      className="w-full bg-purple-600 text-primary-foreground"
+      className="w-full bg-cyan-600 text-primary-foreground"
     >
       User Success List
     </Button>

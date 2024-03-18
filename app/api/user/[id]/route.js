@@ -24,6 +24,7 @@ export async function GET(request, context) {
 
 //TODO aktif session ile değil param.id ile session.user.id eşit mi onu kontrol etmeli
 export async function PUT(request, context) {
+  const userId = context.params.id;
   const session = await getServerSession(authOptions);
 
   if (!session)
@@ -39,16 +40,20 @@ export async function PUT(request, context) {
 
     const { newName, newEmail, newTheme } = await request.json();
 
-    await User.findByIdAndUpdate(context.params.id, {
+    await User.findByIdAndUpdate(userId, {
       name: newName,
       email: newEmail,
       theme: newTheme,
     });
 
+    const updatedUser = await User.findById(userId);
+    updatedUser.password = null;
+
     return NextResponse.json(
       {
         time: new Date().toLocaleString(),
         message: "User Success updated",
+        updatedUser,
       },
       { status: 200 },
     );

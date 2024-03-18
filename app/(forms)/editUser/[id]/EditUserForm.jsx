@@ -30,6 +30,8 @@ import ButtonBack from "@/components/forms/ButtonBack";
 import InputWrapper from "@/components/forms/InputWrapper";
 import isUserEmailExists from "@/lib/isUserEmailExists";
 import objectDiff from "@/lib/objectDiff";
+import { SUCCESS_LIST_REVALIDATE_DURATION } from "@/data/constants";
+import getUserById from "@/lib/getUserById";
 
 const themeSelections = [
   { key: "system", name: "System", icon: <FileSliders /> },
@@ -54,7 +56,6 @@ function EditUserForm({ user }) {
     email: user.email,
     theme: user.theme,
   });
-
   const {
     handleSubmit,
     setValue,
@@ -80,8 +81,6 @@ function EditUserForm({ user }) {
       setIsLoading(true);
 
       const newUserInfos = { name, email, theme };
-      console.log("Prev User", previousUserInfos);
-      console.log("New User", newUserInfos);
 
       const changedUserInfos = objectDiff(previousUserInfos, newUserInfos);
 
@@ -111,7 +110,7 @@ function EditUserForm({ user }) {
         }
 
       // Updating user data
-      const response = await fetch(`api/user/${user.id}`, {
+      const response = await fetch(`/api/user/${user._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -152,6 +151,7 @@ function EditUserForm({ user }) {
       }
     } catch (error) {
       setIsLoading(false);
+      console.log(error);
       toast({
         variant: "destructive",
         title: "User Update Error",

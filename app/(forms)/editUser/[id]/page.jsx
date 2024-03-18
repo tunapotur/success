@@ -1,4 +1,4 @@
-import EditUserForm from "../EditUserForm";
+import EditUserForm from "./EditUserForm";
 import requireRedirectPath from "@/lib/requireRedirectPath";
 import getUserById from "@/lib/getUserById";
 
