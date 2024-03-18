@@ -44,12 +44,17 @@ const NameEmailThemeSchema = z.object({
 });
 
 // TODO: Kullanıcı veritabanında güncellendiğinde session'da güncellenmiyor olabilir. güncelleme yapılınca signOut yapmak en mantıklısı.
-function EditUserForm() {
+function EditUserForm({ user }) {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const [previousUserInfos, setPreviousUserInfos] = useState(null);
+  const [previousUserInfos, setPreviousUserInfos] = useState({
+    name: user.name,
+    email: user.email,
+    theme: user.theme,
+  });
+
   const {
     handleSubmit,
     setValue,
@@ -58,29 +63,6 @@ function EditUserForm() {
   } = useForm({
     resolver: zodResolver(NameEmailThemeSchema),
   });
-  const { data: session } = useSession();
-
-  // It's get user information and set previous user info
-  useEffect(() => {
-    const fetchUser = async () => {
-      const response = await fetch(`api/user/${session?.user?.id}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      const { user } = await response.json();
-
-      setPreviousUserInfos({
-        name: user.name,
-        email: user.email,
-        theme: user.theme,
-      });
-    };
-
-    fetchUser();
-  }, [session?.user?.id]);
 
   //These db values populates inputs for initial
   useEffect(() => {
@@ -98,6 +80,9 @@ function EditUserForm() {
       setIsLoading(true);
 
       const newUserInfos = { name, email, theme };
+      console.log("Prev User", previousUserInfos);
+      console.log("New User", newUserInfos);
+
       const changedUserInfos = objectDiff(previousUserInfos, newUserInfos);
 
       // No Changes Check
@@ -126,7 +111,7 @@ function EditUserForm() {
         }
 
       // Updating user data
-      const response = await fetch("api/user", {
+      const response = await fetch(`api/user/${user.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

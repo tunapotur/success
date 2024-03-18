@@ -8,7 +8,6 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
 import ButtonUserSuccesList from "@/components/forms/ButtonUserSuccessList";
 
-//65e7468b7672ad35816f191e
 async function User({ params }) {
   const { name, email } = await getUserById(params.id);
   const session = await getServerSession(authOptions);
@@ -23,7 +22,11 @@ async function User({ params }) {
         </div>
 
         <FormAdditionWrapper>
-          {String(session.user.id) === params.id ? <ButtonEditUser /> : <></>}
+          {String(session.user.id) === params.id ? (
+            <ButtonEditUser userId={params.id} />
+          ) : (
+            <></>
+          )}
 
           {/*TODO Sayfa yüklemesi süresinde bu butonlar disable yapılacak. Nextjs Suspense özelliği kullanılabilir*/}
           {/*<ButtonBack isDisabled={isLoading || !mounted} />*/}

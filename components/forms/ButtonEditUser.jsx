@@ -6,7 +6,7 @@ import { UserCog } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { Skeleton } from "@nextui-org/react";
 
-function ButtonEditUser({ isDisabled }) {
+function ButtonEditUser({ isDisabled, userId }) {
   const router = useRouter();
   const { status } = useSession();
 
@@ -22,7 +22,7 @@ function ButtonEditUser({ isDisabled }) {
           variant="bordered"
           startContent={<UserCog />}
           isDisabled={isDisabled}
-          onClick={() => router.push("/editUser")}
+          onClick={() => router.push(`/editUser/${userId}`)}
           className="w-full bg-cyan-600 text-primary-foreground"
         >
           Edit User
