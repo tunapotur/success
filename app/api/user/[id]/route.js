@@ -22,15 +22,23 @@ export async function GET(request, context) {
   }
 }
 
-//TODO aktif session ile değil param.id ile session.user.id eşit mi onu kontrol etmeli
 export async function PUT(request, context) {
-  const userId = context.params.id;
   const session = await getServerSession(authOptions);
+  const context_userId = context.params.id;
+  const session_userId = String(session?.user?.id);
 
   if (!session)
     return NextResponse.json(
       {
-        message: "Unauthorized user. Please login or signup.",
+        message: "Unauthenticated user.",
+      },
+      { status: 401 },
+    );
+
+  if (session_userId !== context_userId)
+    return NextResponse.json(
+      {
+        message: "Unauthorized user.",
       },
       { status: 401 },
     );
@@ -40,13 +48,13 @@ export async function PUT(request, context) {
 
     const { newName, newEmail, newTheme } = await request.json();
 
-    await User.findByIdAndUpdate(userId, {
+    await User.findByIdAndUpdate(context_userId, {
       name: newName,
       email: newEmail,
       theme: newTheme,
     });
 
-    const updatedUser = await User.findById(userId);
+    const updatedUser = await User.findById(context_userId);
     updatedUser.password = null;
 
     return NextResponse.json(
