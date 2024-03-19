@@ -24,11 +24,13 @@ async function getAllSuccessList() {
     throw new Error(`Failed to fetch the data`);
   }
 
-  return await response.json();
+  const { allSuccessList } = await response.json();
+
+  return allSuccessList;
 }
 
 async function Home() {
-  const { allSuccessList } = await getAllSuccessList();
+  const allSuccessList = await getAllSuccessList();
 
   return (
     <>

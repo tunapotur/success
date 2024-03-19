@@ -22,18 +22,11 @@ export async function GET(request, context) {
   }
 }
 
+//TODO test edilecek. session olan user ile giriş yapan aynı olmalı
 export async function PUT(request, context) {
   const session = await getServerSession(authOptions);
   const context_userId = context.params.id;
   const session_userId = String(session?.user?.id);
-
-  if (!session)
-    return NextResponse.json(
-      {
-        message: "Unauthenticated user.",
-      },
-      { status: 401 },
-    );
 
   if (session_userId !== context_userId)
     return NextResponse.json(

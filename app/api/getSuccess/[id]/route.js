@@ -1,6 +1,12 @@
 import { NextResponse } from "next/server";
 import { connectMongoDB } from "@/lib/mongodb";
-import Success from "@/models/Success";
+impor.populate("user", [
+  "_id",
+  "name",
+  "email",
+  "role",
+  "theme",
+])t Success from "@/models/Success";
 
 export async function GET(request, context) {
   try {

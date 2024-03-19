@@ -15,8 +15,8 @@ const success = new Schema(
       type: String,
       required: [true, "Success must have detail!"],
     },
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
+    user: {
+      type: Schema.Types.ObjectId,
       ref: "User",
       required: [true, "Success must belong to a User!"],
     },

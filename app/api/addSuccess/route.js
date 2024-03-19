@@ -20,7 +20,7 @@ export async function POST(req, res) {
       date,
       header,
       detail,
-      userId: user.id,
+      user: user.id,
     });
 
     return NextResponse.json(
@@ -28,7 +28,6 @@ export async function POST(req, res) {
         time: new Date().toLocaleString(),
         message: "Success has been created.",
         success,
-        user,
       },
       { status: 200 },
     );
