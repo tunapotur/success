@@ -9,17 +9,16 @@ import {
 } from "@nextui-org/react";
 import { UserRound } from "lucide-react";
 import { format, parseISO } from "date-fns";
-import getUserById from "@/lib/getUserById";
 import ButtonBack from "@/components/forms/ButtonBack";
 
 export const dynamicParams = true;
 
 async function Success({ params }) {
   const success = await getSuccessById(params.id);
-  const user = await getUserById(success.user._id);
+
   return (
     <>
-      <SuccessDetail success={success} user={user} />
+      <SuccessDetail success={success} />
     </>
   );
 }
@@ -46,9 +45,9 @@ async function getSuccessById(id) {
   return success;
 }
 
-function SuccessDetail({ success, user }) {
+function SuccessDetail({ success }) {
   const { date, header, detail } = success;
-  const { _id: userId, name: userName } = user;
+  const { _id: userId, name: userName } = success.user;
 
   return (
     <div>
@@ -81,7 +80,7 @@ function SuccessDetail({ success, user }) {
               {format(parseISO(date), "dd  MMMM yyyy")}
             </p>
           </div>
-          <p className="font-montserrat text-left indent-[2rem] text-[1.2rem] font-medium leading-7 tracking-wide">
+          <p className="text-left indent-[2rem] font-montserrat text-[1.2rem] font-medium leading-7 tracking-wide">
             {detail}
           </p>
         </CardBody>

@@ -2,7 +2,7 @@ import {
   Card,
   CardHeader,
   CardBody,
-  // CardFooter,
+  CardFooter,
   Divider,
 } from "@nextui-org/react";
 import { UserRound } from "lucide-react";
@@ -10,6 +10,7 @@ import Link from "next/link";
 
 export default function SuccessCart({ success }) {
   const { _id, date, header, detail } = success;
+  const { name: userName } = success.user;
 
   return (
     <Link href={`/success/${_id}`}>
@@ -28,15 +29,18 @@ export default function SuccessCart({ success }) {
             </p>
           </div>
         </CardHeader>
+
         <Divider />
+
         <CardBody className="min-h-[5rem] px-6">
           <p className="line-clamp-3">{detail}</p>
         </CardBody>
-        {/*        <CardFooter>
-          <Link showAnchorIcon href={`/user/${userId}`}>
-            {`Visit user profile page`}
-          </Link>
-        </CardFooter>*/}
+
+        <Divider />
+
+        <CardFooter className={"flex justify-end px-6"}>
+          <p className={"text-sm italic"}>{userName}</p>
+        </CardFooter>
       </Card>
     </Link>
   );
