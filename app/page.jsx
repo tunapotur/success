@@ -7,9 +7,9 @@ import ButtonBack from "@/components/forms/ButtonBack";
 
 export const dynamicParams = true;
 
-async function getAllSuccessList() {
+async function getAllSuccess() {
   const response = await fetch(
-    `${process.env.NEXTAUTH_URL}/api/allSuccessList`,
+    `${process.env.NEXTAUTH_URL}/api/getAllSuccess`,
     {
       method: "GET",
       headers: {
@@ -23,14 +23,13 @@ async function getAllSuccessList() {
     // This will activate the closest `error.js` Error Boundary.
     throw new Error(`Failed to fetch the data`);
   }
+  const { data } = await response.json();
 
-  const { allSuccessList } = await response.json();
-
-  return allSuccessList;
+  return data;
 }
 
 async function Home() {
-  const allSuccessList = await getAllSuccessList();
+  const allSuccessList = await getAllSuccess();
 
   return (
     <>
@@ -47,7 +46,7 @@ async function Home() {
       </div>
       <div>
         {allSuccessList.map((success) => (
-          <SuccessCart key={success.id} success={success} />
+          <SuccessCart key={success._id} success={success} />
         ))}
       </div>
 

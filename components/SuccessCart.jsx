@@ -9,10 +9,10 @@ import { UserRound } from "lucide-react";
 import Link from "next/link";
 
 export default function SuccessCart({ success }) {
-  const { id, date, header, detail } = success;
+  const { _id, date, header, detail } = success;
 
   return (
-    <Link href={`/success/${id}`}>
+    <Link href={`/success/${_id}`}>
       <Card className="mb-5 max-h-[20rem]">
         <CardHeader className="justify-between px-6">
           <div className="flex h-12 w-12 flex-col items-center justify-center">
