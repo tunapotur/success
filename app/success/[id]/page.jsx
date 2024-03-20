@@ -16,7 +16,7 @@ export const dynamicParams = true;
 
 async function Success({ params }) {
   const success = await getSuccessById(params.id);
-  const user = await getUserById(success.userId);
+  const user = await getUserById(success.user._id);
   return (
     <>
       <SuccessDetail success={success} user={user} />
@@ -81,7 +81,7 @@ function SuccessDetail({ success, user }) {
               {format(parseISO(date), "dd  MMMM yyyy")}
             </p>
           </div>
-          <p className="text-left indent-[2rem] font-montserrat text-[1.2rem] font-medium leading-7 tracking-wide">
+          <p className="font-montserrat text-left indent-[2rem] text-[1.2rem] font-medium leading-7 tracking-wide">
             {detail}
           </p>
         </CardBody>

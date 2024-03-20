@@ -14,7 +14,7 @@ import ButtonBack from "@/components/forms/ButtonBack";
 export const dynamicParams = true;
 
 async function UserSuccessList({ params }) {
-  const { userSuccessList } = await getUserSuccessList(params.id);
+  const userSuccessList = await getUserSuccessList(params.id);
   const user = await getUserById(params.id);
 
   return (
@@ -39,7 +39,7 @@ async function UserSuccessList({ params }) {
       </div>
       <div>
         {userSuccessList.map((success) => (
-          <SuccessCart key={success.id} success={success} />
+          <SuccessCart key={success._id} success={success} />
         ))}
       </div>
       <div className={"mt-16"}>
@@ -66,7 +66,9 @@ async function getUserSuccessList(userId) {
     throw new Error(`Failed to fetch the data`);
   }
 
-  return await response.json();
+  const { data } = await response.json();
+
+  return data;
 }
 
 export default UserSuccessList;
