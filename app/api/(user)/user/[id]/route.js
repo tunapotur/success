@@ -22,7 +22,6 @@ export async function GET(request, context) {
   }
 }
 
-//TODO test edilecek. session olan user ile giriş yapan aynı olmalı
 export async function PUT(request, context) {
   const session = await getServerSession(authOptions);
   const context_userId = context.params.id;

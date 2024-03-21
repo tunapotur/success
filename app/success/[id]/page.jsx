@@ -25,7 +25,7 @@ async function Success({ params }) {
 
 async function getSuccessById(id) {
   const response = await fetch(
-    `${process.env.NEXTAUTH_URL}/api/getSuccess/${id}`,
+    `${process.env.NEXTAUTH_URL}/api/success/${id}`,
     {
       method: "GET",
       headers: {
@@ -80,7 +80,7 @@ function SuccessDetail({ success }) {
               {format(parseISO(date), "dd  MMMM yyyy")}
             </p>
           </div>
-          <p className="text-left indent-[2rem] font-montserrat text-[1.2rem] font-medium leading-7 tracking-wide">
+          <p className="font-montserrat text-left indent-[2rem] text-[1.2rem] font-medium leading-7 tracking-wide">
             {detail}
           </p>
         </CardBody>
