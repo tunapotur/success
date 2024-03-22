@@ -90,11 +90,11 @@ export async function DELETE(request, { params }) {
   const successId = params.id;
   const session = await getServerSession(authOptions);
   const session_userId = String(session?.user?.id);
+  let returnData = null;
   let success = null;
 
   try {
     await connectMongoDB();
-
     success = await Success.findById(successId).populate("user", [
       "_id",
       "name",
@@ -102,9 +102,27 @@ export async function DELETE(request, { params }) {
       "role",
       "theme",
     ]);
-  } catch (error) {
-    success = null;
+  } catch (error) {}
+
+  const success_userId = String(success?.user._id);
+
+  if (session_userId === success_userId) {
+    try {
+      await connectMongoDB();
+      await Success.findByIdAndDelete(successId);
+    } catch (error) {
+      returnData = error;
+    }
+  } else {
+    returnData = {
+      header: "DELETE is not OK! :( ",
+      message: "Success user and session user is not same!",
+      session_userId,
+      success_userId,
+    };
   }
+
+  return NextResponse.json({ returnData }, { status: 200 });
 }
 
 /** Cray Session Token
