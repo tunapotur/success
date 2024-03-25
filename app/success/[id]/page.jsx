@@ -10,43 +10,27 @@ import {
 import { UserRound } from "lucide-react";
 import { format, parseISO } from "date-fns";
 import ButtonBack from "@/components/forms/ButtonBack";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
+import ButtonEditUser from "@/components/forms/ButtonEditUser";
+import ButtonEditSuccess from "@/components/forms/ButtonEditSuccess";
+import getSuccessById from "@/lib/getSuccessById";
 
 export const dynamicParams = true;
 
 async function Success({ params }) {
   const success = await getSuccessById(params.id);
+  const session = await getServerSession(authOptions);
 
   return (
     <>
-      <SuccessDetail success={success} />
+      <SuccessDetail success={success} session={session} />
     </>
   );
 }
 
-async function getSuccessById(id) {
-  const response = await fetch(
-    `${process.env.NEXTAUTH_URL}/api/success/${id}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      next: { revalidate: SUCCESS_LIST_REVALIDATE_DURATION },
-    },
-  );
-
-  if (!response.ok) {
-    // This will activate the closest `error.js` Error Boundary.
-    throw new Error(`Failed to fetch the success data`);
-  }
-
-  const { success } = await response.json();
-
-  return success;
-}
-
-function SuccessDetail({ success }) {
-  const { date, header, detail } = success;
+function SuccessDetail({ success, session }) {
+  const { _id: successId, date, header, detail } = success;
   const { _id: userId, name: userName } = success.user;
 
   return (
@@ -80,12 +64,17 @@ function SuccessDetail({ success }) {
               {format(parseISO(date), "dd  MMMM yyyy")}
             </p>
           </div>
-          <p className="font-montserrat text-left indent-[2rem] text-[1.2rem] font-medium leading-7 tracking-wide">
+          <p className="text-left indent-[2rem] font-montserrat text-[1.2rem] font-medium leading-7 tracking-wide">
             {detail}
           </p>
         </CardBody>
 
-        <div className={"px-2 py-4"}>
+        <div className={"flex flex-col gap-y-4 px-2 py-4"}>
+          {String(session.user.id) === userId ? (
+            <ButtonEditSuccess successId={successId} />
+          ) : (
+            <></>
+          )}
           <ButtonBack />
         </div>
         <Divider />

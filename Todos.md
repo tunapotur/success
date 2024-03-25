@@ -12,3 +12,4 @@ TODO
   * Success Arama?
   * Resim yükleme?
   * Çoklu dil desteği
+  * Update işleminde girişin farklarını kontrol etme sistemini api kısmına taşı.

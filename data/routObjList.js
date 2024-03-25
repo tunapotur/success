@@ -19,6 +19,11 @@ const routObjList = [
     path: "/addSuccess",
     redirect: { type: "unauthenticated", link: "/login" },
   },
+  {
+    id: "0004",
+    path: "/editSuccess",
+    redirect: { type: "unauthenticated", link: "/login" },
+  },
 ];
 
 export default routObjList;

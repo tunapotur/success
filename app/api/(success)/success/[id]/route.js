@@ -27,8 +27,8 @@ export async function GET(request, context) {
   }
 }
 
-export async function PUT(request, context) {
-  const successId = context.params.id;
+export async function PUT(request, { params }) {
+  const successId = params.id;
   const session = await getServerSession(authOptions);
   const session_userId = String(session?.user?.id);
   let success = null;
