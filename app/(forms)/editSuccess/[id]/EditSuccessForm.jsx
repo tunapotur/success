@@ -41,20 +41,25 @@ function EditSuccessForm({ success }) {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({
-    defaultValues: { header: "", date: "", detail: "" },
+    defaultValues: {
+      header: "",
+      date: "",
+      detail: "",
+    },
     resolver: zodResolver(HeaderDateDetail),
   });
 
   //These db values populates inputs for initial
   useEffect(() => {
     if (previousSuccessInfos) {
-      // setValue("header", previousSuccessInfos?.header);
+      setValue("header", previousSuccessInfos?.header);
 
       setMounted(true);
     }
-  }, [previousSuccessInfos]);
+  }, [setValue, previousSuccessInfos]);
 
   const onSubmitHandler = async ({ header }) => {
     console.log("Header", header);

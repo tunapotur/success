@@ -12,7 +12,6 @@ import { format, parseISO } from "date-fns";
 import ButtonBack from "@/components/forms/ButtonBack";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
-import ButtonEditUser from "@/components/forms/ButtonEditUser";
 import ButtonEditSuccess from "@/components/forms/ButtonEditSuccess";
 import getSuccessById from "@/lib/getSuccessById";
 
