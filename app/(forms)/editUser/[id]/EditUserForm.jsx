@@ -149,11 +149,10 @@ function EditUserForm({ user }) {
       }
     } catch (error) {
       setIsLoading(false);
-      console.log(error);
       toast({
         variant: "destructive",
         title: "User Update Error",
-        description: `User updating failed. ${error}`,
+        description: `User updating failed. Error message: ${error}`,
         action: <ToastAction altText="Try again">Try again</ToastAction>,
       });
     }

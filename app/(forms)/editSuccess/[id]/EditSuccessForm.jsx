@@ -3,66 +3,118 @@
 import FormHeader from "@/components/forms/FormHeader";
 import FormWrapper from "@/components/forms/FormWrapper";
 import FormAdditionWrapper from "@/components/forms/FormAdditionWrapper";
-import { Button, Input } from "@nextui-org/react";
+import { Button, Input, Textarea } from "@nextui-org/react";
 
 import ButtonBack from "@/components/forms/ButtonBack";
 import Form from "@/components/forms/Form";
 import InputWrapper from "@/components/forms/InputWrapper";
 import { useToast } from "@/components/ui/use-toast";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import { useEffect, useState } from "react";
 import { InputGeneralConfig } from "@/components/forms/InputGeneralConfig";
 import { Heading } from "lucide-react";
-
-const HeaderDateDetail = z.object({
-  header: z
-    .string()
-    .min(16, { message: "Must be 16 or more characters long!" })
-    .max(128, { message: "Must be 128 or fewer characters long!" })
-    .trim(),
-  date: z.date().safeParse(new Date()),
-  detail: z
-    .string()
-    .min(16, { message: "Must be 16 or more characters long!" })
-    .trim(),
-});
+import TextareaWrapper from "@/components/forms/TextareaWrapper";
+import DateHeaderDetail from "@/lib/resolver/DateHeaderDetail";
+import objectDiff from "@/lib/objectDiff";
+import { ToastAction } from "@/components/ui/toast";
+import { format, parseISO } from "date-fns";
 
 function EditSuccessForm({ success }) {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [previousSuccessInfos, setPreviousSuccessInfos] = useState({
+    date: success.date.substring(0, 10),
     header: success.header,
-    date: success.date,
     detail: success.detail,
   });
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors },
   } = useForm({
-    defaultValues: {
-      header: "",
-      date: "",
-      detail: "",
-    },
-    resolver: zodResolver(HeaderDateDetail),
+    resolver: zodResolver(DateHeaderDetail),
   });
 
   //These db values populates inputs for initial
   useEffect(() => {
     if (previousSuccessInfos) {
-      setValue("header", previousSuccessInfos?.header);
-
       setMounted(true);
     }
-  }, [setValue, previousSuccessInfos]);
+  }, [previousSuccessInfos]);
 
-  const onSubmitHandler = async ({ header }) => {
-    console.log("Header", header);
+  const onSubmitHandler = async ({ date, header, detail }) => {
+    try {
+      setIsLoading(true);
+
+      const newSuccessInfos = { date, header, detail };
+
+      const changedSuccessInfos = objectDiff(
+        previousSuccessInfos,
+        newSuccessInfos,
+      );
+
+      // No Changes Check
+      if (!changedSuccessInfos) {
+        toast({
+          variant: "destructive",
+          title: "No changes",
+          description: `There is no information to update the success!`,
+          action: <ToastAction altText="Try again">Try again</ToastAction>,
+        });
+        setIsLoading(false);
+        return;
+      }
+
+      changedSuccessInfos.date = new Date(changedSuccessInfos.date);
+
+      // Updating success data
+      const response = await fetch(`/api/success/${success._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(changedSuccessInfos),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+
+        setPreviousSuccessInfos({
+          date: result.updatedSuccess.date,
+          header: result.updatedSuccess.header,
+          detail: result.updatedSuccess.detail,
+        });
+
+        toast({
+          variant: "destructive",
+          className:
+            "bg-success-600 text-primary-foreground dark:bg-success-400 border-0",
+          description: "Success update successful 👍",
+          duration: 1000,
+        });
+
+        setIsLoading(false);
+      } else {
+        setIsLoading(false);
+        toast({
+          variant: "destructive",
+          title: "Success Update Error",
+          description: "Success updating failed",
+          action: <ToastAction altText="Try again">Try again</ToastAction>,
+        });
+      }
+    } catch (error) {
+      setIsLoading(false);
+      console.log(error);
+      toast({
+        variant: "destructive",
+        title: "Success Update Error",
+        description: `Success updating failed. Error message: ${error}`,
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      });
+    }
   };
 
   return (
@@ -70,6 +122,21 @@ function EditSuccessForm({ success }) {
       <FormHeader header={"Edit Success"} />
       <FormWrapper>
         <Form onSubmit={handleSubmit(onSubmitHandler)}>
+          {/* Date Input */}
+          <InputWrapper isLoading={!mounted}>
+            <Input
+              {...register("date")}
+              {...InputGeneralConfig}
+              label={"Date"}
+              type={"date"}
+              isDisabled={isLoading || !mounted}
+              isInvalid={!!errors.date?.message}
+              errorMessage={errors.date?.message}
+              placeholder="Please enter your success date"
+              defaultValue={previousSuccessInfos?.date}
+            />
+          </InputWrapper>
+
           {/* Header Input */}
           <InputWrapper isLoading={!mounted}>
             <Input
@@ -83,17 +150,31 @@ function EditSuccessForm({ success }) {
               }
               isInvalid={!!errors.header?.message}
               errorMessage={errors.header?.message}
-              placeholder="Please enter header"
+              placeholder="Please enter your success header"
+              defaultValue={previousSuccessInfos?.header}
             />
           </InputWrapper>
 
-          <InputWrapper>
-            <p>{success.date}</p>
-          </InputWrapper>
-          <InputWrapper>
-            <p>{success.detail}</p>
-          </InputWrapper>
-          {/* Save Button */}
+          {/* Detail Input */}
+          <TextareaWrapper isLoading={!mounted}>
+            <Textarea
+              {...register("detail")}
+              {...InputGeneralConfig}
+              label={"Detail"}
+              type={"textarea"}
+              isDisabled={isLoading}
+              isInvalid={!!errors.detail?.message}
+              errorMessage={errors.detail?.message}
+              placeholder="Please enter your success detail"
+              defaultValue={previousSuccessInfos?.detail}
+              classNames={{
+                base: "max-w",
+                input: "resize-y min-h-[15rem]",
+              }}
+            />
+          </TextareaWrapper>
+
+          {/* Update Button */}
           <Button
             // isLoading={isLoading || !mounted}
             type="submit"

@@ -12,11 +12,19 @@ import { ToastAction } from "@/components/ui/toast";
 import { InputGeneralConfig } from "@/components/forms/InputGeneralConfig";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import DateHeaderDetail from "@/lib/resolver/DateHeaderDetail";
 
 function AddSuccessForm() {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(DateHeaderDetail),
+  });
   const router = useRouter();
 
   const onSubmitHandler = async ({ date, header, detail }) => {
@@ -81,6 +89,8 @@ function AddSuccessForm() {
             label={"Date"}
             type={"date"}
             isDisabled={isLoading}
+            isInvalid={!!errors.date?.message}
+            errorMessage={errors.date?.message}
             placeholder="Please enter your success date"
           ></Input>
 
@@ -92,6 +102,8 @@ function AddSuccessForm() {
             label={"Header"}
             type={"text"}
             isDisabled={isLoading}
+            isInvalid={!!errors.header?.message}
+            errorMessage={errors.header?.message}
             placeholder="Please enter your success header"
           ></Input>
 
@@ -103,6 +115,8 @@ function AddSuccessForm() {
             label={"Detail"}
             type={"textarea"}
             isDisabled={isLoading}
+            isInvalid={!!errors.detail?.message}
+            errorMessage={errors.detail?.message}
             placeholder="Please enter your success detail"
             classNames={{
               base: "max-w",
