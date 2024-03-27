@@ -8,7 +8,9 @@ export async function GET(request, context) {
 
     const data = await Success.find({
       user: context.params.id,
-    }).populate("user", ["_id", "name", "email", "role", "theme"]);
+    })
+      .sort({ date: "desc" })
+      .populate("user", ["_id", "name", "email", "role", "theme"]);
 
     return NextResponse.json({ data }, { status: 200 });
   } catch (error) {
