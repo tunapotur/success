@@ -113,6 +113,10 @@ export async function DELETE(request, { params }) {
     } catch (error) {
       returnData = error;
     }
+
+    returnData = {
+      header: "Success is DELETED",
+    };
   } else {
     returnData = {
       header: "DELETE is not OK! :( ",

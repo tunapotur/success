@@ -4,7 +4,6 @@ import FormHeader from "@/components/forms/FormHeader";
 import FormWrapper from "@/components/forms/FormWrapper";
 import FormAdditionWrapper from "@/components/forms/FormAdditionWrapper";
 import { Button, Input, Textarea } from "@nextui-org/react";
-
 import ButtonBack from "@/components/forms/ButtonBack";
 import Form from "@/components/forms/Form";
 import InputWrapper from "@/components/forms/InputWrapper";
@@ -13,15 +12,16 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { InputGeneralConfig } from "@/components/forms/InputGeneralConfig";
-import { Heading } from "lucide-react";
+import { Heading, SaveIcon, X } from "lucide-react";
 import TextareaWrapper from "@/components/forms/TextareaWrapper";
 import DateHeaderDetail from "@/lib/resolver/DateHeaderDetail";
 import objectDiff from "@/lib/objectDiff";
 import { ToastAction } from "@/components/ui/toast";
-import { format, parseISO } from "date-fns";
+import { useRouter } from "next/navigation";
 
 function EditSuccessForm({ success }) {
   const { toast } = useToast();
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [previousSuccessInfos, setPreviousSuccessInfos] = useState({
@@ -115,6 +115,51 @@ function EditSuccessForm({ success }) {
     }
   };
 
+  const deleteSuccess = async (successId) => {
+    try {
+      setIsLoading(true);
+
+      // Deleting success
+      const response = await fetch(`/api/success/${successId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        toast({
+          variant: "destructive",
+          className:
+            "bg-success-600 text-primary-foreground dark:bg-success-400 border-0",
+          description: "Success deleted successful 👍",
+          duration: 1000,
+        });
+
+        setIsLoading(false);
+        router.refresh();
+        router.push("/");
+      } else {
+        setIsLoading(false);
+        toast({
+          variant: "destructive",
+          title: "Success Delete Error",
+          description: "Success deleting failed",
+          action: <ToastAction altText="Try again">Try again</ToastAction>,
+        });
+      }
+    } catch (error) {
+      setIsLoading(false);
+
+      toast({
+        variant: "destructive",
+        title: "Success Delete Error",
+        description: `Success deleting failed. Error message: ${error}`,
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      });
+    }
+  };
+
   return (
     <>
       <FormHeader header={"Edit Success"} />
@@ -180,6 +225,7 @@ function EditSuccessForm({ success }) {
             radius="sm"
             variant="shadow"
             className="bg-primary text-primary-foreground"
+            endContent={<SaveIcon />}
           >
             {isLoading ? "Please Wait" : "Update"}
           </Button>
@@ -192,6 +238,10 @@ function EditSuccessForm({ success }) {
             radius="sm"
             variant="shadow"
             className="bg-danger-600 text-primary-foreground dark:bg-danger-300"
+            endContent={<X />}
+            onClick={() => {
+              deleteSuccess(success._id);
+            }}
           >
             {isLoading ? "Please Wait" : "Delete"}
           </Button>
