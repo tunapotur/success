@@ -18,6 +18,17 @@ import DateHeaderDetail from "@/lib/resolver/DateHeaderDetail";
 import objectDiff from "@/lib/objectDiff";
 import { ToastAction } from "@/components/ui/toast";
 import { useRouter } from "next/navigation";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 function EditSuccessForm({ success }) {
   const { toast } = useToast();
@@ -115,16 +126,13 @@ function EditSuccessForm({ success }) {
     }
   };
 
-  const deleteSuccess = async (successId) => {
+  const deleteSuccess = async () => {
     try {
       setIsLoading(true);
 
       // Deleting success
-      const response = await fetch(`/api/success/${successId}`, {
+      const response = await fetch(`/api/success/${success._id}`, {
         method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
       });
 
       if (response.ok) {
@@ -162,94 +170,113 @@ function EditSuccessForm({ success }) {
 
   return (
     <>
-      <FormHeader header={"Edit Success"} />
-      <FormWrapper>
-        <Form onSubmit={handleSubmit(onSubmitHandler)}>
-          {/* Date Input */}
-          <InputWrapper isLoading={!mounted}>
-            <Input
-              {...register("date")}
-              {...InputGeneralConfig}
-              label={"Date"}
-              type={"date"}
-              isDisabled={isLoading || !mounted}
-              isInvalid={!!errors.date?.message}
-              errorMessage={errors.date?.message}
-              placeholder="Please enter your success date"
-              defaultValue={previousSuccessInfos?.date}
-            />
-          </InputWrapper>
-
-          {/* Header Input */}
-          <InputWrapper isLoading={!mounted}>
-            <Input
-              {...register("header")}
-              {...InputGeneralConfig}
-              label={"Header"}
-              type={"text"}
-              isDisabled={isLoading || !mounted}
-              endContent={
-                <Heading className="pointer-events-none flex-shrink-0 text-2xl text-default-400" />
-              }
-              isInvalid={!!errors.header?.message}
-              errorMessage={errors.header?.message}
-              placeholder="Please enter your success header"
-              defaultValue={previousSuccessInfos?.header}
-            />
-          </InputWrapper>
-
-          {/* Detail Input */}
-          <TextareaWrapper isLoading={!mounted}>
-            <Textarea
-              {...register("detail")}
-              {...InputGeneralConfig}
-              label={"Detail"}
-              type={"textarea"}
-              isDisabled={isLoading}
-              isInvalid={!!errors.detail?.message}
-              errorMessage={errors.detail?.message}
-              placeholder="Please enter your success detail"
-              defaultValue={previousSuccessInfos?.detail}
-              classNames={{
-                base: "max-w",
-                input: "resize-y min-h-[15rem]",
+      <AlertDialog>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete your
+              SUCCESS and remove your data from our servers.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => {
+                deleteSuccess();
               }}
-            />
-          </TextareaWrapper>
+            >
+              Continue
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+        <FormHeader header={"Edit Success"} />
+        <FormWrapper>
+          <Form onSubmit={handleSubmit(onSubmitHandler)}>
+            {/* Date Input */}
+            <InputWrapper isLoading={!mounted}>
+              <Input
+                {...register("date")}
+                {...InputGeneralConfig}
+                label={"Date"}
+                type={"date"}
+                isDisabled={isLoading || !mounted}
+                isInvalid={!!errors.date?.message}
+                errorMessage={errors.date?.message}
+                placeholder="Please enter your success date"
+                defaultValue={previousSuccessInfos?.date}
+              />
+            </InputWrapper>
 
-          {/* Update Button */}
-          <Button
-            isLoading={isLoading || !mounted}
-            type="submit"
-            size="lg"
-            radius="sm"
-            variant="shadow"
-            className="bg-primary text-primary-foreground"
-            endContent={<SaveIcon />}
-          >
-            {isLoading ? "Please Wait" : "Update"}
-          </Button>
-        </Form>
-        <FormAdditionWrapper>
-          {/* Delete Button */}
-          <Button
-            isLoading={isLoading || !mounted}
-            size="lg"
-            radius="sm"
-            variant="shadow"
-            className="bg-danger-600 text-primary-foreground dark:bg-danger-300"
-            endContent={<X />}
-            onClick={() => {
-              deleteSuccess(success._id);
-            }}
-          >
-            {isLoading ? "Please Wait" : "Delete"}
-          </Button>
+            {/* Header Input */}
+            <InputWrapper isLoading={!mounted}>
+              <Input
+                {...register("header")}
+                {...InputGeneralConfig}
+                label={"Header"}
+                type={"text"}
+                isDisabled={isLoading || !mounted}
+                endContent={
+                  <Heading className="pointer-events-none flex-shrink-0 text-2xl text-default-400" />
+                }
+                isInvalid={!!errors.header?.message}
+                errorMessage={errors.header?.message}
+                placeholder="Please enter your success header"
+                defaultValue={previousSuccessInfos?.header}
+              />
+            </InputWrapper>
 
-          {/* Back button */}
-          <ButtonBack isDisabled={isLoading || !mounted} />
-        </FormAdditionWrapper>
-      </FormWrapper>
+            {/* Detail Input */}
+            <TextareaWrapper isLoading={!mounted}>
+              <Textarea
+                {...register("detail")}
+                {...InputGeneralConfig}
+                label={"Detail"}
+                type={"textarea"}
+                isDisabled={isLoading}
+                isInvalid={!!errors.detail?.message}
+                errorMessage={errors.detail?.message}
+                placeholder="Please enter your success detail"
+                defaultValue={previousSuccessInfos?.detail}
+                classNames={{
+                  base: "max-w",
+                  input: "resize-y min-h-[15rem]",
+                }}
+              />
+            </TextareaWrapper>
+
+            {/* Update Button */}
+            <Button
+              isLoading={isLoading || !mounted}
+              type="submit"
+              size="lg"
+              radius="sm"
+              variant="shadow"
+              className="bg-primary text-primary-foreground"
+              endContent={<SaveIcon />}
+            >
+              {isLoading ? "Please Wait" : "Update"}
+            </Button>
+          </Form>
+          <FormAdditionWrapper>
+            <AlertDialogTrigger asChild>
+              {/* Delete Button */}
+              <Button
+                isLoading={isLoading || !mounted}
+                size="lg"
+                radius="sm"
+                variant="shadow"
+                className="bg-danger-600 text-primary-foreground dark:bg-danger-300"
+                endContent={<X />}
+              >
+                {isLoading ? "Please Wait" : "Delete"}
+              </Button>
+            </AlertDialogTrigger>
+            {/* Back button */}
+            <ButtonBack isDisabled={isLoading || !mounted} />
+          </FormAdditionWrapper>
+        </FormWrapper>
+      </AlertDialog>
     </>
   );
 }
