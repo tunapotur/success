@@ -67,8 +67,6 @@ function EditSuccessForm({ success }) {
         return;
       }
 
-      changedSuccessInfos.date = new Date(changedSuccessInfos.date);
-
       // Updating success data
       const response = await fetch(`/api/success/${success._id}`, {
         method: "PUT",
@@ -82,9 +80,9 @@ function EditSuccessForm({ success }) {
         const result = await response.json();
 
         setPreviousSuccessInfos({
-          date: result.updatedSuccess.date,
-          header: result.updatedSuccess.header,
-          detail: result.updatedSuccess.detail,
+          date: result.returnData.updatedSuccess.date.substring(0, 10),
+          header: result.returnData.updatedSuccess.header,
+          detail: result.returnData.updatedSuccess.detail,
         });
 
         toast({
@@ -107,7 +105,7 @@ function EditSuccessForm({ success }) {
       }
     } catch (error) {
       setIsLoading(false);
-      console.log(error);
+
       toast({
         variant: "destructive",
         title: "Success Update Error",
@@ -176,7 +174,7 @@ function EditSuccessForm({ success }) {
 
           {/* Update Button */}
           <Button
-            // isLoading={isLoading || !mounted}
+            isLoading={isLoading || !mounted}
             type="submit"
             size="lg"
             radius="sm"
@@ -187,9 +185,19 @@ function EditSuccessForm({ success }) {
           </Button>
         </Form>
         <FormAdditionWrapper>
+          {/* Delete Button */}
+          <Button
+            isLoading={isLoading || !mounted}
+            size="lg"
+            radius="sm"
+            variant="shadow"
+            className="bg-danger-600 text-primary-foreground dark:bg-danger-300"
+          >
+            {isLoading ? "Please Wait" : "Delete"}
+          </Button>
+
           {/* Back button */}
-          {/*<ButtonBack isDisabled={isLoading || !mounted} />*/}
-          <ButtonBack />
+          <ButtonBack isDisabled={isLoading || !mounted} />
         </FormAdditionWrapper>
       </FormWrapper>
     </>

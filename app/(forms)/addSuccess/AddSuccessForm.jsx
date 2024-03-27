@@ -83,7 +83,7 @@ function AddSuccessForm() {
         <Form onSubmit={handleSubmit(onSubmitHandler)}>
           {/* Date Input */}
           <Input
-            {...register("date", { required: true })}
+            {...register("date")}
             {...InputGeneralConfig}
             isRequired={true}
             label={"Date"}
@@ -96,7 +96,7 @@ function AddSuccessForm() {
 
           {/* Header Input */}
           <Input
-            {...register("header", { required: true })}
+            {...register("header")}
             {...InputGeneralConfig}
             isRequired={true}
             label={"Header"}
@@ -109,7 +109,7 @@ function AddSuccessForm() {
 
           {/* Detail Input */}
           <Textarea
-            {...register("detail", { required: true })}
+            {...register("detail")}
             {...InputGeneralConfig}
             isRequired={true}
             label={"Detail"}
