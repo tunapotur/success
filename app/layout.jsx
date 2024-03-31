@@ -57,15 +57,15 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <NextUIProvider>
             <NextThemeProvider>
-              <div className="flex flex-col items-center">
-                <div className="static flex h-screen w-full flex-col items-center sm:block sm:w-[40rem]">
+              <div className="flex h-screen w-full flex-col items-center justify-center">
+                <div className="relative flex h-screen w-full flex-col items-center rounded-lg border-2 border-gray-400/50 sm:h-[53rem] sm:w-[25rem]">
                   <main className="w-full overflow-y-auto p-[1rem] pb-[10rem]">
                     {children}
                   </main>
 
                   <Navbar
                     style={
-                      "z-50 rounded-lg flex h-[5.25rem] w-[calc(100%-2rem)] sm:w-[40rem] flex-row items-center justify-around fixed bottom-[1rem] border backdrop-blur-sm backdrop-contrast-125 bg-slate-400/20"
+                      "z-50 rounded-lg flex h-[5.25rem] w-[calc(100%-2rem)] flex-row items-center justify-around absolute bottom-[1rem] border backdrop-blur-sm backdrop-contrast-125 bg-slate-400/20"
                     }
                   />
                 </div>
