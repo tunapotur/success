@@ -44,6 +44,7 @@ async function Home() {
         />
         <H1>Success</H1>
       </div>
+      <H1>Deploy</H1>
       <div>
         {allSuccessList.map((success) => (
           <SuccessCart key={success._id} success={success} />
