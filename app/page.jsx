@@ -45,12 +45,10 @@ async function Home() {
         <H1>Success</H1>
       </div>
       <div>
-        <p>Veriler Gelecek!</p>
         {allSuccessList.map((success) => (
           <SuccessCart key={success._id} success={success} />
         ))}
       </div>
-
       <div className={"mt-16"}>
         <ButtonBack />
       </div>
