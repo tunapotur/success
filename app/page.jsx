@@ -29,7 +29,7 @@ async function getAllSuccess() {
 }
 
 async function Home() {
-  // const allSuccessList = await getAllSuccess();
+  const allSuccessList = await getAllSuccess();
 
   return (
     <>
@@ -46,9 +46,9 @@ async function Home() {
       </div>
       <div>
         <p>Veriler Gelecek!</p>
-        {/*{allSuccessList.map((success) => (*/}
-        {/*  <SuccessCart key={success._id} success={success} />*/}
-        {/*))}*/}
+        {allSuccessList.map((success) => (
+          <SuccessCart key={success._id} success={success} />
+        ))}
       </div>
 
       <div className={"mt-16"}>
