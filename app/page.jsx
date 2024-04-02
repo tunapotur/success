@@ -43,7 +43,7 @@ async function Home() {
           className="h-[3rem] w-[3rem]"
         />
       </div>
-      <H1>Deploy</H1>
+      <H1>Deploy2</H1>
       <div>
         {allSuccessList.map((success) => (
           <SuccessCart key={success._id} success={success} />
