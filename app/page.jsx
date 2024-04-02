@@ -50,7 +50,6 @@ async function Home() {
           <SuccessCart key={success._id} success={success} />
         ))}
       </div>
-
       <div className={"mt-16"}>
         <ButtonBack />
       </div>
