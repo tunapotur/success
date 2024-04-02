@@ -42,7 +42,6 @@ async function Home() {
           quality={100}
           className="h-[3rem] w-[3rem]"
         />
-        <H1>Success</H1>
       </div>
       <H1>Deploy</H1>
       <div>
