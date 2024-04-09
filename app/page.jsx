@@ -1,6 +1,5 @@
 import SuccessCart from "@/components/SuccessCart";
 import { SUCCESS_LIST_REVALIDATE_DURATION } from "@/data/constants";
-import H1 from "@/components/H1";
 import Image from "next/image";
 import Logo from "@/public/goal-bold.png";
 import ButtonBack from "@/components/forms/ButtonBack";
@@ -43,7 +42,6 @@ async function Home() {
           className="h-[3rem] w-[3rem]"
         />
       </div>
-      <H1>Deploy2</H1>
       <div>
         {allSuccessList.map((success) => (
           <SuccessCart key={success._id} success={success} />
