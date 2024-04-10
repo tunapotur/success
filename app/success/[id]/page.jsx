@@ -1,4 +1,3 @@
-import { SUCCESS_LIST_REVALIDATE_DURATION } from "@/data/constants";
 import {
   Card,
   CardHeader,
