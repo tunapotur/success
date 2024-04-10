@@ -34,7 +34,7 @@ function SuccessDetail({ success, session }) {
 
   return (
     <div>
-      <Card className="mb-8 min-h-[50vh]">
+      <Card className="mb-8 min-h-[30vh]">
         <CardHeader className="justify-end px-6">
           <Link className={""} href={`/userSuccessList/${userId}`}>
             <div className="mr-2 mt-2 flex flex-col items-end justify-center">
