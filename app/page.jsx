@@ -45,7 +45,7 @@ async function Home() {
             quality={100}
             className="h-[3rem] w-[3rem]"
           />
-          <H1>success</H1>
+          <H1>🎯success</H1>
         </div>
       </div>
       <div>
