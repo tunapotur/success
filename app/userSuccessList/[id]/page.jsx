@@ -4,7 +4,7 @@
 // TODO: olmayan bir kulanıcı id'si url param olarak girilirse not found page dönecek
 
 import SuccessCart from "@/components/SuccessCart";
-import { SUCCESS_LIST_REVALIDATE_DURATION } from "@/data/constants";
+// import { SUCCESS_LIST_REVALIDATE_DURATION } from "@/data/constants";
 import getUserById from "@/lib/getUserById";
 import Image from "next/image";
 import Logo from "@/public/goal-bold.png";
@@ -57,7 +57,7 @@ async function getUserSuccessList(userId) {
       headers: {
         "Content-Type": "application/json",
       },
-      next: { revalidate: SUCCESS_LIST_REVALIDATE_DURATION },
+      // next: { revalidate: SUCCESS_LIST_REVALIDATE_DURATION },
     },
   );
 
