@@ -94,8 +94,8 @@ function LoginForm() {
 
       setTheme(user.theme);
 
-      router.refresh();
       router.push("/");
+      router.refresh();
       setIsLoading(false);
     } catch (err) {
       setIsLoading(false);

@@ -5,6 +5,8 @@ import ButtonBack from "@/components/forms/ButtonBack";
 import H1 from "@/components/H1";
 import getAllSuccess from "@/lib/getAllSuccess";
 
+export const dynamicParams = true;
+
 async function Home() {
   const allSuccessList = await getAllSuccess();
 

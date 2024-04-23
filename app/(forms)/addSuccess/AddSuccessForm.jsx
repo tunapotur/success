@@ -54,8 +54,8 @@ function AddSuccessForm() {
           duration: 1000,
         });
         setIsLoading(false);
-        router.refresh();
         router.push("/");
+        router.refresh();
       } else {
         setIsLoading(false);
         toast({

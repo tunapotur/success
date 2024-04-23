@@ -27,7 +27,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
+  AlertDialogTrigger
 } from "@/components/ui/alert-dialog";
 
 function EditSuccessForm({ success }) {
@@ -38,14 +38,14 @@ function EditSuccessForm({ success }) {
   const [previousSuccessInfos, setPreviousSuccessInfos] = useState({
     date: success.date.substring(0, 10),
     header: success.header,
-    detail: success.detail,
+    detail: success.detail
   });
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm({
-    resolver: zodResolver(DateHeaderDetail),
+    resolver: zodResolver(DateHeaderDetail)
   });
 
   //These db values populates inputs for initial
@@ -63,7 +63,7 @@ function EditSuccessForm({ success }) {
 
       const changedSuccessInfos = objectDiff(
         previousSuccessInfos,
-        newSuccessInfos,
+        newSuccessInfos
       );
 
       // No Changes Check
@@ -72,7 +72,7 @@ function EditSuccessForm({ success }) {
           variant: "destructive",
           title: "No changes",
           description: `There is no information to update the success!`,
-          action: <ToastAction altText="Try again">Try again</ToastAction>,
+          action: <ToastAction altText="Try again">Try again</ToastAction>
         });
         setIsLoading(false);
         return;
@@ -82,9 +82,9 @@ function EditSuccessForm({ success }) {
       const response = await fetch(`/api/success/${success._id}`, {
         method: "PUT",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify(changedSuccessInfos),
+        body: JSON.stringify(changedSuccessInfos)
       });
 
       if (response.ok) {
@@ -93,7 +93,7 @@ function EditSuccessForm({ success }) {
         setPreviousSuccessInfos({
           date: result.returnData.updatedSuccess.date.substring(0, 10),
           header: result.returnData.updatedSuccess.header,
-          detail: result.returnData.updatedSuccess.detail,
+          detail: result.returnData.updatedSuccess.detail
         });
 
         toast({
@@ -101,7 +101,7 @@ function EditSuccessForm({ success }) {
           className:
             "bg-success-600 text-primary-foreground dark:bg-success-400 border-0",
           description: "Success update successful 👍",
-          duration: 1000,
+          duration: 1000
         });
 
         setIsLoading(false);
@@ -111,7 +111,7 @@ function EditSuccessForm({ success }) {
           variant: "destructive",
           title: "Success Update Error",
           description: "Success updating failed",
-          action: <ToastAction altText="Try again">Try again</ToastAction>,
+          action: <ToastAction altText="Try again">Try again</ToastAction>
         });
       }
     } catch (error) {
@@ -121,7 +121,7 @@ function EditSuccessForm({ success }) {
         variant: "destructive",
         title: "Success Update Error",
         description: `Success updating failed. Error message: ${error}`,
-        action: <ToastAction altText="Try again">Try again</ToastAction>,
+        action: <ToastAction altText="Try again">Try again</ToastAction>
       });
     }
   };
@@ -132,7 +132,7 @@ function EditSuccessForm({ success }) {
 
       // Deleting success
       const response = await fetch(`/api/success/${success._id}`, {
-        method: "DELETE",
+        method: "DELETE"
       });
 
       if (response.ok) {
@@ -141,19 +141,19 @@ function EditSuccessForm({ success }) {
           className:
             "bg-success-600 text-primary-foreground dark:bg-success-400 border-0",
           description: "Success deleted successful 👍",
-          duration: 1000,
+          duration: 1000
         });
 
         setIsLoading(false);
-        router.refresh();
         router.push("/");
+        router.refresh();
       } else {
         setIsLoading(false);
         toast({
           variant: "destructive",
           title: "Success Delete Error",
           description: "Success deleting failed",
-          action: <ToastAction altText="Try again">Try again</ToastAction>,
+          action: <ToastAction altText="Try again">Try again</ToastAction>
         });
       }
     } catch (error) {
@@ -163,7 +163,7 @@ function EditSuccessForm({ success }) {
         variant: "destructive",
         title: "Success Delete Error",
         description: `Success deleting failed. Error message: ${error}`,
-        action: <ToastAction altText="Try again">Try again</ToastAction>,
+        action: <ToastAction altText="Try again">Try again</ToastAction>
       });
     }
   };
@@ -182,9 +182,7 @@ function EditSuccessForm({ success }) {
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
-              onClick={() => {
-                deleteSuccess();
-              }}
+              onClick={() => deleteSuccess()}
             >
               Continue
             </AlertDialogAction>
@@ -240,7 +238,7 @@ function EditSuccessForm({ success }) {
                 defaultValue={previousSuccessInfos?.detail}
                 classNames={{
                   base: "max-w",
-                  input: "resize-y min-h-[15rem]",
+                  input: "resize-y min-h-[15rem]"
                 }}
               />
             </TextareaWrapper>
