@@ -19,7 +19,7 @@
     "clsx": "^2.1.0",
     "date-fns": "^3.3.1",
     "framer-motion": "^11.0.3",
-    "lucide-react": "^0.372.0",
+    "lucide-react": "^0.373.0",
     "mongoose": "^8.3.2",
     "next": "^14.2.2",
     "next-auth": "^4.24.5",
@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",
-    "eslint": "8.57.0",
+    "eslint": "^9.1.1",
     "eslint-config-next": "^14.2.1",
     "postcss": "^8",
     "prettier": "^3.2.4",
