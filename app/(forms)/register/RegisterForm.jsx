@@ -193,7 +193,7 @@ function RegisterForm() {
                 <button
                   className="focus:outline-none"
                   type="button"
-                  onPress={toggleVisibility}
+                  onClick={toggleVisibility}
                 >
                   {isVisible ? (
                     <EyeSlashFilledIcon className="pointer-events-none h-7 w-7 flex-shrink-0 text-2xl text-default-400" />
