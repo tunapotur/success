@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { MoveLeft } from "lucide-react";
 
 function ButtonBack({ isDisabled }) {
@@ -13,7 +13,7 @@ function ButtonBack({ isDisabled }) {
       variant="bordered"
       startContent={<MoveLeft />}
       isDisabled={isDisabled}
-      onClick={() => router.back()}
+      onPress={() => router.back()}
       className={"w-full"}
     >
       Back

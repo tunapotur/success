@@ -8,7 +8,7 @@ import { SUCCESS_LIST_REVALIDATE_DURATION } from "@/data/constants";
 import getUserById from "@/lib/getUserById";
 import Image from "next/image";
 import Logo from "@/public/goal-bold.png";
-import { Link } from "@nextui-org/react";
+import { Link } from "@heroui/react";
 import ButtonBack from "@/components/forms/ButtonBack";
 
 export const dynamicParams = true;

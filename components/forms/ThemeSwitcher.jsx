@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
-import { Select, SelectItem } from "@nextui-org/react";
+import { Select, SelectItem } from "@heroui/react";
 import { FileSliders, Sun, Moon } from "lucide-react";
 import { InputGeneralConfig } from "@/app/(auth)/forms/InputGeneralConfig";
 import InputSkeleton from "@/app/(auth)/forms/InputSkeleton";

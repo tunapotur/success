@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
-import { Button } from "@nextui-org/react";
-import { Input } from "@nextui-org/react";
+import { Button } from "@heroui/react";
+import { Input } from "@heroui/react";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import { useForm } from "react-hook-form";
@@ -193,7 +193,7 @@ function RegisterForm() {
                 <button
                   className="focus:outline-none"
                   type="button"
-                  onClick={toggleVisibility}
+                  onPress={toggleVisibility}
                 >
                   {isVisible ? (
                     <EyeSlashFilledIcon className="pointer-events-none h-7 w-7 flex-shrink-0 text-2xl text-default-400" />

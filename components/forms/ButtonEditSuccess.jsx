@@ -1,10 +1,10 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { FilePenLine } from "lucide-react";
 import { useSession } from "next-auth/react";
-import { Skeleton } from "@nextui-org/react";
+import { Skeleton } from "@heroui/react";
 
 function ButtonEditUser({ isDisabled, successId }) {
   const router = useRouter();
@@ -22,7 +22,7 @@ function ButtonEditUser({ isDisabled, successId }) {
           variant="bordered"
           startContent={<FilePenLine />}
           isDisabled={isDisabled}
-          onClick={() => router.push(`/editSuccess/${successId}`)}
+          onPress={() => router.push(`/editSuccess/${successId}`)}
           className="w-full bg-primary text-primary-foreground"
         >
           Edit Success

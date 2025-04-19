@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import { Skeleton } from "@nextui-org/react";
+import { Skeleton } from "@heroui/react";
 
 import { LogIn, SquareUserRound, PlusSquare } from "lucide-react";
 import GoalSkeleton from "./GoalSkeletonSvg";

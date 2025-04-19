@@ -5,7 +5,7 @@ import FormWrapper from "@/components/forms/FormWrapper";
 import Form from "@/components/forms/Form";
 import FormAdditionWrapper from "@/components/forms/FormAdditionWrapper";
 import ButtonBack from "@/components/forms/ButtonBack";
-import { Input, Textarea, Button } from "@nextui-org/react";
+import { Input, Textarea, Button } from "@heroui/react";
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";

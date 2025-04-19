@@ -1,10 +1,10 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { UserCog } from "lucide-react";
 import { useSession } from "next-auth/react";
-import { Skeleton } from "@nextui-org/react";
+import { Skeleton } from "@heroui/react";
 
 function ButtonEditUser({ isDisabled, userId }) {
   const router = useRouter();
@@ -22,7 +22,7 @@ function ButtonEditUser({ isDisabled, userId }) {
           variant="bordered"
           startContent={<UserCog />}
           isDisabled={isDisabled}
-          onClick={() => router.push(`/editUser/${userId}`)}
+          onPress={() => router.push(`/editUser/${userId}`)}
           className="w-full bg-primary text-primary-foreground"
         >
           Edit User

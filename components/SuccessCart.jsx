@@ -4,7 +4,7 @@ import {
   CardBody,
   CardFooter,
   Divider,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { UserRound } from "lucide-react";
 import Link from "next/link";
 

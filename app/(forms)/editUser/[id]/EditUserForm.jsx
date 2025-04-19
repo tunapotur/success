@@ -1,7 +1,7 @@
 "use client";
 
 import { signOut, useSession } from "next-auth/react";
-import { Input, Button, Select, SelectItem } from "@nextui-org/react";
+import { Input, Button, Select, SelectItem } from "@heroui/react";
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { useForm, Controller } from "react-hook-form";
@@ -274,7 +274,7 @@ function EditUserForm({ user }) {
             radius="sm"
             startContent={<LogOut />}
             className="bg-danger-600 text-primary-foreground dark:bg-danger-300"
-            onClick={() => signOut({ callbackUrl: "/" })}
+            onPress={() => signOut({ callbackUrl: "/" })}
             isDisabled={isLoading || !mounted}
           >
             Logout

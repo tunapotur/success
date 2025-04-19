@@ -1,6 +1,6 @@
 "use client";
 
-import { NextUIProvider as NextUI } from "@nextui-org/react";
+import { HeroUIProvider as NextUI } from "@heroui/react";
 import { useRouter } from "next/navigation";
 
 /*

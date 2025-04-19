@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { Button, Input } from "@nextui-org/react";
+import { Button, Input } from "@heroui/react";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import { useForm } from "react-hook-form";
@@ -174,7 +174,7 @@ function LoginForm() {
               startContent={<UserRoundPlus />}
               isDisabled={isLoading}
               className="bg-success-600 text-primary-foreground dark:bg-success-400"
-              onClick={() => router.push("/register")}
+              onPress={() => router.push("/register")}
             >
               Register
             </Button>

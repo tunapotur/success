@@ -3,7 +3,7 @@
 import FormHeader from "@/components/forms/FormHeader";
 import FormWrapper from "@/components/forms/FormWrapper";
 import FormAdditionWrapper from "@/components/forms/FormAdditionWrapper";
-import { Button, Input, Textarea } from "@nextui-org/react";
+import { Button, Input, Textarea } from "@heroui/react";
 import ButtonBack from "@/components/forms/ButtonBack";
 import Form from "@/components/forms/Form";
 import InputWrapper from "@/components/forms/InputWrapper";

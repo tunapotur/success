@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { List } from "lucide-react";
 import { useParams } from "next/navigation";
 
@@ -17,7 +17,7 @@ function ButtonUserSuccessList({ isDisabled }) {
       variant="bordered"
       startContent={<List />}
       isDisabled={isDisabled}
-      onClick={() => router.push(link)}
+      onPress={() => router.push(link)}
       className="w-full bg-cyan-600 text-primary-foreground"
     >
       User Success List

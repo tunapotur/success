@@ -5,7 +5,7 @@ import {
   CardFooter,
   Divider,
   Link,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { UserRound } from "lucide-react";
 import { format, parseISO } from "date-fns";
 import ButtonBack from "@/components/forms/ButtonBack";
