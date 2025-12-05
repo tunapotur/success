@@ -58,7 +58,7 @@ export default function RootLayout({ children }) {
           <NextUIProvider>
             <NextThemeProvider>
               <div className="flex h-screen w-full flex-col items-center justify-center">
-                <div className="relative flex h-screen w-full flex-col items-center rounded-lg border-2 border-gray-400/50 sm:h-[53rem] sm:w-[25rem]">
+                <div className="relative flex h-screen w-full flex-col items-center rounded-lg border-2 border-gray-400/50 sm:h-[48rem] sm:w-[25rem]">
                   <main className="w-full overflow-y-auto p-[1rem] pb-[10rem]">
                     {children}
                   </main>

@@ -68,7 +68,7 @@ function SuccessDetail({ success, session }) {
         </CardBody>
 
         <div className={"flex flex-col gap-y-4 px-2 py-4"}>
-          {String(session.user.id) === userId ? (
+          {String(session?.user.id) === userId ? (
             <ButtonEditSuccess successId={successId} />
           ) : (
             <></>
